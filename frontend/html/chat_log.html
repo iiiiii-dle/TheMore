@@ -4,6 +4,43 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+
+        <link rel="stylesheet" href="../style/nomalize.css" />
+        <link rel="stylesheet" href="../style/chat_log.css" />
     </head>
-    <body></body>
+    <body>
+        <p>
+            국회에 제출된 법률안 기타의 의안은 회기중에 의결되지 못한 이유로 폐기되지 아니한다. 다만, 국회의원의 임기가
+            만료된 때에는 그러하지 아니하다. 헌법재판소 재판관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는
+            파면되지 아니한다.
+        </p>
+
+        <p>
+            군인은 현역을 면한 후가 아니면 국무위원으로 임명될 수 없다. 제3항의 승인을 얻지 못한 때에는 그 처분 또는
+            명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지
+            못한 때부터 당연히 효력을 회복한다.
+        </p>
+
+        <div id="chat_wrapper">
+            <div class="row_resize"></div>
+
+            <div id="chat_header">
+                <button>닫음</button>
+            </div>
+            <div id="chat_body">
+                <div class="column_resize"></div>
+                <div id="chat"></div>
+                <div class="column_resize"></div>
+            </div>
+            <div id="chat_send">
+                <div class="input-div"><textarea placeholder="메시지를 입력하세요"></textarea></div>
+            </div>
+            <div id="chat_footer">
+                <button>전송</button>
+            </div>
+            <div class="row_resize"></div>
+        </div>
+
+        <script src="../js/chat_log.js"></script>
+    </body>
 </html>
