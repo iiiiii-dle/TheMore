@@ -1,3 +1,1 @@
 # TheMore
-
-slack connection test
