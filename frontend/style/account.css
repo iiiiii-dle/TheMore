@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     padding-top: 0;
+    margin-bottom: 50px;
 }
 #section-link li{
     padding-right:50px;
@@ -27,7 +28,14 @@
     list-style-image: url("../images/Calendar.png");
 }
 
-#statistics {
-    
-    list-style: none;
+#wrapper {
+    display: flex;
+}
+
+.calendar {
+    flex: 1;
+}
+
+.quote {
+    flex: 1;
 }
