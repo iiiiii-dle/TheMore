@@ -1,0 +1,58 @@
+.expensesBox {
+    width: 500px;
+    height: 700px;
+    border: 1px solid #3c3c3c;
+    border-radius: 10px;
+    position: relative;
+}
+
+.expensesBtn {
+    border: none;
+    border-radius: 10px;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+}
+
+#selectedDate {
+    font-size: 30px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.expensesBtn:active {
+    margin-top: 3px;
+    margin-left: 3px;
+    box-shadow: none;
+    transition-duration: 0.1s;
+}
+
+.incomeBtn, .outcomeBtn {
+    position: absolute;
+    top: 100px;
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    box-shadow: 3px 3px 3px #3c3c3c;
+}
+
+.incomeBtn:active, .outcomeBtn:active {
+    margin-top: 3px;
+    margin-left: 3px;
+    box-shadow: none;
+    transition-duration: 0.1s;
+}
+
+.incomeBtn {
+    background-color: rgba(255, 116, 116, 0.47);
+    left: 50px;
+}
+
+.outcomeBtn {
+    background-color: rgba(55, 159, 235, 0.3);
+    left: 300px;
+}
