@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="../style/main.css" />
-        <link rel="stylesheet" href="../style/nomalize.css" />
-        <script src="../js/main.js"></script>
-        <title>Document</title>
-    </head>
-    <body>
-        <header>header</header>
-        <section>section</section>
-        <footer>footer</footer>
-    </body>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/main.css">
+</head>
+
+<body>
+    <div id="container"> <!-- 컴포넌트로 사용 할 거면 container와 같은 모두를 포함하는 아이디는 안주는게 좋음 그냥 div로만 감싸던지 아니면 다른 아이디나 없애는것을 추천-->
+        <header id="header">
+            <ul id="list">
+                <li id="loginHome">
+                    <a class="a-link" href="#">The<span id="more">More</span></a>
+                </li>
+                <li id="myPage">
+                    <a class="a-link" href="#">내 정보</a>
+                </li>
+                <li id="logout">
+                    <a class="a-link" href="#">로그아웃</a>
+                </li>
+            </ul>
+        </header>
+
+        <div class="section-contaniner">
+          <section class="section" id="section1">
+            <div class="wrap"></div>
+            <h2 class="skip">홈</h2>
+            <div class="home_text">
+              <p class="text1 aos-init aos-animate">가계부를 작성하는<br>가장 편한 방법</p>
+              <p class="text2 aos-init aos-animate">안편한 가계부</p>
+
+            </div>
+          </section>
+          <section class="section" id="section2">
+
+          </section>
+          <section class="section" id="section3">
+
+          </section>
+
+        </div>
+    </div>
+</body>
+
 </html>
+
