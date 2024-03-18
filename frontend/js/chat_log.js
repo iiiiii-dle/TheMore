@@ -8,6 +8,7 @@ class Chat_log {
             chat_log_header: document.querySelector('#chat_header'),
             chat_log_exit_button: document.querySelector('#chat_header > button'),
             chat_log_body_chat: document.querySelector('#chat_body > #chat'),
+            chat_log_body_chat_ul: document.querySelector('#chat_body > #chat > ul'),
             chat_log_message_input: document.querySelector('#chat_send > .input-div > textarea'),
             chat_log_send_button: document.querySelector('#chat_footer > button'),
         };
@@ -69,7 +70,7 @@ class Chat_log {
 
         const message = new Message(text, isMe);
 
-        this.elements.chat_log_body_chat.appendChild(message.chat_log());
+        this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
         this.elements.chat_log_message_input.value = '';
         this.scrollDown();
     }
@@ -85,16 +86,36 @@ class Message {
         this.isMe = isMe;
     }
 
-    chat_log() {
-        let log = document.createElement('div');
-        log.className = this.isMe ? 'me' : 'other';
-        log.style.backgroundColor = 'white';
-        log.style.padding = '5px';
-        log.style.margin = '5px';
-        console.log(this.message);
-        log.innerText = this.message;
+    format() {
+        const format = document.createElement('li');
 
-        return log;
+        const sender = document.createElement('div');
+        sender.className = 'sender';
+        const message = document.createElement('div');
+        message.className = 'message';
+
+        const senderSpan = document.createElement('span');
+        const messageSpan = document.createElement('span');
+
+        senderSpan.textContent = 'sender';
+        messageSpan.textContent = this.message;
+
+        sender.appendChild(senderSpan);
+        message.appendChild(messageSpan);
+
+        format.appendChild(sender);
+        format.appendChild(message);
+
+        return format;
+    }
+
+    chatFormat() {
+        // html의 format 복사
+        const format = this.format();
+
+        format.className = this.isMe ? 'me' : 'other';
+
+        return format;
     }
 }
 
