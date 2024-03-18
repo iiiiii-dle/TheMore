@@ -1,0 +1,33 @@
+
+#section-link {
+    color: #3C3C3C;
+    font-family: 'S-CoreDream-3Light';
+    font-style: normal;
+    font-weight: bold;
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#section-link li{
+    padding-right:50px;
+}
+#section-link a {
+    text-decoration: none;
+}
+#click-account {
+    color: #3C3C3C;
+}
+
+#click-statistics {
+    color: #F26F6F;
+}
+
+#account {
+    list-style: none;
+}
+
+#statistics {
+    list-style-image: url("../images/Trending-up.png");
+}
