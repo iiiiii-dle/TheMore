@@ -81,8 +81,9 @@ class Chat_log {
 }
 
 class Message {
-    constructor(message, isMe) {
+    constructor(message, sender, isMe) {
         this.message = message;
+        this.sender = sender;
         this.isMe = isMe;
     }
 
@@ -97,7 +98,7 @@ class Message {
         const senderSpan = document.createElement('span');
         const messageSpan = document.createElement('span');
 
-        senderSpan.textContent = 'sender';
+        senderSpan.textContent = this.sender;
         messageSpan.textContent = this.message;
 
         sender.appendChild(senderSpan);
@@ -112,7 +113,7 @@ class Message {
     chatFormat() {
         // html의 format 복사
         const format = this.format();
-
+        // 보내는 주체가 나, 타인 구분
         format.className = this.isMe ? 'me' : 'other';
 
         return format;
