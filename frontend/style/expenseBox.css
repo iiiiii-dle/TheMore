@@ -58,3 +58,36 @@
     background-color: rgba(55, 159, 235, 0.3);
     left: 300px;
 }
+
+.expenseLists {
+    font-size: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    position: absolute;
+    top: 250px;
+}
+
+.expenseLists p {
+    height: 50px;
+    display: inline-block;
+}
+
+.expenseList {
+    width: 400px;
+    height: 50px;
+    border-bottom: 1px solid #3c3c3c;
+}
+
+.expenseName {
+    width: 100px;
+}
+
+#addListBtn {
+    position: absolute;
+    left: 400px;
+    top: 600px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    background-color: rgba(242, 111, 111, 0.3);
+}
