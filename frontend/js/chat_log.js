@@ -71,6 +71,11 @@ class Chat_log {
 
         this.elements.chat_log_body_chat.appendChild(message.chat_log());
         this.elements.chat_log_message_input.value = '';
+        this.scrollDown();
+    }
+
+    scrollDown() {
+        this.elements.chat_log_body_chat.scrollTop = this.elements.chat_log_body_chat.scrollHeight; // 자동으로 스크롤 하단으로 내리기
     }
 }
 
