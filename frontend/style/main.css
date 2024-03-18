@@ -1,0 +1,52 @@
+.section{
+    position: relative;
+    overflow: hidden;
+}
+
+#section1{
+    /* min-height: 900px; */
+    /* width: 100%; */
+    height: auto;
+    /* max-height: 900px; */
+    background: url('../images/before_login_background.png') no-repeat;
+    background-size: 100%;
+    /* top: -90px; */
+    
+}
+#section1 .wrap{
+    /* min-height: 1370px; */
+    padding-top: 217px;
+    transform: translateX(-120px);
+    transition: all 0.3s ease-in-out;
+}
+#section2{
+    min-height: 900px;
+    padding: 95px 0 100px;
+    /* background-color: #ffff; */
+    background-color: skyblue;
+
+}
+#section3{
+    min-height: 900px;
+    background-color: burlywood;
+    
+}
+#header{}
+.wrap{
+    position: relative;
+    width: 1100px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.skip{
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: 0 0;
+    font-size: 0 !important;
+    color: transparent !important;
+    line-height: 0;
+}
