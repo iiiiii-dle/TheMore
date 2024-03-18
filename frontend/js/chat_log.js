@@ -68,7 +68,7 @@ class Chat_log {
     postMessage(isMe) {
         const text = this.elements.chat_log_message_input.value;
 
-        const message = new Message(text, isMe);
+        const message = new Message(text, 'Me', isMe);
 
         this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
         this.elements.chat_log_message_input.value = '';
