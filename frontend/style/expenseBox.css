@@ -1,9 +1,11 @@
 .expensesBox {
     width: 500px;
+    max-width: 500px;
     height: 700px;
     border: 1px solid #3c3c3c;
     border-radius: 10px;
     position: relative;
+    margin: 0 120px 50px 120px;
 }
 
 .expensesBtn {

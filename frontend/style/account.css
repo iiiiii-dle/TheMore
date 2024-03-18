@@ -37,5 +37,11 @@
 }
 
 .quote {
+    padding-top: 200px;
+    flex: 1;
+}
+
+.expensesBox {
+    display: none;
     flex: 1;
 }
