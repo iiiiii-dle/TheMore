@@ -1,0 +1,124 @@
+.calendar {
+    height: 41rem;
+    width: max-content;
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.calendar-header {
+    /* #F26F6F 투명도 30 */
+    background: rgba(242, 111, 111, 0.3);
+    display: flex;
+    justify-content: center;
+    border-radius: 7px;
+    align-items: center;
+    color: white;
+    padding: 10px;
+}
+
+/* 연도 */
+.year-picker {
+    display: flex;
+    align-items: center;
+}
+
+/* 연도 방향키 */
+.year-change {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+/* 연도 방향키 hover */
+.year-change:hover {
+    background-color: rgba(242, 111, 111, 0.3);
+    /* 확대 효과 */
+    transition: all .2s ease-in-out;
+    transform: scale(1.12);
+}
+
+.calendar-body {
+    padding: 10px;
+}
+
+/* 달 */
+.month-picker {
+    display: flex;
+    /* 수평 가운데 정렬 */
+    justify-content: center;
+     /* 수직 가운데 정렬 */
+    align-items: center;
+    color: #F26F6F;
+}
+
+/* 달 방향키 */
+.month-change {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+/* 달 방향키  hover */
+.month-change:hover {
+    background-color: rgba(242, 111, 111, 0.3);
+    /* 확대 효과 */
+    transition: all .2s ease-in-out;
+    transform: scale(1.12);
+}
+
+/* 일 월 화 수 목 금 토 */
+.calendar-week-days {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    color: #3C3C3C;
+}
+
+/* 일 월 화 수 목 금 토 텍스트 */
+.calendar-week-days div {
+    display: grid;
+    place-items: center;
+    color: #3C3C3C;
+    height: 50px;
+}
+
+/* 날짜 */
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    color: #3C3C3C;
+}
+
+/* 날짜 */
+.calendar-days div {
+    width: 50px;
+    height: 70px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.calendar-days div:hover {
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    background-color: #fbc7d4;
+    border-radius: 20%;
+    color: #f8fbff;
+}
+
+/* 현재 날짜 표시 */
+.calendar-days div.current-date {
+    color: #F26F6F;
+    border-radius: 20%;
+}
