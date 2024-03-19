@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 가입 페이지</title>
     <link rel="stylesheet" href="../style/membership.css">
+    <script src="../js/membership.js"></script>
 </head>
 
 <body>
@@ -13,7 +14,7 @@
         <a class="a-link" href="#">The <span id="more">More</span></a>
     </header>
     <div id="container">
-        <form action="register.jsp">
+        <form id="registerForm" onsubmit="submitForm(event)">
             <fieldset>
                 <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
                 <h3>회원 가입</h3>
