@@ -3,6 +3,7 @@ class Chat_log {
         /**
          * Dom 객체 찾기
          */
+
         this.elements = {
             chat_log_wrapper: document.querySelector('#chat_wrapper'),
             chat_log_header: document.querySelector('#chat_header'),
@@ -120,10 +121,6 @@ class Message {
     }
 }
 
-function initialize() {
-    const chat_log = new Chat_log();
-}
-
-initialize();
-
 // chat_log.show(); -> 함수 창 보이기 함수
+
+export { Chat_log, Message };
