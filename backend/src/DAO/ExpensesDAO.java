@@ -45,33 +45,33 @@ public class ExpensesDAO {
 		return result;
 	}
 	
-//	/**
-//	 * @author 서혜리<br>
-//	 * 			deleteExpenses : 수입 지출 내역을 DB에서 삭제하는 기능<br>
-//	 * 
-//	 * @return result : db에서 성공적으로 삭제되면 1을 반환
-//	 */
-//	public static int deleteExpenses(Connection conn, Expenses expenses) throws Exception {
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		try {
-//			String sql = "delete from expenses where userId = ? and expensesId = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			
-//			pstmt.setInt(1, expenses.getUserId());
-//			pstmt.setInt(2, expenses.getExpensesId());
-//			
-//			result = pstmt.executeUpdate();
-//			
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			pstmt.close();
-//		}
-//		System.out.println("ExpensesDAO: " + result);
-//		return result;
-//	}
-//	
+	/**
+	 * @author 서혜리<br>
+	 * 			deleteExpenses : 수입 지출 내역을 DB에서 삭제하는 기능<br>
+	 * 
+	 * @return result : db에서 성공적으로 삭제되면 1을 반환
+	 */
+	public static int deleteExpenses(Connection conn, Expenses expenses) throws Exception {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "delete from expenses where userId = ? and expensesId = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, expenses.getUserId());
+			pstmt.setInt(2, expenses.getExpensesId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pstmt.close();
+		}
+		System.out.println("ExpensesDAO: " + result);
+		return result;
+	}
+	
 //	/**
 //	 * @author 서혜리<br>
 //	 * 			updateExpenses : 수입 지출 내역을 수정해서 DB에 저장하는 기능<br>
