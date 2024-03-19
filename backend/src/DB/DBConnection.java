@@ -22,14 +22,11 @@ public class DBConnection {
 	private static final String DB_URL = protocol + vendor + location + databaseName;
 	private static final String jdbcUrl = DB_URL + "?serverTimezone = UTC";
 
-	private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver ref
-
 	public static Connection connection; // Connection Interface
 
 	// DB connection open
 	public static void openConnection() {
 		try {
-			Class.forName(driver); // Locate Driver
 			connection = DriverManager.getConnection(jdbcUrl, userName, password);
 			System.out.println("Connection successful!\n\n");
 		} catch (Exception e) {
@@ -49,7 +46,7 @@ public class DBConnection {
 	}
 
 	// Connection getter
-	public static Connection getConnection() {
+	private static Connection getConnection() {
 		if (connection == null) {
             try {
                 // 데이터베이스 연결 정보를 사용하여 Connection 생성
