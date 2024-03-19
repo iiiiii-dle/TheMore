@@ -128,3 +128,5 @@ function initialize() {
 initialize();
 
 // chat_log.show(); -> 함수 창 보이기 함수
+
+export { Chat_log, Message };

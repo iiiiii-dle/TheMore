@@ -1,16 +1,12 @@
-const host = 'ws://localhost';
-const port = 8080;
-
 class ChatSocket {
     /**
      * host: 호스트 주소
      * port: 포트 번호
      * messageHandler: 메시지 수신 처리 콜백 함수
      */
-    constructor(host, port, messageHandler) {
+    constructor(host, port) {
         this.host = host;
         this.port = port;
-        this.onMessage = onMessage;
 
         this.chatSocket = new WebSocket(`${host}:${port}`);
 
@@ -27,7 +23,7 @@ class ChatSocket {
         });
 
         this.chatSocket.addEventListener('message', (event) => {
-            this.messageHandler(event.data);
+            console.log(event.data);
         });
     }
 
