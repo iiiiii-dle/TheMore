@@ -3,6 +3,7 @@ class Chat_log {
         /**
          * Dom 객체 찾기
          */
+
         this.elements = {
             chat_log_wrapper: document.querySelector('#chat_wrapper'),
             chat_log_header: document.querySelector('#chat_header'),

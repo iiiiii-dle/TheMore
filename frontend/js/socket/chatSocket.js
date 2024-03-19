@@ -1,23 +1,39 @@
 const host = 'ws://localhost';
 const port = 8080;
 
-const socket = new WebSocket(`${host}:${port}`);
-
-socket.onopen({});
-
 class ChatSocket {
-    constructor(host, port) {
+    /**
+     * host: 호스트 주소
+     * port: 포트 번호
+     * messageHandler: 메시지 수신 처리 콜백 함수
+     */
+    constructor(host, port, messageHandler) {
         this.host = host;
         this.port = port;
+        this.onMessage = onMessage;
 
         this.chatSocket = new WebSocket(`${host}:${port}`);
 
-        this.chatSocket.op;
+        this.chatSocket.addEventListener('open', () => {
+            console.log('[Websocket Open] : Connect Server');
+        });
+
+        this.chatSocket.addEventListener('close', (event) => {
+            console.log(`[WebSocket Close] : Disconnect Server/ Error code: ${event.code}`);
+        });
+
+        this.chatSocket.addEventListener('error', (event) => {
+            console.log(`${event.error}`);
+        });
+
+        this.chatSocket.addEventListener('message', (event) => {
+            this.messageHandler(event.data);
+        });
+    }
+
+    sendMessage(message) {
+        this.chatSocket.send(message);
     }
 }
 
-function initailize(host, port) {
-    const chatSocket = new ChatSocket(host, port);
-}
-
-initailize(host, port);
+export { ChatSocket };
