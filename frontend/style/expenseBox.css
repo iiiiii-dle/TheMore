@@ -82,6 +82,29 @@
     width: 100px;
 }
 
+.incomeLists {
+    font-size: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    position: absolute;
+    top: 250px;
+}
+
+.incomeLists p {
+    height: 50px;
+    display: inline-block;
+}
+
+.incomeList {
+    width: 400px;
+    height: 50px;
+    border-bottom: 1px solid #3c3c3c;
+}
+
+.incomeName {
+    width: 100px;
+}
+
 #addListBtn {
     position: absolute;
     left: 400px;
