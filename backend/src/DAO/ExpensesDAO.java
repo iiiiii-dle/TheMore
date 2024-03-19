@@ -72,38 +72,38 @@ public class ExpensesDAO {
 		return result;
 	}
 	
-//	/**
-//	 * @author 서혜리<br>
-//	 * 			updateExpenses : 수입 지출 내역을 수정해서 DB에 저장하는 기능<br>
-//	 * 
-//	 * @return result : db에 업데이트가 성공적으로 완료되면 1을 반환
-//	 */
-//	public static int updateExpenses(Connection conn, Expenses expenses) throws Exception {
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		try {
-//			String sql = "update expenses set categoryId = ?, type = ?, money =?, memo =?, accountDate = ? where userId = ? and expensesId = ?";
-//
-//			pstmt = conn.prepareStatement(sql);
-//
-//			pstmt.setInt(1, expenses.getCategoryId());
-//			pstmt.setBoolean(2, expenses.getType());
-//			pstmt.setInt(3, expenses.getMoney());
-//			pstmt.setString(4, expenses.getMemo());
-//			pstmt.setInt(5, expenses.getUserId());
-//			pstmt.setInt(6, expenses.getExpensesId());
-//
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			pstmt.close();
-//		}
-//		System.out.println("ExpensesDAO: " + result);
-//		return result;
-//	}
-//	
+	/**
+	 * @author 서혜리<br>
+	 * 			updateExpenses : 수입 지출 내역을 수정해서 DB에 저장하는 기능<br>
+	 * 
+	 * @return result : db에 업데이트가 성공적으로 완료되면 1을 반환
+	 */
+	public static int updateExpenses(Connection conn, Expenses expenses) throws Exception {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "update expenses set categoryId = ?, type = ?, money =?, memo =?, accountDate = ? where userId = ? and expensesId = ?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, expenses.getCategoryId());
+			pstmt.setBoolean(2, expenses.getType());
+			pstmt.setInt(3, expenses.getMoney());
+			pstmt.setString(4, expenses.getMemo());
+			pstmt.setInt(5, expenses.getUserId());
+			pstmt.setInt(6, expenses.getExpensesId());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pstmt.close();
+		}
+		System.out.println("ExpensesDAO: " + result);
+		return result;
+	}
+	
 //	/**
 //	 * @author 서혜리<br>
 //	 * 			getExpensesList : 수입/지출 내역을 DB에서 불러오는 기능<br>
