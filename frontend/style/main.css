@@ -15,7 +15,7 @@
     /* height: auto; */
     /* max-height: 900px; */
     /* background: url('../images/before_login_background.png') no-repeat; */
-    background: url('../images/brfore_login_img.png') no-repeat;
+    background: url('../images/beforeMainPage/brfore_login_img.png') no-repeat;
     background-size: cover;
     /* top: -90px; */
     
@@ -163,7 +163,7 @@ section h2 span {
     right: 0;
 }
 :after, :before {
-    /* display: none; */
+    display: none;
     content: '';
 }
 
@@ -213,7 +213,7 @@ a:link {
     height: 80px;
     border-radius: 50%;
     box-sizing: border-box;
-    background: url(../images/beforeMainPage/Ellipse\ size-5.png) no-repeat center center;
+    background: url(../images/beforeMainPage/Ellipse_size_5.png) no-repeat center center;
     background-size: 100% 100%;
 }
 #section2 .tab_list.active:before {
@@ -239,11 +239,12 @@ a:link {
 }
 #section2 .tab_list.n1:after {
     right: 0;
-    background-image: url(../../images/beforeMainPage/bg_point1.png);
-    background-size: 42px auto;
+    background-image: url(../images/beforeMainPage/bg_point1.png);
+    background-size: 44px;
 }
 #section2 .tab_list.n1.active:after {
-    background-image: url(..//images/beforeMainPage/bg_point1_on.png);
+    background-image: url(../images/beforeMainPage/bg_point1_on.png);
+    transition-duration: 0.5s;
 }
 
 
@@ -253,11 +254,12 @@ a:link {
 }
 #section2 .tab_list.n2:after {
     right: 0;
-    background-image: url(../../images/main/bg_point2.png);
+    background-image: url(../images/beforeMainPage/bg_point2.png);
     background-size: 44px auto;
 }
 #section2 .tab_list.n2.active:after {
-    background-image: url(../../images/main/bg_point1_on.png);
+    background-image: url(../images/beforeMainPage/bg_point2_on.png);
+    transition-duration: 0.5s;
 }
 
 
@@ -267,11 +269,12 @@ a:link {
 }
 
 #section2 .tab_list.n3.active:after {
-    background-image: url(../../images/main/bg_point3_on.png);
+    background-image: url(../images/beforeMainPage/bg_point3_on.png);
+    transition-duration: 0.5s;
 }
 #section2 .tab_list.n3:after {
     right: 0;
-    background-image: url(../../images/main/bg_point3.png);
+    background-image: url(../images/beforeMainPage/bg_point3.png);
     background-size: 42px auto;
 }
 
@@ -282,12 +285,13 @@ a:link {
 }
 #section2 .tab_list.n4:after {
     left: 0;
-    background-image: url(../../images/main/bg_point4.png);
+    background-image: url(../images/beforeMainPage/bg_point4.png);
     background-size: 38px auto;
 }
 
 #section2 .tab_list.n4.active:after {
-    background-image: url(../../images/main/bg_point4_on.png);
+    background-image: url(../images/beforeMainPage/bg_point4_on.png);
+    transition-duration: 0.5s;
 }
 
 #section2 .tab_list.n4 a, #section2 .tab_list.n5 a, #section2 .tab_list.n6 a {
@@ -302,11 +306,12 @@ a:link {
 
 #section2 .tab_list.n5:after {
     left: 0;
-    background-image: url(../../images/main/bg_point5.png);
+    background-image: url(../images/beforeMainPage/bg_point5.png);
     background-size: 42px auto;
 }
 #section2 .tab_list.n5.active:after {
-    background-image: url(../../images/main/bg_point5_on.png);
+    background-image: url(../images/beforeMainPage/bg_point5_on.png);
+    transition-duration: 0.5s;
 }
 
 
@@ -317,11 +322,12 @@ a:link {
 
 #section2 .tab_list.n6:after {
     left: 0;
-    background-image: url(../../images/main/bg_point6.png);
+    background-image: url(../images/beforeMainPage/bg_point6.png);
     background-size: 37px auto;
 }
 #section2 .tab_list.n6.active:after {
-    background-image: url(../../images/main/bg_point6_on.png);
+    background-image: url(../images/beforeMainPage/bg_point6_on.png);
+    transition-duration: 0.5s;
 }
 
 #section2 .panel_list.active {
@@ -331,7 +337,7 @@ a:link {
     display: none;
 }
 #section2 .panel_list img {
-    width: 480px;
+    width: 590px;
 }
 #section2 .point_panel {
     position: relative;
@@ -354,19 +360,40 @@ img {
 
 
 
-
-
-
-
-
-
-
-
-
-
 #section3{
-    min-height: 900px;
-    background-color: burlywood;
+    min-height: 1100px;
+    background-color: #E6E6E6;
     padding: 100px 0 100px;
+    /* position: absolute; */
+    top: 0;
+    bottom: 0;
+
+}
+#section3 .wrap{
+    text-align: center;
+}
+#section3 h2{
+    text-align: center;
+}
+
+
+#community_netbook1{
+    position: relative;
+    top: 300px;
+    z-index: 1;
+}
+#community_netbook2{
+    top: -253px;
+    position: relative;
+    left: 456px;
     
+}
+#community_netbook3{
+    position: relative;
+    top: -714px;
+    right: 451px;
+
+}
+hr{
+    border:1px solid;
 }
