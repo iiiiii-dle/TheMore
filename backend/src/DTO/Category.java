@@ -3,6 +3,7 @@ package DTO;
 public class Category {
 	private Integer categoryId;
 	private String categoryName;
+	private Boolean categoryType;
 	
 	//생성자는 필요할 때 추가할 예정
 	
@@ -17,6 +18,12 @@ public class Category {
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public Boolean getCategoryType() {
+		return categoryType;
+	}
+	public void setCategoryType(Boolean categoryType) {
+		this.categoryType = categoryType;
 	}
 	
 }
