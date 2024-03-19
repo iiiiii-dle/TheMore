@@ -104,54 +104,54 @@ public class ExpensesDAO {
 		return result;
 	}
 	
-//	/**
-//	 * @author 서혜리<br>
-//	 * 			getExpensesList : 수입/지출 내역을 DB에서 불러오는 기능<br>
-//	 * 
-//	 * @param Boolean filter<br>
-//	 * 				  true = 수입 내역 불러오기(카테고리 번호 순)
-//	 * 				  false = 지출 내역 불러오기(카테고리 번호 순)
-//	 * 
-//	 * @return expensesList
-//	 */
-//	public static List<Expenses> getExpensesList(Boolean filter, Expenses expenses) throws Exception {
-//		List<Expenses> expensesList = new LinkedList<>();
-//		String sql;
-//		PreparedStatement pstmt = null;
-//		try {
-//			if(filter.equals(true)) {			// 수입일 때 카테고리 번호 내림차순으로 내역 조회
-//				sql = "select * from expenses where userId = ? and type = 1 order by categoryId DESC";
-//			} else if(filter.equals(false)) {	// 지출일 때 카테고리 번호 내림차순으로 내역 조회
-//				sql = "select * from expenses where userId = ? and type = 0 order by categoryId DESC";
-//			} else {
-//				throw new IllegalArgumentException("불가능한 타입 값입니다. 타입 값은 true, false만 허용됩니다.");
-//			}
-//			pstmt = DBConnection.getConnection().prepareStatement(sql);
-//			pstmt.setInt(1, expenses.getUserId());
-//			
-//			ResultSet rs = pstmt.executeQuery();
-//			if(!rs.next()) {
-//				System.out.println("조회할 데이터가 없습니다.");
-//			} else {
-//				do {
-//					Integer expensesId = rs.getInt("expensesId");
-//					Integer userId = rs.getInt("userId");
-//					Integer categoryId = rs.getInt("categoryId");
-//					Boolean type = rs.getBoolean("type");
-//					Integer money = rs.getInt("money");
-//					String memo = rs.getString("memo");
-//					Date expensesDate = rs.getDate("expensesDate");
-//					
-//					Expenses newExpenses = new Expenses(expensesId, userId, categoryId, type, money, memo, expensesDate);
-//					System.out.printf("%s", newExpenses);
-//					expensesList.add(newExpenses);
-//				} while(rs.next());
-//			}
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			pstmt.close();
-//		}
-//		return expensesList;
-//	}
+	/**
+	 * @author 서혜리<br>
+	 * 			getExpensesList : 수입/지출 내역을 DB에서 불러오는 기능<br>
+	 * 
+	 * @param Boolean filter<br>
+	 * 				  true = 수입 내역 불러오기(카테고리 번호 순)
+	 * 				  false = 지출 내역 불러오기(카테고리 번호 순)
+	 * 
+	 * @return expensesList
+	 */
+	public static List<Expenses> getExpensesList(Boolean filter, Expenses expenses) throws Exception {
+		List<Expenses> expensesList = new LinkedList<>();
+		String sql;
+		PreparedStatement pstmt = null;
+		try {
+			if(filter.equals(true)) {			// 수입일 때 카테고리 번호 내림차순으로 내역 조회
+				sql = "select * from expenses where userId = ? and type = 1 order by categoryId DESC";
+			} else if(filter.equals(false)) {	// 지출일 때 카테고리 번호 내림차순으로 내역 조회
+				sql = "select * from expenses where userId = ? and type = 0 order by categoryId DESC";
+			} else {
+				throw new IllegalArgumentException("불가능한 타입 값입니다. 타입 값은 true, false만 허용됩니다.");
+			}
+			pstmt = DBConnection.getConnection().prepareStatement(sql);
+			pstmt.setInt(1, expenses.getUserId());
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(!rs.next()) {
+				System.out.println("조회할 데이터가 없습니다.");
+			} else {
+				do {
+					Integer expensesId = rs.getInt("expensesId");
+					Integer userId = rs.getInt("userId");
+					Integer categoryId = rs.getInt("categoryId");
+					Boolean type = rs.getBoolean("type");
+					Integer money = rs.getInt("money");
+					String memo = rs.getString("memo");
+					Date expensesDate = rs.getDate("expensesDate");
+					
+					Expenses newExpenses = new Expenses(expensesId, userId, categoryId, type, money, memo, expensesDate);
+					System.out.printf("%s", newExpenses);
+					expensesList.add(newExpenses);
+				} while(rs.next());
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pstmt.close();
+		}
+		return expensesList;
+	}
 }
