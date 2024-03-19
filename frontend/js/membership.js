@@ -18,11 +18,8 @@ function submitForm(event){
     var form = document.getElementById("registerForm");
     var formData = new FormData(form);
     // FormData를 JSON으로 변환
-    var object = {};
-    formData.forEach(function(value, key){
-        object[key] = value;
-    });
-    var jsonData = JSON.stringify(object);
+
+    var jsonData = JSON.stringify(Object.fromEntries(formData));
 
     //WebSocket을 통해 서버로 데이터 전송
     socket.send(jsonData);
