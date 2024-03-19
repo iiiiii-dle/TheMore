@@ -3,21 +3,33 @@ package DTO;
 import java.sql.Date;
 
 public class Expenses {
-	private Integer accountId;
+	private Integer expensesId;
 	private Integer userId;
 	private Integer categoryId;
-	private boolean type;		//수입(1), 지출(0)
+	private Boolean type;		//수입(1), 지출(0)
 	private Integer money;
 	private String memo;
-	private Date accountDate;	//입출금 발생 날짜
+	private Date expensesDate;	//입출금 발생 날짜
 	
 	//생성자는 필요할 때 추가할 예정
 	
-	public Integer getAccountId() {
-		return accountId;
+	//혜리 - ExpensesDAO의 getExpensesList에서 사용
+	public Expenses(Integer expensesId, Integer userId, Integer categoryId,
+			Boolean type, Integer money, String memo, Date expensesDate) {
+		this.expensesId = expensesId;
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.type = type;
+		this.money = money;
+		this.memo = memo;
+		this.expensesDate = expensesDate;
 	}
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
+	
+	public Integer getExpensesId() {
+		return expensesId;
+	}
+	public void setExpensesId(Integer expensesId) {
+		this.expensesId = expensesId;
 	}
 	public Integer getUserId() {
 		return userId;
@@ -31,10 +43,10 @@ public class Expenses {
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
-	public boolean isType() {
+	public Boolean getType() {
 		return type;
 	}
-	public void setType(boolean type) {
+	public void setType(Boolean type) {
 		this.type = type;
 	}
 	public Integer getMoney() {
@@ -49,12 +61,11 @@ public class Expenses {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	public Date getAccountDate() {
-		return accountDate;
+	public Date getExpensesDate() {
+		return expensesDate;
 	}
-	public void setAccountDate(Date accountDate) {
-		this.accountDate = accountDate;
+	public void setExpensesDate(Date expensesDate) {
+		this.expensesDate = expensesDate;
 	}
-	
 	
 }
