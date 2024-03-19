@@ -114,7 +114,7 @@ public class ExpensesDAO {
 	 * 
 	 * @return expensesList
 	 */
-	public static List<Expenses> getExpensesList(Boolean filter, Expenses expenses) throws Exception {
+	public static List<Expenses> getExpensesList(Connection conn, Boolean filter, Expenses expenses) throws Exception {
 		List<Expenses> expensesList = new LinkedList<>();
 		String sql;
 		PreparedStatement pstmt = null;
@@ -126,7 +126,7 @@ public class ExpensesDAO {
 			} else {
 				throw new IllegalArgumentException("불가능한 타입 값입니다. 타입 값은 true, false만 허용됩니다.");
 			}
-			pstmt = DBConnection.getConnection().prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, expenses.getUserId());
 			
 			ResultSet rs = pstmt.executeQuery();
