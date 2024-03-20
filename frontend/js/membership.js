@@ -44,19 +44,25 @@ function compareData(email, nickName){
     for(let i=0;i<testData.email.length; i++){
         if(testData.email[i] === email){
             // 입력한 이메일 testData에 존재하는 경우
-            alert("존재하는 email입니다.");
+            swal('회원가입 실패',"이미 존재하는 email입니다.",'warning').then(function(){
+                location.href="$membership.html";
+            })
             return false;   // 회원 가입 실패
         }
     }
     for(let i =0;i<testData.nickName.length; i++){
         if(testData.nickName[i] === nickName){
             // 입력한 닉네임이 testData에 존재하는 경우
-            alert("존재하는 닉네임입니다.");
+            swal('회원가입 실패!',"이미 존재하는 닉네임입니다.",'warning').then(function(){
+                location.href="membership.html";
+            })
             return false;   // 회원 가입 실패
         }
     }
     // testData에 없는 경우
-    alert("회원 가입 성공");
+    swal('회원가입 성공',"가계부페이지로 이동합니다.",'success').then(function(){
+        location.href="membership.html";
+    })
     return true;  // 회원 가입 성공
 }
 
