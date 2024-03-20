@@ -40,7 +40,7 @@ public class ChatServer extends WebSocketServer{
 	@Override
 	public void onMessage(WebSocket conn, String message) {
 		// TODO Auto-generated method stub
-
+		System.out.println(message);
 		for(WebSocket con : this.getConnections()) {
 			if(!con.equals(conn))
 				con.send(message);
