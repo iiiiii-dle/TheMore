@@ -1,9 +1,9 @@
-import { ChatSocket } from './socket/ChatSocket.js';
+import { Socket } from './socket/Socket';
 
 class Chat_log {
     constructor(host, port) {
         // 소켓 연결
-        this.chatSocket = new ChatSocket(host, port, this.receiveMessage.bind(this));
+        this.chatSocket = new Socket(host, port, this.receiveMessage.bind(this));
         /**
          * Dom 객체 찾기
          */

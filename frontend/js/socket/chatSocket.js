@@ -12,7 +12,6 @@ class ChatSocket {
         this.chatSocket = new WebSocket(`ws://${host}:${port}`);
 
         this.chatSocket.addEventListener('open', () => {
-            sessionStorage.setItem('socket', JSON.stringify({ url: `ws://${host}:${port}` }));
             console.log('[Websocket Open] : Connect Server');
         });
 

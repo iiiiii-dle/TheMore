@@ -1,4 +1,4 @@
-class LoginSocket {
+class Socket {
     /**
      * host: 호스트 주소
      * port: 포트 번호
@@ -35,4 +35,4 @@ class LoginSocket {
     }
 }
 
-export { LoginSocket };
+export { Socket };

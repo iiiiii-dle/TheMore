@@ -1,14 +1,16 @@
-import { LoginSocket } from './socket/Socket';
+import { Socket } from './socket/Socket';
 
 class Login {
     constructor(host, port) {
-        this.socket = new LoginSocket(host, port, this.callback.bind(this));
+        this.socket = new Socket(host, port, this.callback.bind(this));
     }
 
     submitForm(data) {
         // 폼을 제출할 때 실행될 함수
         const form = document.getElementById('logInForm');
         const formData = new FormData(form);
+
+        formData.append('cmd', 'Login');
         // FormData를 JSON으로 변환
 
         const jsonData = JSON.stringify(Object.fromEntries(formData));
