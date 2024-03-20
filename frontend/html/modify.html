@@ -7,6 +7,7 @@
     <title>회원 정보 수정</title>
 
 <link rel="stylesheet" href="../style/modify.css">
+<script src="../js/modify.js"></script>
 </head>
 
 <body>
@@ -14,22 +15,22 @@
         <a class="a-link" href="#">The <span id="more">More</span></a>
     </header>
     <div id="container">
-        <form action="register.jsp">
+        <form>
             <fieldset>
                 <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
                 <h3>회원 정보 수정</h3>
                 <ul>
                     <li>
-                        <label for="umail">email</label>
-                        <input type="email" id="unmail" name="umail" readonly>
+                        <label for="email">email</label>
+                        <input type="email" id="email" name="email" value="" readonly>
                     </li>
                     <li>
-                        <label for="nick">닉네임 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="nick" name="nick" >
+                        <label for="nickName">닉네임 <img src="../images/warning.png" alt="warning" id="warning"></label>
+                        <input type="text" id="nickName" name="nickName" value="" >
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="password" placeholder="변경하실 비밀번호를 입력해주세요">
+                        <input type="text" id="password" name="password" value="" placeholder="변경하실 비밀번호를 입력해주세요">
                     </li>
                     <li>
                         <label for="checkPassword">비밀번호 확인</label>
