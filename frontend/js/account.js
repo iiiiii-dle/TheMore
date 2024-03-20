@@ -205,31 +205,4 @@ document.addEventListener('DOMContentLoaded', () => {
         commitBtn.classList.remove('hidden'); 
     });
     /* [e]채림 */
-
-    /* ----------혜리: 수입 버튼 클릭하면 수입 보이게, 지출 버튼 클릭하면 지출 보이게---------- */
-    // 처음에는 지출 목록과 수입 목록을 모두 숨김
-    const expenseLists = document.querySelector('.expenseLists');
-    const incomeLists = document.querySelector('.incomeLists');
-    expenseLists.style.display = 'none';
-    incomeLists.style.display = 'none';
-
-    /* ----------혜리: 수입 버튼 클릭하면 수입 보이게, 지출 버튼 클릭하면 지출 보이게---------- */
-    const outcomeBtn = document.querySelector('.outcomeBtn');
-    const incomeBtn = document.querySelector('.incomeBtn');
-
-    // 지출 버튼 클릭 시
-    outcomeBtn.addEventListener('click', function () {
-        // 지출 목록 표시
-        expenseLists.style.display = 'block';
-        // 수입 목록 숨김
-        incomeLists.style.display = 'none';
-    });
-
-    // 수입 버튼 클릭 시
-    incomeBtn.addEventListener('click', function () {
-        // 수입 목록 표시
-        incomeLists.style.display = 'block';
-        // 지출 목록 숨김
-        expenseLists.style.display = 'none';
-    });
 });
