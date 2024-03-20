@@ -379,21 +379,30 @@ img {
 
 #community_netbook1{
     position: relative;
-    top: 300px;
+    top: 340px;
     z-index: 1;
 }
 #community_netbook2{
-    top: -253px;
+    top: -260px;
     position: relative;
-    left: 456px;
+    left: 490px;
     
 }
 #community_netbook3{
     position: relative;
-    top: -714px;
-    right: 451px;
+    top: -745px;
+    right: 490px;
 
 }
 hr{
     border:1px solid;
+}
+#arrow-up{
+    position: fixed;
+    bottom: 30px;
+    right: 30px; 
+    width: 50px;
+}
+.arrow-up-hide{
+    visibility:collapse ;
 }
