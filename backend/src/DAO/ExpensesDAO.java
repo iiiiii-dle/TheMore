@@ -154,4 +154,46 @@ public class ExpensesDAO {
 		}
 		return expensesList;
 	}
+	/**
+	 * @author 최병민<br>
+	 * 			getTotalAmount : 수입이면 수입값 다 더하고 지출이면 지출값 다 더해 출력하는 기능<br>
+	 * 
+	 * @param Boolean isIncome<br>
+	 * 				  true = 수입 내역 불러오기(카테고리 번호 순)
+	 * 				  false = 지출 내역 불러오기(카테고리 번호 순)
+	 * 
+	 * @return totalAmount 
+	 */
+	
+	public static int getTotalAmount(Connection conn, boolean isIncome, Expenses expenses) throws Exception {
+	    int totalAmount = 0;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        String sql;
+	        if (isIncome) {
+	            sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1";
+	        } else {
+	            sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0";
+	        }
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, expenses.getUserId());
+	        
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            totalAmount = rs.getInt(isIncome ? "totalIncome" : "totalExpense");
+	        }
+	    } finally {
+	        if (rs != null) {
+	            rs.close();
+	        }
+	        if (pstmt != null) {
+	            pstmt.close();
+	        }
+	    }
+	    
+	    return totalAmount;
+	}
+
 }
