@@ -9,7 +9,7 @@ public class Budget {
 	private Date month;
 	
 	//생성자는 필요할 때 추가할 예정
-	public Budget(Integer budgetId, Integer userId, Integer amount, Date month) {
+	public Budget() {
 		this.budgetId = budgetId;
 		this.userId = userId;
 		this.amount = amount;

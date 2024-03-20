@@ -100,30 +100,27 @@ public class BudgetDAO {
 	 * @return result : budgetList
 	 */
 	
-	public static List<Budget> bringBudget(Connection conn, Budget budget) throws Exception {
+	public static List<Budget> bringBudget(Connection conn, int userId, Date month) throws Exception {
 	    List<Budget> budgetList = new LinkedList<>();
 	    String sql = "SELECT * FROM budget WHERE userId = ? AND month = ?";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, budget.getUserId());
-	        pstmt.setDate(2, budget.getMonth());
+	        pstmt.setInt(1, userId);
+	        pstmt.setDate(2, month);
 	        
 	        rs = pstmt.executeQuery();
 	        
 	        while (rs.next()) {
-	            Integer budgetId = rs.getInt("budgetId"); // 예산의 ID를 가져옴
-	            Integer userId = rs.getInt("userId"); // 사용자 ID를 가져옴
-	            Integer amount = rs.getInt("amount"); // 예산 금액을 가져옴
-	            Date month = rs.getDate("month"); // 월을 가져옴
-	            // 필요한 다른 속성들을 가져옴
-	            
-	            Budget newBudget = new Budget(budgetId, userId, amount, month);
-	            budgetList.add(newBudget);
+	            Budget budget = new Budget();
+	            // Budget 객체에 결과 값 설정
+	            budget.setUserId(rs.getInt("userId"));
+	            budget.setAmount(rs.getInt("amount"));
+	            budget.setMonth(rs.getDate("month"));
+	            // 결과 리스트에 추가
+	            budgetList.add(budget);
 	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
 	    } finally {
 	        // 리소스 해제
 	        if (rs != null) {
@@ -133,7 +130,6 @@ public class BudgetDAO {
 	            pstmt.close();
 	        }
 	    }
-	    
 	    return budgetList;
 	}
 
