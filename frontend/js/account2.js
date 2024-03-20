@@ -94,8 +94,8 @@ class Calendar {
 
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
-            const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
             day.addEventListener('click', () => {
+                const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
                 if (expensesBoxStyle.display === 'block') {
                     this.expensesBox.expensesBox1.style.display = 'none';
                     this.quote.quote.style.display = 'block';
@@ -118,7 +118,7 @@ class Quote {
             '"버는 것보다 적게 쓰는 것을 안다면 <br> 현자의 돌을 가진 것과 같다." <br> <br> - 벤자민 프랭클린',
             '"절약하지 않는 자는 <br> 고뇌하게 될 것이다." <br> <br> - 공자',
             '"돈 생각을 떨쳐내는 유일한 <br> 방법은 돈을 많이 갖는 것이다." <br> <br> - 이디스 워튼',
-            '"가난에 대한 두려움이 삶을 <br> 지배하도록 내버려두면, <br> 그 대가로 당신은 먹기는 할 것이나 <br> 살지는 못할 것이다." <br> <br> - 조지 버나드 쇼',
+            '"가난에 대한 두려움이 삶을 <br> 지배하도록 내버려두면, <br> 그 대가로 당신은 먹기는 할 것이나 <br> 살지는 못할 것이다." <br> <br> - 조지 버나드쇼',
             '"돈에 대해 쉽게 사는 방법은 <br> 생활수준을 형편보다 <br> 한 단계 낮추는 것이다." <br> <br> - 헨리 테일러 경',
             '"돈이 전부는 아니지만, <br> 그만한 게 없다." <br> <br> - 메이웨더',
             '"돈지갑의 밑바닥이 드러났을 때의 <br> 절약은 이미 늦은 행위다." <br> <br> - 세네카',
@@ -137,30 +137,36 @@ class Quote {
 
 class ExpensesBox {
     constructor() {
-        this.expensesBox1 = document.querySelector('#expensesBox1');
-        this.expenseLists = document.querySelector('.expenseLists');
-        this.incomeLists = document.querySelector('.incomeLists');
-        this.expenseLists.style.display = 'none';
-        this.incomeLists.style.display = 'none';
+        document.addEventListener('DOMContentLoaded', () => {
+            this.expensesBox1 = document.querySelector('#expensesBox1');
+            this.expenseList = document.querySelector('.expenseList');
+            this.incomeLists = document.querySelector('.incomeLists');
+            this.expenseList.style.display = 'none';
+            this.incomeLists.style.display = 'none';
 
-        this.outcomeBtn = document.querySelector('.outcomeBtn');
-        this.incomeBtn = document.querySelector('.incomeBtn');
+            this.outcomeBtn = document.querySelector('.outcomeBtn');
+            this.incomeBtn = document.querySelector('.incomeBtn');
 
-        this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
-        this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
+            this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
+            this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
+
+            // 요소가 제대로 찾아졌을 때 버튼 클릭 이벤트를 바인딩합니다.
+            this.clickOutcomeBtn();
+            this.clickIncomeBtn();
+        });
     }
 
     clickOutcomeBtn() {
-        this.outcomeBtn.addEventListener('click', function() {
-            this.expenseLists.style.display = 'block';
+        this.outcomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
+            this.expenseList.style.display = 'block';
             this.incomeLists.style.display = 'none';
         });
     }
 
     clickIncomeBtn() {
-        this.incomeBtn.addEventListener('click', function () {
+        this.incomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
             this.incomeLists.style.display = 'block';
-            this.expenseLists.style.display = 'none';
+            this.expenseList.style.display = 'none';
         });
     }
 }
@@ -168,11 +174,9 @@ class ExpensesBox {
 function initialize() {
     const calendar = new Calendar();
     calendar.displayExpenseBox();
-    calendar.expensesBox.clickOutcomeBtn();
-    calendar.expensesBox.clickIncomeBtn();
 }
 
 initialize();
 
-
 export { Calendar, Quote, ExpensesBox };
+
