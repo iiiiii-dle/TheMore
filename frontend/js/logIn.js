@@ -1,6 +1,6 @@
-import { Socket } from './socket/Socket';
+import { LoginSocket } from './socket/Socket';
 
-class LoginSocket {
+class Login {
     constructor(host, port) {
         this.socket = new LoginSocket(host, port, this.callback.bind(this));
     }
