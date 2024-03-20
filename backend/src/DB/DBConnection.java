@@ -14,10 +14,10 @@ public class DBConnection {
 	// field
 	private static final String protocol = "jdbc";
 	private static final String vendor = ":mysql:";
-	private static final String location = "//...:/";
-	private static final String databaseName = ""; // DB name
-	private static final String userName = ""; // Username
-	private static String password = ""; // Password
+	private static final String location = "//192.168.0.73:9000/";
+	private static final String databaseName = "themore"; // DB name
+	private static final String userName = "idle"; // Username
+	private static String password = "20240320!!"; // Password
 
 	private static final String DB_URL = protocol + vendor + location + databaseName;
 	private static final String jdbcUrl = DB_URL + "?serverTimezone = UTC";
@@ -25,7 +25,7 @@ public class DBConnection {
 	public static Connection connection; // Connection Interface
 
 	// DB connection open
-	public static void openConnection() {
+	private static void openConnection() {
 		try {
 			connection = DriverManager.getConnection(jdbcUrl, userName, password);
 			System.out.println("Connection successful!\n\n");
@@ -46,7 +46,7 @@ public class DBConnection {
 	}
 
 	// Connection getter
-	private static Connection getConnection() {
+	public static Connection getConnection() {
 		if (connection == null) {
             try {
                 // 데이터베이스 연결 정보를 사용하여 Connection 생성
