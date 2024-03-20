@@ -8,7 +8,8 @@
 #chat_wrapper {
     width: 365px;
     height: 550px;
-    border: 1px solid black;
+    border: 1px solid #3c3c3c;
+    border-radius: 10px;
     position: absolute;
     top: 50px;
     left: 50px;
@@ -17,6 +18,8 @@
 #chat_header {
     font-family: 'S-CoreDream-3Light';
     background-color: #7ea5ef;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     border-bottom: 3px solid #6d90d2;
     width: 100%;
     height: 6%;
@@ -78,6 +81,8 @@
 
 #chat_footer {
     flex: auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     width: 100%;
     height: 6.5%;
 }
@@ -138,6 +143,15 @@
 
 #chat_footer > button:hover {
     background-color: #dac60e;
+}
+
+#chat_send > .input-div > textarea {
+    text-indent: 10px;
+}
+
+#chat_send > .input-div > textarea::-webkit-input-placeholder {
+    /* WebKit browsers */
+    line-height: 2em;
 }
 
 .hide {

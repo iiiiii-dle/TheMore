@@ -127,6 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const calendarDays = document.querySelectorAll('.calendar-days div');
     const quote = document.getElementById('quote');
     const expensesBox = document.getElementById('expensesBox1');
+    /* ----------[s]채림: addListBtn 누르면 expenseAdd 보이게---------- */
+    const addButton = document.querySelector('#addListBtn');
+    const expenseAdd = document.querySelector('.expenseAdd');
+    const budgetBtn = document.querySelector('.budgetBtn');
+    const incomeBtn = document.querySelector('#income');
+    const incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
+    const outcomeBtn = document.querySelector('#outcome');
+    const outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
+    const categorys = document.querySelector('.categorys');
+    const amount = document.querySelector('.amount');
+    const detail = document.querySelector('.detail');
+    const cancelBtn = document.querySelector('.cancelBtn');
+    const commitBtn = document.querySelector('.commitBtn');
+    /* [e]채림 */
 
     calendarDays.forEach(day => {
         day.addEventListener('click', () => {
@@ -147,30 +161,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ----------혜리: 수입 버튼 클릭하면 수입 보이게, 지출 버튼 클릭하면 지출 보이게---------- */
-    // 처음에는 지출 목록과 수입 목록을 모두 숨김
-    const expenseLists = document.querySelector('.expenseLists');
-    const incomeLists = document.querySelector('.incomeLists');
-    expenseLists.style.display = 'none';
-    incomeLists.style.display = 'none';
-
-    /* ----------혜리: 수입 버튼 클릭하면 수입 보이게, 지출 버튼 클릭하면 지출 보이게---------- */
-    const outcomeBtn = document.querySelector('.outcomeBtn');
-    const incomeBtn = document.querySelector('.incomeBtn');
-
-    // 지출 버튼 클릭 시
-    outcomeBtn.addEventListener('click', function () {
-        // 지출 목록 표시
-        expenseLists.style.display = 'block';
-        // 수입 목록 숨김
-        incomeLists.style.display = 'none';
+    /* ----------[s]채림: addListBtn 누르면 expenseAdd 보이게----------*/
+    addButton.addEventListener('click', () => {
+        expensesBox.style.display = 'none';
+        expenseAdd.style.display = 'block';
+        categorys.classList.add('hidden'); // 안보이기
+        amount.classList.add('hidden'); // 안보이기
+        detail.classList.add('hidden'); // 안보이기
+        cancelBtn.classList.add('hidden'); // 안보이기
+        commitBtn.classList.add('hidden'); // 안보이기
     });
 
-    // 수입 버튼 클릭 시
-    incomeBtn.addEventListener('click', function () {
-        // 수입 목록 표시
-        incomeLists.style.display = 'block';
-        // 지출 목록 숨김
-        expenseLists.style.display = 'none';
+    /* 취소 버튼 누른 경우 */
+    cancelBtn.addEventListener('click', () => {
+        expenseAdd.style.display = 'none';
+        expensesBox.style.display = 'none';
+        quote.style.display = 'block';
     });
+
+    /* 예산 / 수입 / 지출 버튼에 따라 적용
+    -----------------------------------------------------------------*/
+    budgetBtn.addEventListener('click', () => {
+        categorys.classList.add('hidden'); // 안보이기
+        amount.style.display = 'block';
+        detail.style.display = 'none';
+        cancelBtn.classList.remove('hidden'); 
+        commitBtn.classList.remove('hidden'); 
+    });
+    incomeBtn.addEventListener('click', () => {
+        categorys.classList.remove('hidden');  // 보이기
+        incomeCategoryGrid.classList.remove('hidden'); // 보이기 
+        outcomeCategoryGrid.classList.add('hidden'); // 안보이기 
+        detail.style.display = 'block';
+        cancelBtn.classList.remove('hidden'); 
+        commitBtn.classList.remove('hidden'); 
+    });
+    outcomeBtn.addEventListener('click', () => {
+        categorys.classList.remove('hidden'); // 보이기 
+        incomeCategoryGrid.classList.add('hidden'); // 안보이기
+        outcomeCategoryGrid.classList.remove('hidden'); //보이기
+        detail.style.display = 'block';
+        cancelBtn.classList.remove('hidden'); 
+        commitBtn.classList.remove('hidden'); 
+    });
+    /* [e]채림 */
 });

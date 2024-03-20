@@ -7,6 +7,7 @@
     <title>내 정보</title>
 
 <link rel="stylesheet" href="../style/myPage.css">
+<script src="../js/myPage.js"></script>
 </head>
 
 <body>
@@ -14,30 +15,30 @@
         <a class="a-link" href="#">The <span id="more">More</span></a>
     </header>
     <div id="container">
-        <form action="register.jsp">
+        <form>
             <fieldset>
                 <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
                 <h3>내 정보</h3>
                 <ul>
                     <li>
-                        <label for="umail">email</label>
-                        <input type="email" id="unmail" name="umail" readonly>
+                        <label for="email">email</label>
+                        <input type="email" id="email" name="email" readonly>
                     </li>
                     <li>
-                        <label for="nick">닉네임 </label>
-                        <input type="text" id="nick" name="nick" readonly>
+                        <label for="nickName">닉네임 </label>
+                        <input type="text" id="nickName" name="nick" readonly>
                     </li>
                     <li>
-                        <label for="date">가입 날짜</label>
-                        <input type="date" id="date" name="date" readonly>
+                        <label for="joinDate">가입 날짜</label>
+                        <input type="date" id="joinDate" name="date" readonly>
                     </li>
                     <li>
                         <label>내 정보</label>
                         <div class="radio">
                             <label for="disclosure" readonly>공개</label>
-                            <input type="radio" name="public" id="disclosure" value="disclosure_yes" readonly>
+                            <input type="radio" name="isHidden" id="disclosure" value="disclosure_yes" readonly>
                             <label for="non_disclosure" readonly>비공개</label>
-                            <input type="radio" name="public" id="non_disclosure" value="disclosure_no" readonly>
+                            <input type="radio" name="isHidden" id="non_disclosure" value="disclosure_no" readonly>
                             
                         </div>
                     </li>

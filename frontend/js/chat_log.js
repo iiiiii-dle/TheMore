@@ -1,5 +1,9 @@
+import { ChatSocket } from './socket/ChatSocket.js';
+
 class Chat_log {
-    constructor() {
+    constructor(host, port) {
+        // 소켓 연결
+        this.chatSocket = new ChatSocket(host, port, this.receiveMessage.bind(this));
         /**
          * Dom 객체 찾기
          */
@@ -36,7 +40,6 @@ class Chat_log {
                 document.removeEventListener('mousemove', this.functions.onMove);
                 document.removeEventListener('mouseover', this.functions.unmove);
             },
-            resize: () => {},
         };
 
         /**
@@ -54,7 +57,7 @@ class Chat_log {
         });
 
         this.elements.chat_log_send_button.addEventListener('click', () => {
-            this.postMessage(true);
+            this.sendMessage();
         });
     }
 
@@ -66,14 +69,26 @@ class Chat_log {
         this.elements.chat_log_wrapper.className = 'hide';
     }
 
-    postMessage(isMe) {
+    sendMessage() {
+        // html에 메시지 남기고 서버에 전송
         const text = this.elements.chat_log_message_input.value;
 
-        const message = new Message(text, 'Me', isMe);
+        // message format sender 등 수정 필요
+        const message = new Message(123, text, 'Me', true);
 
         this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
         this.elements.chat_log_message_input.value = '';
         this.scrollDown();
+
+        this.chatSocket.sendMessage(JSON.stringify(message.toJson()));
+    }
+
+    receiveMessage(msg) {
+        // 받은 메시지 처리
+        const json = JSON.parse(msg);
+        const message = new Message(json['userId'], json['message'], json['sender'], json['isMe']);
+
+        this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
     }
 
     scrollDown() {
@@ -82,7 +97,8 @@ class Chat_log {
 }
 
 class Message {
-    constructor(message, sender, isMe) {
+    constructor(userId, message, sender, isMe) {
+        this.userId = userId;
         this.message = message;
         this.sender = sender;
         this.isMe = isMe;
@@ -90,6 +106,7 @@ class Message {
 
     format() {
         const format = document.createElement('li');
+        format.setAttribute('userId', this.userId);
 
         const sender = document.createElement('div');
         sender.className = 'sender';
@@ -108,6 +125,10 @@ class Message {
         format.appendChild(sender);
         format.appendChild(message);
 
+        // 상대방 정보 보기 -> (구현 필요)
+        format.addEventListener('click', () => {
+            console.log(format.getAttribute('userId'));
+        });
         return format;
     }
 
@@ -118,6 +139,16 @@ class Message {
         format.className = this.isMe ? 'me' : 'other';
 
         return format;
+    }
+
+    // 전송 Message
+    toJson() {
+        return {
+            userId: this.userId,
+            message: this.message,
+            sender: this.sender,
+            isMe: false,
+        };
     }
 }
 

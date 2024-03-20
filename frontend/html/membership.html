@@ -23,6 +23,7 @@
                 <h3>회원 가입</h3>
                 <ul>
                     <li>
+
                         <label for="email">email <button type="button" onclick="checkDuplicate('email')" >중복확인</button></label>
                         <input type="email" id="email" name="email" value="" placeholder="email을 입력해주세요.">
                         
@@ -31,6 +32,14 @@
                         <label for="nickName">닉네임 <button type="button" onclick="checkDuplicate('nickName')">중복확인</button></label>
                         <input type="text" id="nickName" name="nickName" value="">
                         
+
+                        <label for="email">email</label>
+                        <input type="email" id="email" name="email" value="" placeholder="email을 입력해주세요.">
+                    </li>
+                    <li>
+                        <label for="nickName">닉네임 <img src="../images/warning.png" alt="warning" id="warning"></label>
+                        <input type="text" id="nickName" name="nickName" value="">
+
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
