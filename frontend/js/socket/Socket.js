@@ -7,31 +7,29 @@ class Socket {
     constructor(host, port, callback) {
         this.host = host;
         this.port = port;
-        this.callback = callback;
+        this.callback  = callback;
 
-        this.chatSocket = new WebSocket(`ws://${host}:${port}`);
+        this.socket = new WebSocket(`ws://${host}:${port}`);
 
-        this.chatSocket.addEventListener('open', () => {
+        this.socket.addEventListener('open', () => {
             console.log('[Websocket Open] : Connect Server');
         });
 
-        this.chatSocket.addEventListener('close', (event) => {
+        this.socket.addEventListener('close', (event) => {
             console.log(`[WebSocket Close] : Disconnect Server/ Error code: ${event.code}`);
         });
 
-        this.chatSocket.addEventListener('error', (event) => {
+        this.socket.addEventListener('error', (event) => {
             console.log(`${event.error}`);
         });
 
-        // 메시지 수신 이벤트
-        this.chatSocket.addEventListener('message', (event) => {
+        this.socket.addEventListener('message', (event) => {
             this.callback(event.data);
         });
     }
 
-    // 메시지 전송 함수
     sendMessage(message) {
-        this.chatSocket.send(message);
+        this.socket.send(message);
     }
 }
 
