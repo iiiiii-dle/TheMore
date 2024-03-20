@@ -26,6 +26,7 @@
         <div id="wrapper">
             <div class="calendar">
                 <div>
+                    <div class="progressText">0 / 예산</div>
                     <progress value="0" max="100" class="progress-bar"></progress>
                 </div>
                 <div class="calendar-header">
@@ -71,11 +72,11 @@
 
             <div class="expensesBox" id="expensesBox1">
                 <div id="selectedDate">날짜</div>
-                <div class="expensesBtn">
+                <div class="selectButtons">
                     <button class="expensesBtn incomeBtn">수입</button>
                     <button class="expensesBtn outcomeBtn">지출</button>
                 </div>
-                <div class="expenseLists">
+                <div class="expensesBox">
                     <div class="expenseList"><p class="expenseName">식비</p><p >30,000원</p></div><br>
                     <div class="expenseList"><p class="expenseName">주거비</p>400,000원</div><br>
                     <div class="expenseList"><p class="expenseName">보험비</p>90,000원</div>
@@ -83,8 +84,47 @@
                 <button id="addListBtn"><img src="../images/Pluse.png" alt=""></button>
             </div>
             <!-- 채림 -->
-            <div class="accountBox">
-            </div> <!-- /.accountBox -->
+            <div class="expenseAdd">
+                <div id="select">날짜</div>
+                <div class="selectButtons">
+                    <button class="expensesBtn budgetBtn">예산</button>
+                    <button class="expensesBtn incomeBtn" id="income">수입</button>
+                    <button class="expensesBtn outcomeBtn" id="outcome">지출</button>
+                </div>
+                <div class="categorys">
+                    <lael>카테고리</lael>
+                    <div class="outcomeCategoryGrid">
+                        <button>🍚 식비</button>
+                        <button>🚘 교통</button>
+                        <button>📱 통신</button>
+                        <button>🛍️ 쇼핑</button>
+                        <button>🏠 주거</button>
+                        <button>🍀 보험</button>
+                        <button>💸 금융</button>
+                        <button>🎥 문화생활</button>
+                        <button>📖 자기계발</button>
+                    </div>
+                    <div class="incomeCategoryGrid">
+                        <button>💰 월급</button>
+                        <button>💵 상여금</button>
+                        <button>💸 금융소득</button>
+                        <button>🤑 용돈</button>
+                        <button>🎸 기타</button>
+                    </div>
+                </div> <!-- /.category -->
+                <div class="amount">
+                    <label for="amount">금액</label>
+                    <input type="number" id="amount">
+                </div> <!-- /.amount -->
+                <div class="detail">
+                    <label for="detail">내용</label>
+                    <input type="text" id="detail">
+                </div> <!-- /.detail -->
+                <div class="expenseAddBtn">
+                    <button class="expensesBtn cancelBtn" type="reset">취소</button>
+                    <button class="expensesBtn commitBtn" type="submit">저장</button>
+                </div>
+            </div> <!-- /.expenseAdd -->
         </div>
     </div>
 </body>
