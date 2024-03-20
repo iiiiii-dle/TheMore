@@ -10,20 +10,26 @@ import DTO.Users;
 public class UsersDAO {
 	public UsersDAO() {}
 	
-	//회원 추가
+	
+	/**
+	 * @author 전민재<br>
+	 * 			insertUser : 회원 정보를 db에 저장하는 기능<br>
+	 * 
+	 * @return result : db에 저장이 성공적으로 되면 1을 반환
+	 */
+
 	public static int insertUser(Connection conn, Users user) throws Exception{
 		int result = 0;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "INSERT INTO users (email, password, salt, nickName,joinDate, isActive, isHidden) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+			String sql = "INSERT INTO users (email, password, salt, nickName,joinDate) VALUES (?, ?, ?, ?, ?) ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getSalt());
 			pstmt.setString(4, user.getNickName());
 			pstmt.setDate(5, user.getJoinDate());
-			pstmt.setBoolean(6, user.getIsActive());
-			pstmt.setBoolean(7, user.getIsHidden());
+
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -34,21 +40,21 @@ public class UsersDAO {
 		return result;
 	}
 	
+
 	// 회원 수정
 	public static int updateUser(Connection conn, Users user) throws Exception{
 		int result = 0;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "UPDATE users SET email = ?, password = ?, salt = ? , nickName =? , joinDate = ?, isActive = ?, isHidden = ?, WHERE userId = ?";
+			String sql = "UPDATE users SET email = ?, password = ?, salt = ? , nickName =? , joinDate = ?, isHidden = ?, WHERE userId = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getSalt());
 			pstmt.setString(4, user.getNickName());
 			pstmt.setDate(5, user.getJoinDate());
-			pstmt.setBoolean(6, user.getIsActive());
-			pstmt.setBoolean(7, user.getIsHidden());
-			pstmt.setInt(8, user.getUserId());
+			pstmt.setBoolean(6, user.getIsHidden());
+			pstmt.setInt(7, user.getUserId());
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -58,7 +64,12 @@ public class UsersDAO {
 		System.out.println("UsersDAO - updateUser: " + result);
 		return result;
 	}
-	// 특정 회원 조회
+	/**
+	 * @author 전민재<br>
+	 * 			getUser : db에 저장된 회원 불러오기<br>
+	 * 
+	 * @return result : db에 불러오기를 성공적으로 되면 1을 반환
+	 */
 	public static Users getUser(Connection conn, int userId) throws Exception{
 		Users user = null;
 		PreparedStatement pstmt = null;
