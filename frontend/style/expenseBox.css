@@ -3,6 +3,25 @@
     box-sizing: border-box;
 }
 
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(55, 159, 235, 0.3);
+    position: absolute; 
+    right: 30px; 
+}
+
+#pinkTheme {
+    right: 110px;
+    background-color: rgba(242, 111, 111, 0.3);
+}
+
+#greenTheme {
+    right: 70px;
+    background-color: rgba(111, 242, 132, 0.3);
+}
+
 .quote {
     width: 50%;
 }
