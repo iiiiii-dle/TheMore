@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TheMore - 가계부</title>
     <link rel="stylesheet" href="../style/nomalize.css">
-    <!-- <link rel="stylesheet" href="../style/account.css"> -->
+    <link rel="stylesheet" href="../style/account.css">
     <link rel="stylesheet" href="../style/calendar.css">
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <link rel="stylesheet" href="../style/quote.css">
     <link rel="stylesheet" href="../style/expenseBox.css">
     <script src="../js/account.js" defer></script>
 </head>
+
 <body>
     <div id="container">
         <iframe src="../component/header.html" style="border: none;" width="100%" height="100%"></iframe>
@@ -38,6 +40,7 @@
                         </span>
                     </div> <!-- /.year-picker -->
                 </div> <!-- /.calendar-header -->
+
                 <div class="calendar-body">
                     <div class="month-picker" id="month-picker">
                         <span class="month-change" id="pre-month">
@@ -62,8 +65,10 @@
                     </div>
                 </div> <!-- /.calendar-body -->
             </div> <!-- /.calendar -->
+
             <div class="quote" id="quote">
                 <!-- 명언 -->
+
             </div>
             <div class="expensesBox" id="expensesBox1">
                 <div id="selectedDate">날짜</div>
@@ -72,11 +77,18 @@
                     <button class="expensesBtn outcomeBtn">지출</button>
                 </div>
                 <div class="expensesBox">
-                    <div class="expenseList"><p class="expenseName">식비</p><p >30,000원</p></div><br>
-                    <div class="expenseList"><p class="expenseName">주거비</p>400,000원</div><br>
-                    <div class="expenseList"><p class="expenseName">보험비</p>90,000원</div>
+                    <div class="expenseList">
+                        <p class="expenseName">식비</p>
+                        <p>30,000원</p>
+                    </div><br>
+                    <div class="expenseList">
+                        <p class="expenseName">주거비</p>400,000원
+                    </div><br>
+                    <div class="expenseList">
+                        <p class="expenseName">보험비</p>90,000원
+                    </div>
                 </div>
-                <button id="addListBtn"><img src="" alt=""></button>
+                <button id="addListBtn"><img src="../images/Pluse.png" alt=""></button>
             </div>
             <!-- 채림 -->
             <div class="expenseAdd">
@@ -105,24 +117,6 @@
                         <button>💸 금융소득</button>
                         <button>🤑 용돈</button>
                         <button>🎸 기타</button>
-                    카테고리
-                    <div class="outcomeCategoryGrid">
-                        <button>:밥: 식비</button>
-                        <button>:다가오는_자동차: 교통</button>
-                        <button>:아이폰: 통신</button>
-                        <button>:쇼핑백: 쇼핑</button>
-                        <button>:집: 주거</button>
-                        <button>:네잎클로버: 보험</button>
-                        <button>:날개_달린_돈: 금융</button>
-                        <button>:영화_촬영_카메라: 문화생활</button>
-                        <button>:펼쳐진_책: 자기계발</button>
-                    </div>
-                    <div class="incomeCategoryGrid">
-                        <button>:돈가방: 월급</button>
-                        <button>:달러: 상여금</button>
-                        <button>:날개_달린_돈: 금융소득</button>
-                        <button>:입에_돈을_물고_있는_얼굴: 용돈</button>
-                        <button>:기타: 기타</button>
                     </div>
                 </div> <!-- /.category -->
                 <div class="amount">
@@ -141,4 +135,5 @@
         </div>
     </div>
 </body>
+
 </html>
