@@ -104,8 +104,8 @@ button {
     font-size: 0.7rem;
     font-weight: bold;
 }
-button: :hover{
-    
+button:hover{
+    background-color: rgba(255, 177, 177, 0.5);
 }
 
 input {
