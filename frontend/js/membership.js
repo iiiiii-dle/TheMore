@@ -1,3 +1,4 @@
+
 var socket = new WebSocket("ws://localhost:9000");
 
 // WebSocket이 열렸을 때 실행될 함수
@@ -17,22 +18,18 @@ function submitForm(event){
 
     var email = document.getElementById("email").value;
     var nickName = document.getElementById("nickName").value;
-
-    compareData(email, nickName);
-
-    var form = document.getElementById("registerForm");
-    var formData = new FormData(form);
-    // FormData를 JSON으로 변환
-
-    var jsonData = JSON.stringify(Object.fromEntries(formData));
-
-  
-
-    //WebSocket을 통해 서버로 데이터 전송
-    socket.send(jsonData);
+    // 비동기적으로 compareData 함수 호출
+    compareData(email, nickName).then(function(result){
+        if(result){
+            var form = document.getElementById("registerForm");
+            var formData = new FormData(form);
+            // FormData를 JSON으로 변환
+            var jsonData = JSON.stringify(Object.fromEntries(formData));
+            //WebSocket을 통해 서버로 데이터 전송
+            socket.send(jsonData);
+        }
+    });
 }
-
-
 // testData 생성해서 회원가입하는 정보와 비교하기 위함
 const testData = {
     email : ["123@a.com"],
@@ -40,29 +37,47 @@ const testData = {
 }
 // 회원 가입 시 회원이 입력한 정보와 testData 비교 함수
 function compareData(email, nickName){
-    // testData와 비교
-    for(let i=0;i<testData.email.length; i++){
-        if(testData.email[i] === email){
-            // 입력한 이메일 testData에 존재하는 경우
-            swal('회원가입 실패',"이미 존재하는 email입니다.",'warning').then(function(){
-                location.href="$membership.html";
-            })
-            return false;   // 회원 가입 실패
+    return new Promise(function(resolve, reject) {
+        if(testData.email.includes(email)){
+            showSwal1("회원가입 실패", "email을 확인하세요", "warning").then(function() {
+                resolve(false); // 회원 가입 실패
+            });
+        } else if(testData.nickName.includes(nickName)){
+            showSwal2("회원가입 실패", "닉네임을 확인하세요", "warning").then(function() {
+                resolve(false); // 회원 가입 실패
+            });
+        } else {
+            showSwal3("회원가입 성공", "환영합니다!", "success").then(function() {
+                resolve(true); // 회원 가입 성공
+            });
         }
-    }
-    for(let i =0;i<testData.nickName.length; i++){
-        if(testData.nickName[i] === nickName){
-            // 입력한 닉네임이 testData에 존재하는 경우
-            swal('회원가입 실패!',"이미 존재하는 닉네임입니다.",'warning').then(function(){
-                location.href="membership.html";
-            })
-            return false;   // 회원 가입 실패
-        }
-    }
-    // testData에 없는 경우
-    swal('회원가입 성공',"가계부페이지로 이동합니다.",'success').then(function(){
-        location.href="membership.html";
-    })
-    return true;  // 회원 가입 성공
+    });
 }
 
+function showSwal1(title, text, icon){
+    Swal.fire({
+        icon: "warning",
+        title: title,
+        text: text,
+        showConfirmButton: true,
+
+    });
+}
+function showSwal2(title, text, icon){
+    Swal.fire({
+        icon: "warning",
+        title: title,
+        text: text,
+        showConfirmButton: true,
+
+    });
+}
+function showSwal3(title, text, icon){
+    Swal.fire({
+        icon: "success",
+        title: title,
+        text: text,
+        showConfirmButton: true,
+
+    });
+}
