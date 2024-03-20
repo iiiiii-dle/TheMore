@@ -1,4 +1,4 @@
-class ChatSocket {
+class Socket {
     /**
      * host: 호스트 주소
      * port: 포트 번호
@@ -12,7 +12,6 @@ class ChatSocket {
         this.chatSocket = new WebSocket(`ws://${host}:${port}`);
 
         this.chatSocket.addEventListener('open', () => {
-            sessionStorage.setItem('socket', JSON.stringify({ url: `ws://${host}:${port}` }));
             console.log('[Websocket Open] : Connect Server');
         });
 
@@ -36,4 +35,4 @@ class ChatSocket {
     }
 }
 
-export { ChatSocket };
+export { Socket };
