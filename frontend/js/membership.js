@@ -122,31 +122,3 @@ function login(){
     }
 }
 
-// Swal.fire({
-//     icon: "success",
-//     title: "회원가입 성공",
-//     text: "환영합니다",
-//     showConfirmButton: true,
-//     timer: 10000 // 확인 버튼 표시
-// }).then((result) => {
-//     if (result.isConfirmed) { // 확인 버튼이 눌렸을 때만 실행
-//         var form = document.getElementById("registerForm");
-//         var formData = new FormData(form);
-//         // FormData를 JSON으로 변환
-//         var jsonData = JSON.stringify(Object.fromEntries(formData));
-//         //WebSocket을 통해 서버로 데이터 전송
-//         socket.send(jsonData);
-//     }
-// });
-
-// Swal.fire({
-//     icon: "success",
-//     title: "회원가입 성공",
-//     text: "환영합니다",
-//     showConfirmButton: true,
-//     timer: 10000 // 확인 버튼 표시
-// }).then((result) => {
-//     if (result.isConfirmed) { // 확인 버튼이 눌렸을 때만 실행
-
-//     }
-// });
