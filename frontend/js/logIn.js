@@ -2,7 +2,7 @@ import { Socket } from './socket/Socket';
 
 class LoginSocket {
     constructor(host, port) {
-        this.socket = new Socket(host, port, this.callback.bind(this));
+        this.socket = new LoginSocket(host, port, this.callback.bind(this));
     }
 
     submitForm(data) {
