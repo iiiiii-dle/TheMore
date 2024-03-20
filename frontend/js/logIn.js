@@ -1,26 +1,35 @@
-var socket = new WebSocket("ws://localhost:9000");
+import { Socket } from './socket/Socket';
 
-// WebSocket이 열렸을 때 실행될 함수
-socket.onopen = function(event) {
-    console.log("WebSocket 연결 성공");
-};
+class LoginSocket {
+    constructor(host, port) {
+        this.socket = new Socket(host, port, this.callback.bind(this));
+    }
 
-// WebSocket으로부터 메시지를 받았을 때 실행될 함수
-socket.onmessage = function(event){
-    console.log("서버로부터 메시지 수신: " + event.data);
-    // 받은 메시지 처리 코드 추가
-};
+    submitForm(data) {
+        // 폼을 제출할 때 실행될 함수
+        const form = document.getElementById('logInForm');
+        const formData = new FormData(form);
+        // FormData를 JSON으로 변환
 
-// 폼을 제출할 때 실행될 함수
-function submitForm(event){
-    event.prevetnDefault(); // 기본 동작 중단
+        const jsonData = JSON.stringify(Object.fromEntries(formData));
 
-    var form = document.getElementById("logInForm");
-    var formData = new FormData(form);
-    // FormData를 JSON으로 변환
+        //WebSocket을 통해 서버로 데이터 전송
+        this.socket.sendMessage(jsonData);
+    }
 
-    var jsonData = JSON.stringify(Object.fromEntries(formData));
+    callback(data) {
+        const json = JSON.parse(data);
 
-    //WebSocket을 통해 서버로 데이터 전송
-    socket.send(jsonData);
+        const state = json['state'];
+
+        if (!state) {
+            // 로그인 실패
+        } else {
+            const userId = json['userId'];
+            sessionStorage.setItem('userId', userId);
+            // 메인 페이지 화면으로 이동
+        }
+    }
 }
+
+function initailize() {}
