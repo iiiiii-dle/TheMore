@@ -4,6 +4,9 @@
     font-weight: normal;
     font-style: normal;
 }
+*{
+    font-family: 'S-CoreDream-3Light';
+}
 
 header {
     color: #3c3c3c;
@@ -88,6 +91,22 @@ label {
     padding-right: 10px;
     text-align: left;
 }
+button {
+    display: inline-block;
+    text-align: center;
+    float: right;
+    background-color: #FFB1B1;
+    border: none;
+    padding: 1px 5px;
+    border-radius: 20px;
+    margin-left: 10px; /* 버튼 왼쪽 마진 추가 */
+    margin-top: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+button: :hover{
+    
+}
 
 input {
     display: block;
@@ -110,7 +129,7 @@ input[type="email"] {
     outline: none;
 }
 
-input[type="submit"] {
+input[type="button"] {
     display: inline-block;
     text-align: center;
     background-color: #FFB1B1;
