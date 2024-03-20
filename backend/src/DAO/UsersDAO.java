@@ -1,11 +1,10 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.sql.SQLException;
+
 import DTO.Users;
 
 public class UsersDAO {
@@ -35,23 +34,6 @@ public class UsersDAO {
 		return result;
 	}
 	
-	// 회원 삭제
-	public static int deleteUser(Connection conn, Users user) throws Exception{
-		int result = 0;
-		PreparedStatement pstmt = null;
-		try {
-			String sql = "DELETE FROM users WHERE userId = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, user.getUserId());
-			result = pstmt.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			pstmt.close();
-		}
-		System.out.println("UsersDAO - deleteUser: " + result);
-		return result;
-	}
 	// 회원 수정
 	public static int updateUser(Connection conn, Users user) throws Exception{
 		int result = 0;
@@ -104,5 +86,37 @@ public class UsersDAO {
 			pstmt.close();
 		}
 		return user;
+	}
+	
+	/**
+	 * @author 이경석<br>
+	 * 			stopUser : 유저 계정을 비활성화, 숨김 처리 (계정 탈퇴)<br>
+	 * 
+	 * @return result : User 계정 하나의 isActivate, isHidden이 false로 변경되며 1을 반환
+	 */
+	public int stopUser(Connection conn, Users user) throws SQLException {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String query = "UPDATE Users SET isActivate=?, isHidden=? WHERE userId=?";
+			
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setBoolean(1, false);
+			pstmt.setBoolean(2, true);
+			pstmt.setInt(3, user.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pstmt.close();
+		}
+		
+		return result;
+		
 	}
 }
