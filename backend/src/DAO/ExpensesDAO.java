@@ -199,4 +199,49 @@ public class ExpensesDAO {
         return totalAmount;
     }
 
+	/**
+	 * @author 최병민<br>
+	 * 			getTotalCategoryAmount : userId가 일치하면 수입이면 수입 수출이면 수출을 분류한 후<br>
+	 * 									 각 카테고리 별로 분류를 한 후 날짜 데이터 년도와 월로 분류를 해서
+	 * 									 월에 해당하는 각각의 카테고리의 합을 출력한다.
+	 * @param isInCategory
+	 * @param expenses
+	 * @return
+	 * @throws Exception
+	 */
+	public static int getTotalCategoryAmount(Connection conn, boolean isInCategory, Expenses expenses) throws Exception {
+        int totalCategoryAmount = 0;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql;
+            if (isInCategory) {
+                sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1 AND categoryId = ? AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
+            } else {
+                sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0 AND categoryId = ? AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
+            }
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, expenses.getUserId());
+            pstmt.setInt(2, expenses.getCategoryId());
+            pstmt.setDate(3, expenses.getExpensesDate());
+            pstmt.setDate(4, expenses.getExpensesDate());
+
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+            	totalCategoryAmount = rs.getInt(isInCategory ? "totalIncome" : "totalExpense");
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+        }
+
+        return totalCategoryAmount;
+    }
+
+	
 }
