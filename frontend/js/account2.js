@@ -1,3 +1,4 @@
+
 class Calendar {
     constructor() {
         this.quote = new Quote();
@@ -137,46 +138,141 @@ class Quote {
 
 class ExpensesBox {
     constructor() {
-        document.addEventListener('DOMContentLoaded', () => {
-            this.expensesBox1 = document.querySelector('#expensesBox1');
-            this.expenseList = document.querySelector('.expenseList');
-            this.incomeLists = document.querySelector('.incomeLists');
-            this.expenseList.style.display = 'none';
-            this.incomeLists.style.display = 'none';
+        this.expenseAdd = new ExpenseAdd();
+        this.expensesBox1 = document.querySelector('#expensesBox1');
+        this.expenseList = document.querySelector('.expenseList');
+        this.incomeLists = document.querySelector('.incomeLists');
+        this.expenseList.style.display = 'none';
+        // this.incomeLists.style.display = 'none';
 
-            this.outcomeBtn = document.querySelector('.outcomeBtn');
-            this.incomeBtn = document.querySelector('.incomeBtn');
+        this.outcomeBtn = document.querySelector('.outcomeBtn');
+        this.incomeBtn = document.querySelector('.incomeBtn');
+        /* 채림 */
+        this.expensesBox = document.querySelector('.expensesBox');
+        this.addButton = document.querySelector('#addListBtn');
+        this.expenseAdd = document.querySelector('.expenseAdd');
+        this.categorys = document.querySelector('.categorys');
+        this.amount = document.querySelector('.amount');
+        this.detail = document.querySelector('.detail');
+        this.cancelBtn = document.querySelector('.cancelBtn');
+        this.commitBtn = document.querySelector('.commitBtn');
+        /*  */
 
-            this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
-            this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
+        this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
+        this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
 
-            // 요소가 제대로 찾아졌을 때 버튼 클릭 이벤트를 바인딩합니다.
-            this.clickOutcomeBtn();
-            this.clickIncomeBtn();
-        });
+        // 요소가 제대로 찾아졌을 때 버튼 클릭 이벤트를 바인딩합니다.
+        this.clickOutcomeBtn();
+        this.clickIncomeBtn();
+        this.clickAddListBtn();
     }
 
     clickOutcomeBtn() {
         this.outcomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
             this.expenseList.style.display = 'block';
-            this.incomeLists.style.display = 'none';
+            // this.incomeLists.style.display = 'none';
         });
     }
 
     clickIncomeBtn() {
         this.incomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
-            this.incomeLists.style.display = 'block';
+            // this.incomeLists.style.display = 'block';
             this.expenseList.style.display = 'none';
         });
     }
+
+    /* 채림 */
+    clickAddListBtn() {
+        this.addButton.addEventListener('click', () => {
+            // const expenseAddBoxStyle = getComputedStyle(this.expenseAdd);
+            this.expensesBox1.style.display = 'none';
+            this.expenseAdd.style.display = 'block';
+            this.categorys.classList.add('hidden'); // 안보이기
+            this.amount.classList.add('hidden'); // 안보이기
+            this.detail.classList.add('hidden'); // 안보이기
+            this.cancelBtn.classList.add('hidden'); // 안보이기
+            this.commitBtn.classList.add('hidden'); // 안보이기
+        });
+    }
+
+    clickCancelBtn() {
+        this.expenseAdd.style.display = 'none';
+        this.expensesBox1.style.display = 'none';
+        this.quote.style.display = 'block';
+    }
+    /*  */
 }
 
+class ExpenseAdd {
+    constructor() {
+        this.budgetBtn = document.querySelector('.budgetBtn');
+        this.incomeBtn = document.querySelector('#income');
+        this.outcomeBtn = document.querySelector('#outcome');
+        this.incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
+        this.outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
+
+        this.categorys = document.querySelector('.categorys');
+        this.amount = document.querySelector('.amount');
+        this.detail = document.querySelector('.detail');
+        this.cancelBtn = document.querySelector('.cancelBtn');
+        this.commitBtn = document.querySelector('.commitBtn');
+
+        this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
+        this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
+        this.clickOutcomeBtn2 = this.clickOutcomeBtn2.bind(this);
+
+        // this.incomeCategoryGrid = this.incomeCategoryGrid.bind(this);
+        // this.outcomeCategoryGrid = this.outcomeCategoryGrid.bind(this);
+
+        // 요소가 제대로 찾아졌을 때 버튼 클릭 이벤트를 바인딩합니다.
+        this.clickBudgeBtn();
+        this.clickIncomeBtn2();
+        this.clickOutcomeBtn2();
+    }
+
+    clickBudgeBtn() {
+        this.budgetBtn.addEventListener('click', ()=> {
+            this.categorys.classList.add('hidden'); // 안보이기
+            this.amount.style.display = 'block';
+            this.detail.style.display = 'none';
+            this.cancelBtn.classList.remove('hidden');
+            this.commitBtn.classList.remove('hidden');
+        });
+    }
+
+    clickIncomeBtn2() {
+        this.incomeBtn.addEventListener('click', ()=> {
+            // console.log(this.target);
+            // console.log(this.target.parentElement);
+            // console.log(this.categorys.classList);
+            this.categorys.classList.remove('hidden');  // 보이기
+            this.incomeCategoryGrid.classList.remove('hidden'); // 보이기 
+            this.outcomeCategoryGrid.classList.add('hidden'); // 안보이기 
+            this.detail.style.display = 'block';
+            this.cancelBtn.classList.remove('hidden');
+            this.commitBtn.classList.remove('hidden');
+        });
+    }
+
+    clickOutcomeBtn2() {
+        this.outcomeBtn.addEventListener('click', ()=> {
+            this.categorys.classList.remove('hidden'); // 보이기 
+            this.incomeCategoryGrid.classList.add('hidden'); // 안보이기
+            this.outcomeCategoryGrid.classList.remove('hidden'); //보이기
+            this.detail.style.display = 'block';
+            this.cancelBtn.classList.remove('hidden');
+            this.commitBtn.classList.remove('hidden');
+            // console.log('새끼야');
+        });
+    }
+}
 function initialize() {
     const calendar = new Calendar();
     calendar.displayExpenseBox();
 }
 
-initialize();
+document.addEventListener('DOMContentLoaded', () => {
+    initialize();
+});
 
-export { Calendar, Quote, ExpensesBox };
-
+export { Calendar, Quote, ExpensesBox, ExpenseAdd };
