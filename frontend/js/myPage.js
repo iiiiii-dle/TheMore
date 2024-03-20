@@ -16,8 +16,8 @@ socket.onmessage = function(event){
     document.getElementById("email").value = userInfo.email;
     document.getElementById("nickName").value = userInfo.nickName;
     document.getElementById("joinDate").value = userInfo.joinDate;
-    // isActive 값에 따라 공개/비공개 라디오 버튼 선택
-    if(userInfo.isActive){
+    // isHidden 값에 따라 공개/비공개 라디오 버튼 선택
+    if(userInfo.isHidden){
         document.getElementById("disclosure").checked = true;
     }else{
         document.getElementById("non_disclosure").checked = true;

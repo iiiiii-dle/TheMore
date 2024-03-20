@@ -21,14 +21,14 @@ function submitForm(){
     var email = document.getElementById("email").value;
     var nickName = document.getElementById("nickName").value;
     var password = document.getElementById("password").value;
-    var isPublic = document.querySelector('input[name="public"]:checked').value;
+    var isHidden = document.querySelector('input[name="isHidden"]:checked').value;
 
     // 사용자가 입력한 정보를 JSON 형식으로 변환
     var userInfo = {
         email: email,
         nickName: nickName,
         password: password,
-        isPublic: isPublic
+        isHidden: isHidden
     };
 
     // 서버로 사용자 정보 전송
