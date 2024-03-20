@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원 가입 페이지</title>
-    <link rel="stylesheet" href="../style/membership.css">
-    <script src="../js/membership.js"></script>
+    <title>회원 정보 수정</title>
+
+<link rel="stylesheet" href="../style/modify.css">
 </head>
 
 <body>
@@ -14,46 +14,46 @@
         <a class="a-link" href="#">The <span id="more">More</span></a>
     </header>
     <div id="container">
-        <form id="registerForm" onsubmit="submitForm(event)">
+        <form action="register.jsp">
             <fieldset>
                 <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
-                <h3>회원 가입</h3>
+                <h3>회원 정보 수정</h3>
                 <ul>
                     <li>
                         <label for="umail">email</label>
-                        <input type="email" id="unmail" name="email" value="" placeholder="email을 입력해주세요.">
+                        <input type="email" id="unmail" name="umail" readonly>
                     </li>
                     <li>
                         <label for="nick">닉네임 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="nick" name="nick" value="">
+                        <input type="text" id="nick" name="nick" >
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="password" name="password" value="">
+                        <input type="text" id="password" placeholder="변경하실 비밀번호를 입력해주세요">
                     </li>
                     <li>
                         <label for="checkPassword">비밀번호 확인</label>
-                        <input type="text" id="checkPassword" >
+                        <input type="text" id="checkPassword">
                     </li>
                     <li>
                         <label>내 정보</label>
                         <div class="radio">
-                            <input type="radio" name="public" id="disclosure" value="disclosure_yes">
                             <label for="disclosure">공개</label>
-                            <input type="radio" name="public" id="non_disclosure" value="disclosure_no">
+                            <input type="radio" name="public" id="disclosure" value="disclosure_yes"  >
+                            
                             <label for="non_disclosure">비공개</label>
+                            <input type="radio" name="public" id="non_disclosure" value="disclosure_no" >
+                            
                         </div>
                     </li>
                     <li>
-
-                        <label for="accept"><input type="checkbox" name="accept" value="accept">이용약관 개인정보 수집 및 이용, 마케팅 활용 선택에
-                            동의합니다.</label>
-
+                        
+                        <a href="#" id="out">탈퇴</a>
                     </li>
                 </ul>
-
                 <div id="button">
-                    <input type="submit" value="회원 가입">
+                    <input type="submit" value="저장">
+                    <input type="submit" value="수정">
                 </div>
             </fieldset>
 

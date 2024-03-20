@@ -1,4 +1,3 @@
-
 #section-link {
     color: #3C3C3C;
     font-family: 'S-CoreDream-3Light';
@@ -8,7 +7,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    padding-top: 0;
+    margin-bottom: 50px;
 }
 #section-link li{
     padding-right:50px;
@@ -28,7 +28,20 @@
     list-style-image: url("../images/Calendar.png");
 }
 
-#statistics {
-    
-    list-style: none;
+#wrapper {
+    display: flex;
+}
+
+.calendar {
+    flex: 1;
+}
+
+.quote {
+    padding-top: 200px;
+    flex: 1;
+}
+
+.expensesBox {
+    display: none;
+    flex: 1;
 }
