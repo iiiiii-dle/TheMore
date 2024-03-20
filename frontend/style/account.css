@@ -45,3 +45,8 @@
     display: none;
     flex: 1;
 }
+
+.expenseAdd {
+    display: none;
+    flex: 1;
+}

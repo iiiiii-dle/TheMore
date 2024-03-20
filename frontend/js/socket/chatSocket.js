@@ -2,13 +2,14 @@ class ChatSocket {
     /**
      * host: 호스트 주소
      * port: 포트 번호
-     * messageHandler: 메시지 수신 처리 콜백 함수
+     * callback: 메시지 수신 처리 콜백 함수
      */
-    constructor(host, port) {
+    constructor(host, port, callback) {
         this.host = host;
         this.port = port;
+        this.callback = callback;
 
-        this.chatSocket = new WebSocket(`${host}:${port}`);
+        this.chatSocket = new WebSocket(`ws://${host}:${port}`);
 
         this.chatSocket.addEventListener('open', () => {
             console.log('[Websocket Open] : Connect Server');
@@ -22,11 +23,13 @@ class ChatSocket {
             console.log(`${event.error}`);
         });
 
+        // 메시지 수신 이벤트
         this.chatSocket.addEventListener('message', (event) => {
-            console.log(event.data);
+            this.callback(event.data);
         });
     }
 
+    // 메시지 전송 함수
     sendMessage(message) {
         this.chatSocket.send(message);
     }
