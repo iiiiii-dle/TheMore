@@ -14,6 +14,8 @@ public class ChatServer extends WebSocketServer{
 		final String host = "localhost";
 		final int port = 8080;
 		
+		
+		
 		ChatServer chatServer = new ChatServer(new InetSocketAddress(host, port));
 		chatServer.run();
 		
