@@ -204,10 +204,11 @@ public class ExpensesDAO {
 	 * 			getTotalCategoryAmount : userId가 일치하면 수입이면 수입 수출이면 수출을 분류한 후<br>
 	 * 									 각 카테고리 별로 분류를 한 후 날짜 데이터 년도와 월로 분류를 해서
 	 * 									 월에 해당하는 각각의 카테고리의 합을 출력한다.
-	 * @param isInCategory
-	 * @param expenses
-	 * @return
-	 * @throws Exception
+	 @param Boolean isIncome<br>
+	 * 				  true = 수입 내역 불러오기(카테고리 번호 순)
+	 * 				  false = 지출 내역 불러오기(카테고리 번호 순)
+	 * 
+	 * @return totalCategoryAmount
 	 */
 	public static int getTotalCategoryAmount(Connection conn, boolean isInCategory, Expenses expenses) throws Exception {
         int totalCategoryAmount = 0;
