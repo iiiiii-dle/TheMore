@@ -10,18 +10,37 @@ import DB.DBConnection;
 import DTO.Users;
 
 public class LoginService {
+	
 
-	public void Login(WebSocket socket,JSONObject json, Map<WebSocket, Users> session) {
+	public void login(WebSocket socket,JSONObject json, Map<Integer, Users> session) {
+	
+		String email = json.getString("email");
+		String password = json.getString("password");
 		
-		// Login Service 임시 추가
-		Users user;
+		Users user = null;
 		try {
+			user = UsersDAO.getUserByEmail(DBConnection.getConnection(), email);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		JSONObject response = new JSONObject();
+		
+		response.append("cmd", "Login");
+		
+		if(user == null || password != user.getPassword()) {
+			response.append("state", false);
+		}
+		
+		else {
+			response.append("state", true);
+			response.append("userId", user.getUserId());
+			session.put(user.getUserId(), user);
+		}
+		
+		socket.send(response.toString());
 		
 		
 	}
