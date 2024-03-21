@@ -88,33 +88,51 @@ function checkDuplicate(field) {
 function login(){
     var emailValue = document.getElementById('email').value;
     var nickNameValue = document.getElementById('nickName').value;
+    var passValue = document.getElementById('password').value;
+    var disclosure = document.getElementById('disclosure').checked;
+    var non_disclosure = document.getElementById('non_disclosure').checked;
 
-    // 이메일 중복 확인
-    if (testData.email.includes(emailValue)) {
+    // 이메일 값 확인
+    if (emailValue.trim() === '') {
         Swal.fire({
             icon: "warning",
-            title: "중복 확인",
-            text: "이미 사용 중인 email입니다.",
+            title: "email 확인",
+            text: "email을 입력하세요",
             showConfirmButton: false,
             timer: 1000
         });
-    } else if (testData.nickName.includes(nickNameValue)) { // 닉네임 중복 확인
+    } else if (nickNameValue.trim() === '') { // 닉네임 값 확인
         Swal.fire({
             icon: "warning",
-            title: "중복 확인",
-            text: "이미 사용 중인 닉네임입니다.",
+            title: "닉네임 확인",
+            text: "닉네임을 입력하세요",
             showConfirmButton: false,
             timer: 1000
         });
-    } else { // 이메일과 닉네임 중복이 아닌 경우 회원가입 성공
+    } else if(passValue.trim() === ''){ // password 값 확인
+        Swal.fire({
+            icon: "warning",
+            title: "비밀번호 확인",
+            text: "비밀번호를 입력하세요",
+            showConfirmButton: false,
+            timer: 1000
+        });
+    } else if(!disclosure && !non_disclosure){
+        Swal.fire({
+            icon: "warning",
+            title: "내 정보 확인",
+            text: "공개, 비공개를 체크하세요",
+            showConfirmButton: false,
+            timer: 1000
+        });
+    } else { // 이메일과 닉네임, password가 null이 아닌 경우 회원가입 성공
         Swal.fire({
             icon: "success",
             title: "회원가입 성공",
             text: "환영합니다",
-            showConfirmButton: true,
-            timer: 10000 // 확인 버튼 표시
+            showConfirmButton: true,// 확인 버튼 표시
         }).then((result) => {
-            if (result.isConfirmed) {// 확인 버튼 표시
+            if (result.isConfirmed) {
                 // 페이지 이동
                 window.location.href = "index.html";
             }
