@@ -160,7 +160,7 @@ class ExpensesBox {
         // this.selectedDate = document.querySelector('#selectedDate');
         this.expenseList = document.querySelector('.expenseList');
         this.incomeLists = document.querySelector('.incomeLists');
-        this.expenseList.style.display = 'none';
+        // this.expenseList.style.display = 'none';
         // this.incomeLists.style.display = 'none';   
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
@@ -181,6 +181,7 @@ class ExpensesBox {
         this.clickOutcomeBtn();
         this.clickIncomeBtn();
         this.clickAddListBtn();
+        this.isExpenseList();
     }
 
 
@@ -198,7 +199,6 @@ class ExpensesBox {
         });
     }
 
-    /* 채림 */
     clickAddListBtn() {
         this.addButton.addEventListener('click', () => {
             // const expenseAddBoxStyle = getComputedStyle(this.expenseAdd);
@@ -210,6 +210,13 @@ class ExpensesBox {
             this.cancelBtn.classList.add('hidden'); // 안보이기
             this.commitBtn.classList.add('hidden'); // 안보이기
         });
+    }
+
+    isExpenseList() {
+         this.expenseList = document.querySelector('.expenseList');
+        if (this.expenseList.textContent.trim()) {
+            this.expenseAdd = new ExpenseAdd();
+        }
     }
 }
 
