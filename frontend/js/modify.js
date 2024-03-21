@@ -16,14 +16,29 @@ class Save {
         // 비밀번호 확인(input) 필드의 값이 변경될 때마다 비밀번호 일치 여부 확인
         document.getElementById("checkPassword").addEventListener("input", this.checkPasswordMatch);
         document.getElementById("cancel_btn").addEventListener("click", this.cancle);
+        document.getElementById("disclosure").addEventListener("click", (event) =>{
+            if(event.target.value === "true"){
+                event.target.value = "false"
+            }else{
+                event.target.value = "true";
+            }
+            
+        })
     }
     submitForm() {
         // 폼을 제출할 때 실행될 함수
         const form = document.getElementById('modifyInForm');
-        const formData = new FormData(form);
-        // FormData를 JSON으로 변환
-        formData.append('cmd', 'Modify');
-        const jsonData = JSON.stringify(Object.fromEntries(formData));
+
+        const formData = {
+            cmd: "User",
+            cmd2: "updateUser",
+            userId: sessionStorage.getItem('userId'),
+            nickName: form.querySelector('#nickName').value,
+            password: form.querySelector('#password').value,
+            isHidden: form.querySelector('#disclosure').value ==="true" ? true : false,
+
+        }
+        const jsonData = JSON.stringify(formData);
 
         console.log(jsonData);
         // WebSocket을 통해 서버로 데이터 전송
@@ -33,8 +48,8 @@ class Save {
         const json = JSON.parse(data);
 
         const state = json['state'];
-        
-        if(state){
+
+        if (state) {
             // 수정 성공
             Swal.fire({
                 icon: "question",
@@ -48,7 +63,7 @@ class Save {
                     window.location.href = "myPage.html";
                 }
             });
-        }else{
+        } else {
             // 수정 실패
             Swal.fire({
                 icon: "question",
@@ -64,7 +79,7 @@ class Save {
     // 비밀번호 확인에서 비밀번호가 같은지 확인하는 기능
     checkPasswordMatch() {
 
-        
+
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("checkPassword").value;
         const warn = document.getElementById("pwConfirm");
