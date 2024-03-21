@@ -7,7 +7,7 @@
     <title>회원 정보 수정</title>
 
 <link rel="stylesheet" href="../style/modify.css">
-<script src="../js/modify.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </head>
@@ -32,11 +32,11 @@
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="password" id="password" name="password" value="" onchange="checkPasswordMatch()" placeholder="변경하실 비밀번호를 입력해주세요">
+                        <input type="password" id="password" name="password" value="" placeholder="변경하실 비밀번호를 입력해주세요">
                     </li>
                     <li>
                         <label for="checkPassword">비밀번호 확인 <span id="pwConfirm"></span></label>
-                        <input type="password" id="checkPassword" onchange="checkPasswordMatch()">
+                        <input type="password" id="checkPassword">
                     </li>
                     <li>
                         <label>내 정보</label>
@@ -56,13 +56,14 @@
                 </ul>
                 <div id="button">
                     <input type="button" value="저장" id="save_btn">
-                    <input type="button" value="취소" onclick="cancle()">
+                    <input type="button" value="취소" id="cancel_btn">
                 </div>
             </fieldset>
 
 
         </form>
     </div>
+    <script type="module" src="../js/modify.js"></script>
 </body>
 
 </html>
