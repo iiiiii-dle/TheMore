@@ -57,12 +57,13 @@ public class Sever extends WebSocketServer {
       System.out.println(cmd);
       
       // 경석--------------------------------------------------
-      if(cmd.equals("Login")) {
-         userService.login(conn, msg, sessionUser);
-         
+      if(cmd.equals("User")) {
+         userService.parse(conn, msg, sessionUser);
+      }      
       // 혜리--------------------------------------------------
       } else if (cmd.equals("Expenses")) {
     	  expensesService.parse(conn, msg);
+
       }
 //
 //      // 민재--------------------------------------------------
