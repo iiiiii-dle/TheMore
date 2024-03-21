@@ -1,45 +1,62 @@
 #wrapper {
-    padding: 20px;
+    padding: 0 100px;
     box-sizing: border-box;
 }
 
 .circle {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: rgba(55, 159, 235, 0.3);
+    border: 2px solid rgba(60, 60, 60, 0.3);
     position: absolute; 
-    right: 30px; 
+}
+
+.circle:active {
+    margin-top: 2px;
+    margin-left: 3px;
 }
 
 #pinkTheme {
-    right: 110px;
+    right: 130px;
     background-color: rgba(242, 111, 111, 0.3);
 }
 
 #greenTheme {
-    right: 70px;
+    right: 80px;
     background-color: rgba(111, 242, 132, 0.3);
+}
+
+#blueTheme {
+    right: 30px; 
+    background-color: rgba(55, 159, 235, 0.3);
 }
 
 .quote {
     width: 50%;
+    height: 2rem;
+    margin-top: 300px;
+    position: relative;
+    padding: 20px;
+    margin-left: 20px;
 }
 
 .expensesBox {
     width: 50%;
     /* max-width: 500px; */
-    height: 39rem;
-    border: 1px solid #3c3c3c;
+    height: 37rem;
+    border: 1px solid rgba(60, 60, 60, 0.3);
     border-radius: 10px;
     position: relative;
-    padding: 15px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-left: 20px;
 }
 
 #selectedDate {
     display: block;
     font-size: 30px;
     margin-bottom: 10px;
+    color: #3c3c3c;
 }
 
 .expensesBtn {
@@ -114,12 +131,13 @@
 .expenseAdd {
     width: 50%;
     /* max-width: 500px; */
-    height: 39rem;
+    height: 37rem;
     border: 1px solid #3c3c3c;
     border-radius: 10px;
     position: relative;
     padding: 20px;
-
+    margin-top: 30px;
+    margin-left: 20px;
 }
 
 /* expenseAdd 창의 선택 날짜 */
