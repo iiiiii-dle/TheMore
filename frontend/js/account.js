@@ -110,7 +110,7 @@ class Calendar {
         const month = this.currentMonth + 1; 
         this.selectedDate.innerHTML = `${clickedDate}일`;
         this.select.innerHTML = `${year}-${month}-${clickedDate}`;
-
+     }
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
             day.addEventListener('click', () => {
@@ -128,26 +128,6 @@ class Calendar {
         });
     }
 }
-
-
-    displayExpenseBox() {
-        this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
-            day.addEventListener('click', () => {
-                const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
-                if (expensesBoxStyle.display === 'block') {
-                    this.expensesBox.expensesBox1.style.display = 'none';
-                    this.quote.quote.style.display = 'block';
-                } else {
-                    this.quote.quote.style.display = 'none';
-                    this.expensesBox.expensesBox1.style.display = 'block';
-                }
-
-                this.quote.updateQuote();
-            });
-        });
-    }
-}
-
 
 class Quote {
     constructor() {
