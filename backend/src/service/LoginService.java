@@ -14,6 +14,8 @@ public class LoginService {
 
 	public void login(WebSocket socket,JSONObject json, Map<Integer, Users> session) {
 	
+		System.out.println("login Function");
+		
 		String email = json.getString("email");
 		String password = json.getString("password");
 		
@@ -23,24 +25,29 @@ public class LoginService {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("error");
 			e.printStackTrace();
 		}
 		
+		
 		JSONObject response = new JSONObject();
+		response.put("cmd", "Login");
 		
-		response.append("cmd", "Login");
+		System.out.println(user);
+		System.out.println(user.getPassword());
 		
-		if(user == null || password != user.getPassword()) {
-			response.append("state", false);
+		if(user == null || !password.equals(user.getPassword())) {
+			response.put("state", false);
 		}
 		
 		else {
-			response.append("state", true);
-			response.append("userId", user.getUserId());
+			response.put("state", true);
+			response.put("userId", user.getUserId());
 			session.put(user.getUserId(), user);
 		}
 		
 		socket.send(response.toString());
+		System.out.println("Login Send");
 		
 		
 	}

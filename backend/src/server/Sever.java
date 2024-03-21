@@ -21,7 +21,7 @@ public class Sever extends WebSocketServer {
 	LoginService loginService = new LoginService();
 	
 	public static void main(String[] args) {
-		String host = "192.168.0.73";
+		String host = "localhost";
 		final int PORT = 9000;
 
 		WebSocketServer server = new Sever(new InetSocketAddress(host, PORT));
@@ -51,8 +51,10 @@ public class Sever extends WebSocketServer {
 		
 		String cmd = msg.getString("cmd");
 		
+		System.out.println("메시지 수신: " + message);
+		System.out.println(cmd);
 		
-		if(cmd == "Login")
+		if(cmd.equals("Login"))
 			loginService.login(conn, msg, sessionUser);
 		
 		
@@ -61,7 +63,7 @@ public class Sever extends WebSocketServer {
 		
 		
 		
-		System.out.println("메시지 수신: " + message);
+		
 		// 여기서 메시지를 처리하고 클라이언트에게 응답을 보낼 수 있습니다.
 
 		// 혜리--------------------------------------------------
