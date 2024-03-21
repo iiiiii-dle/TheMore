@@ -1,18 +1,29 @@
-import { LoginSocket } from './socket/loginSocket';
+import { LoginSocket } from '../js/socket/loginSocket.js';
 
 class Login {
     constructor(host, port) {
         this.socket = new LoginSocket(host, port, this.callback.bind(this));
+
+        this.elements = {
+            login_button: document.querySelector('#button > input'),
+        };
+
+        this.elements.login_button.addEventListener('click', () => {
+            this.submitForm();
+        });
     }
 
-    submitForm(data) {
+    submitForm() {
+        console.log('test');
         // 폼을 제출할 때 실행될 함수
         const form = document.getElementById('logInForm');
         const formData = new FormData(form);
         // FormData를 JSON으로 변환
 
+        formData.append('cmd', 'Login');
         const jsonData = JSON.stringify(Object.fromEntries(formData));
 
+        console.log(jsonData);
         //WebSocket을 통해 서버로 데이터 전송
         this.socket.sendMessage(jsonData);
     }
@@ -20,32 +31,33 @@ class Login {
     callback(data) {
         const json = JSON.parse(data);
 
+        console.log(json);
         const state = json['state'];
 
         if (!state) {
             // 로그인 실패
             Swal.fire({
-                icon: "warning",
-                title: "로그인 실패",
-                text: "email과 비밀번호를 확인하세요",
+                icon: 'warning',
+                title: '로그인 실패',
+                text: 'email과 비밀번호를 확인하세요',
                 showConfirmButton: false,
-                timer: 1000 // 확인 버튼 표시
-            })
-            
+                timer: 1000, // 확인 버튼 표시
+            });
         } else {
             const userId = json['userId'];
             sessionStorage.setItem('userId', userId);
             // 메인 페이지 화면으로 이동
             Swal.fire({
-                icon: "success",
-                title: "로그인 성공",
-                text: "환영합니다",
+                icon: 'success',
+                title: '로그인 성공',
+                text: '환영합니다',
                 showConfirmButton: true,
-                timer: 1000 // 확인 버튼 표시
+                timer: 1000, // 확인 버튼 표시
             }).then((result) => {
-                if (result.isConfirmed) {// 확인 버튼 표시
+                if (result.isConfirmed) {
+                    // 확인 버튼 표시
                     // 페이지 이동
-                    window.location.href = "account.html";
+                    window.location.href = 'account.html';
                 }
             });
         }
