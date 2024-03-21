@@ -5,11 +5,12 @@ socket.onopen = function() {
 
     // 서버에 getTotalAmount 명령 전송
     const cmd = {
-        cmd: "getTotalAmount",
+        cmd: "Expenses",
+        cmd2: "getTotalAmount",
         userId: 1,
-        type: 0,
-        month: 3,
-        year: 2024
+        type: false,
+        expensesDate: 2024-MM-DD,
+        expensesDate: YYYY-3-DD,
     };
     socket.send(JSON.stringify(cmd));
 };
