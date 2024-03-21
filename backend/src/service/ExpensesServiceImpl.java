@@ -61,13 +61,14 @@ public class ExpensesServiceImpl implements ExpensesService {
 			
 		case "getExpensesList":
 			List<Expenses> expensesList = expensesService.getExpensesList(conn, json);
+			JSONObject json1 = new JSONObject();
 			JSONObject json2 = new JSONObject();
 			json2.put("cmd", "getExpensesList");
 			for (Expenses ex : expensesList) {
 				json2.put("expenses", ex);
 			}
-			json.append("expensesList", json2);
-			conn.send(json.toString());
+			json1.append("expensesList", json2);
+			conn.send(json1.toString());
 			break;
 			
 		default:
