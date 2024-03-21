@@ -1,5 +1,8 @@
 package service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.List;
 
 import org.java_websocket.WebSocket;
@@ -25,8 +28,17 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Integer money = msgObj.getInt("money");
 		Integer categoryId = msgObj.getInt("categoryId");
 		String memo = msgObj.getString("memo");
+		String dateString = msgObj.getString("expensesDate");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date expensesDate = null;
+		try {
+		    java.util.Date parsedDate = dateFormat.parse(dateString);
+		    expensesDate = new java.sql.Date(parsedDate.getTime());
+		} catch(ParseException e) {
+		    e.printStackTrace();
+		}
 
-		Expenses expenses = new Expenses(userId, categoryId, type, money, memo, null);
+		Expenses expenses = new Expenses(userId, categoryId, type, money, memo, expensesDate);
 
 		int check = 0;
 		try {
@@ -62,7 +74,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 
 		int check = 0;
 		try {
-			check = ExpensesDAO.insertExpenses(DBConnection.getConnection(), expenses);
+			check = ExpensesDAO.deleteExpenses(DBConnection.getConnection(), expenses);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,8 +105,17 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Boolean type = msgObj.getBoolean("type");
 		Integer money = msgObj.getInt("money");
 		String memo = msgObj.getString("memo");
+		String dateString = msgObj.getString("expensesDate");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date expensesDate = null;
+		try {
+		    java.util.Date parsedDate = dateFormat.parse(dateString);
+		    expensesDate = new java.sql.Date(parsedDate.getTime());
+		} catch(ParseException e) {
+		    e.printStackTrace();
+		}
 
-		Expenses expenses = new Expenses(expensesId, userId, categoryId, type, money, memo, null);
+		Expenses expenses = new Expenses(expensesId, userId, categoryId, type, money, memo, expensesDate);
 
 		int check = 0;
 		try {
