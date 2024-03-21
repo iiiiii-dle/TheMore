@@ -8,8 +8,9 @@ import org.json.JSONObject;
 import DTO.Expenses;
 
 public interface ExpensesService {
-	void insertExpenses(WebSocket conn, JSONObject json, String message);
-	void deleteExpenses(WebSocket conn, JSONObject json, String message);
-	void updateExpenses(WebSocket conn, JSONObject json, String message);
-	List<Expenses> getExpensesList(WebSocket conn, JSONObject json, String message);
+	void parse(WebSocket conn, JSONObject json);
+	void insertExpenses(WebSocket conn, JSONObject json);
+	void deleteExpenses(WebSocket conn, JSONObject json);
+	void updateExpenses(WebSocket conn, JSONObject json);
+	List<Expenses> getExpensesList(WebSocket conn, JSONObject json);
 }

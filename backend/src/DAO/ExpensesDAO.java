@@ -123,14 +123,15 @@ public class ExpensesDAO {
 		PreparedStatement pstmt = null;
 		try {
 			if(filter.equals(true)) {			// 수입일 때 카테고리 번호 내림차순으로 내역 조회
-				sql = "select * from expenses where userId = ? and type = 1 order by categoryId DESC";
+				sql = "select * from expenses where userId = ? and type = 1 and expensesDate = ? order by categoryId DESC";
 			} else if(filter.equals(false)) {	// 지출일 때 카테고리 번호 내림차순으로 내역 조회
-				sql = "select * from expenses where userId = ? and type = 0 order by categoryId DESC";
+				sql = "select * from expenses where userId = ? and type = 0 and expensesDate = ? order by categoryId DESC";
 			} else {
 				throw new IllegalArgumentException("불가능한 타입 값입니다. 타입 값은 true, false만 허용됩니다.");
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, expenses.getUserId());
+			pstmt.setDate(2, expenses.getExpensesDate());
 			
 			ResultSet rs = pstmt.executeQuery();
 			if(!rs.next()) {
