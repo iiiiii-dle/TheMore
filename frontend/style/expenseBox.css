@@ -1,104 +1,102 @@
+/* calendar, quote, expensesBox, expenseAdd 묶음 */
 #wrapper {
     padding: 0 100px;
     box-sizing: border-box;
 }
+/* --------------------------------------------------------- */
 
+/* 페이지 테마 변경 버튼 */
 .circle {
+    position: absolute; 
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 2px solid rgba(60, 60, 60, 0.3);
-    position: absolute; 
 }
 
 .circle:active {
     margin-top: 2px;
     margin-left: 3px;
+    border: 2px solid rgba(60, 60, 60, 0.5);
 }
-
+/* 핑크 테마 버튼 */
 #pinkTheme {
     right: 130px;
     background-color: rgba(242, 111, 111, 0.3);
 }
-
+/* 연두 테마 버튼 */
 #greenTheme {
     right: 80px;
     background-color: rgba(111, 242, 132, 0.3);
 }
-
+/* 하늘 테마 버튼 */
 #blueTheme {
     right: 30px; 
     background-color: rgba(55, 159, 235, 0.3);
 }
+/* --------------------------------------------------------- */
 
+/* 명언 */
 .quote {
-    width: 50%;
+    position: relative;
+    width: calc(50% - 46px);
     height: 2rem;
+    padding: 20px;
     margin-top: 300px;
-    position: relative;
-    padding: 20px;
     margin-left: 20px;
+    /* box-sizing: border-box; */
 }
+/* --------------------------------------------------------- */
 
+/* 수입 지출 내역 */
 .expensesBox {
-    width: 50%;
-    /* max-width: 500px; */
-    height: 37rem;
-    border: 1px solid rgba(60, 60, 60, 0.3);
-    border-radius: 10px;
     position: relative;
+    width: calc(50% - 46px);
+    height: 37rem;
+    border-radius: 10px;
+    border: 3px solid rgba(60, 60, 60, 0.3);
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 35px;
     margin-left: 20px;
+    /* box-sizing: border-box; */
 }
-
+/* 수입 지출 내역 - 날짜 */
 #selectedDate {
     display: block;
-    font-size: 30px;
     margin-bottom: 10px;
+    font-size: 28px;
     color: #3c3c3c;
 }
-
+/* 수입 / 지출 버튼 */
 .expensesBtn {
-    border-radius: 10px;
     width: 120px;
     height: 50px;
-    font-size: 20px;
-    /* display: flex; */
-    justify-content: space-between;
-    text-align: center;
-    flex: 1;
+    border-radius: 10px;
     margin: 0 5px;
-    text-align: center;
+    flex: 1;
+    font-size: 18px;
 }
 
 .expensesBtn:active {
     margin-top: 2px;
     margin-left: 3px;
-    /* box-shadow: none; */
-    /* 전환 효과 지속 시간 : 0,1초 */
-    transition-duration: 0.1s;
+    border: 2px solid rgba(60, 60, 60, 0.5);
 }
-
-/* 채림: 예산 버튼(budgetBtn) 추가 */
-.budgetBtn {
-    background-color: #DDDDDD;
-}
-
+/* 수입 버튼 색상 */
 .incomeBtn {
     background-color: rgba(255, 116, 116, 0.47);
 }
-
+/* 지출 버튼 */
 .outcomeBtn {
     background-color: rgba(55, 159, 235, 0.3);
 }
 
-.expenseLists {
-    font-size: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
+.expenseList {
     position: absolute;
     top: 250px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 17px;
 }
 
 .expenseLists p {
@@ -107,7 +105,6 @@
 }
 
 .expenseList {
-    width: 400px;
     height: 50px;
     border-bottom: 1px solid #3c3c3c;
 }
@@ -118,52 +115,59 @@
 
 #addListBtn {
     position: absolute;
-    bottom: 15px;
     right: 15px;
+    bottom: 15px;
     width: 50px;
     height: 50px;
     border-radius: 50px;
     background-color: rgba(242, 111, 111, 0.3);
 }
 
-/* 채림
----------------------------------------- */
+#addListBtn:active {
+    margin-top: 2px;
+    margin-left: 3px;
+    border: 2px solid rgba(60, 60, 60, 0.5);
+}
+/* --------------------------------------------------------- */
+
+/* 수입 지출 내역 생성 */
 .expenseAdd {
-    width: 50%;
-    /* max-width: 500px; */
+    position: relative;
+    width: calc(50% - 46px);
     height: 37rem;
-    border: 1px solid #3c3c3c;
     border-radius: 10px;
+    border: 3px solid rgba(60, 60, 60, 0.3);
     position: relative;
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 35px;
     margin-left: 20px;
+    /* box-sizing: border-box; */
 }
-
-/* expenseAdd 창의 선택 날짜 */
+/* 선택 날짜 */
 #select {
+    display: block;
     width: 100%;
     text-align: end;
-    display: block;
     font-size: 16px;
 }
-
+/* 예산 / 수입 / 지출 버튼 */
 .selectButtons {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
     margin-bottom: 10px;
 }
-
-.selectButtons button {
-    text-align: center;
+/* 예산 버튼 색상 */
+.budgetBtn {
+    background-color: #DDDDDD;
 }
-
+/* 카테고리 */
 .categorys {
     margin-top: 20px;
     margin-bottom: 10px;
+    color: #3c3c3c;
 }
-
+/* 지출 카테고리 */
 .outcomeCategoryGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -173,14 +177,12 @@
 }
 
 .outcomeCategoryGrid button {
-    /* display: grid; */
-    padding: 10px;
-    background-color: rgba(242, 111, 111, 0.3);
     border-radius: 5px;
-    text-align: center;
+    padding: 10px;
     cursor: pointer;
+    background-color: rgba(242, 111, 111, 0.3);
 }
-
+/* 수입 카테고리 */
 .incomeCategoryGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -190,45 +192,38 @@
 }
 
 .incomeCategoryGrid button {
-    /* display: grid; */
-    padding: 10px;
-    background-color: rgba(242, 111, 111, 0.3);
     border-radius: 5px;
-    text-align: center;
+    padding: 10px;
     cursor: pointer;
+    background-color: rgba(242, 111, 111, 0.3);
 }
-
-label {
-    display: block;
-}
-
+/* 금액 / 내용 input */
 input[type='number'],
 input[type='text'] {
-    margin-top: 10px;
-    background-color: rgba(242, 111, 111, 0.3);
+    width: 100%;
     border-radius: 5px;
     padding: 13px;
-    font-size: 1rem;
-    width: 100%;
-    cursor: pointer;
+    margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: rgba(242, 111, 111, 0.3);
 }
-
+/* 취소 / 저장 버튼 */
 .expenseAddBtn {
-    margin-top: 20px;
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
 }
-
+/* 취소 버튼 */
 .cancelBtn {
     background-color: #DDDDDD;
 }
-
+/* 저장 버튼 */
 .commitBtn {
     background-color: rgba(242, 111, 111, 0.3);
 }
-
-/* 채림 */
+/* 카테고리 gird를 위한 처리 */
 .hidden {
     display: none;
 }
@@ -236,3 +231,4 @@ input[type='text'] {
 .visible {
     display: block;
 }
+/* --------------------------------------------------------- */

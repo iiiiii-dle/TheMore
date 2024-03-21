@@ -28,3 +28,16 @@ socket.onmessage = function(event){
 socket.onclose = function(event){
     console.log("WebSocket 연결 종료");
 };
+
+function modify(){
+    Swal.fire({
+        icon: "question",
+        title: "수정",
+        text: "수정하시겠습니까?",
+        showConfirmButton: true,
+        confirmButtonText: "수정화면으로 이동"
+    }).then((result) => {
+        if(result.isConfirmed)
+            window.location.href = "modify.html";
+    })
+}
