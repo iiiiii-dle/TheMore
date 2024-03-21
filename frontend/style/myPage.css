@@ -111,7 +111,7 @@ input[type="date"] {
     outline: none;
 }
 
-input[type="submit"] {
+input[type="button"] {
     display: inline-block;
     text-align: center;
     background-color: #FFB1B1;
@@ -119,6 +119,9 @@ input[type="submit"] {
     padding: 10px 20px;
     border-radius: 20px;
     margin-top: 50px;
+}
+input[type="button"]:hover{
+    background-color: rgba(255, 177, 177, 0.5);
 }
 
 
