@@ -2,6 +2,7 @@ package server;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.java_websocket.WebSocket;
@@ -9,6 +10,7 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import org.json.JSONObject;
 
+import DTO.Expenses;
 import DTO.Users;
 import service.ExpensesServiceImpl;
 import service.UserServiceImpl;
@@ -17,7 +19,7 @@ public class Sever extends WebSocketServer {
    
    Map<Integer, Users> sessionUser = new HashMap<Integer, Users>();
    ExpensesServiceImpl expensesService = new ExpensesServiceImpl();
-   UserServiceImpl loginService = new UserServiceImpl();
+   UserServiceImpl userService = new UserServiceImpl();
    
    public static void main(String[] args) {
       String host = "localhost";
@@ -47,6 +49,7 @@ public class Sever extends WebSocketServer {
    public void onMessage(WebSocket conn, String message) {
       
       JSONObject msg = new JSONObject(message);
+      JSONObject json = new JSONObject();
       
       String cmd = msg.getString("cmd");
       
@@ -55,26 +58,11 @@ public class Sever extends WebSocketServer {
       
       // 경석--------------------------------------------------
       if(cmd.equals("Login")) {
-         System.out.println("----------로그인----------");
-         loginService.login(conn, msg, sessionUser);
+         userService.login(conn, msg, sessionUser);
          
       // 혜리--------------------------------------------------
-      }else if (cmd.equals("insertExpenses")) {
-         System.out.println("----------수입/지출 내역 작성----------");
-         expensesService.insertExpenses(conn, msg, message);
-         
-      } else if (cmd.equals("deleteExpenses")) {
-         System.out.println("----------수입/지출 내역 삭제----------");
-         expensesService.deleteExpenses(conn, msg, message);
-         
-      } else if (cmd.equals("updateExpenses")) {
-         System.out.println("----------수입/지출 내역 수정----------");
-         expensesService.updateExpenses(conn, msg, message);
-         
-      } else if (cmd.equals("getExpensesList")) {
-         System.out.println("----------수입/지출 내역 조회----------");
-         expensesService.getExpensesList(conn, msg, message);
-         
+      } else if (cmd.equals("Expenses")) {
+    	  expensesService.parse(conn, msg);
       }
 //
 //      // 민재--------------------------------------------------
