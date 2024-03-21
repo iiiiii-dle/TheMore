@@ -189,9 +189,11 @@ public class ExpensesServiceImpl implements ExpensesService {
 	public List<Expenses> getExpensesList(WebSocket conn, JSONObject json) {
 
 		Integer userId = json.getInt("userId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
 
 		Boolean filter = json.getBoolean("type");
-		Expenses expenses = new Expenses(userId);
+		Expenses expenses = new Expenses(userId, expensesDate);
 
 		List<Expenses> list = new LinkedList<>();
 		try {
