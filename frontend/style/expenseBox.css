@@ -1,14 +1,17 @@
+/* calendar, quote, expensesBox, expenseAdd 묶음 */
 #wrapper {
     padding: 0 100px;
     box-sizing: border-box;
 }
+/* --------------------------------------------------------- */
 
+/* 페이지 테마 변경 버튼 */
 .circle {
+    position: absolute; 
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 2px solid rgba(60, 60, 60, 0.3);
-    position: absolute; 
 }
 
 .circle:active {
@@ -30,7 +33,9 @@
     right: 30px; 
     background-color: rgba(55, 159, 235, 0.3);
 }
+/* --------------------------------------------------------- */
 
+/* 명언 */
 .quote {
     width: 50%;
     height: 2rem;
@@ -39,6 +44,7 @@
     padding: 20px;
     margin-left: 20px;
 }
+/* --------------------------------------------------------- */
 
 .expensesBox {
     width: 50%;
