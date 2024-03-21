@@ -233,7 +233,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 		String dateString = json.getString("expensesDate");
 		Date expensesDate = parseDate(dateString);
 		
-		Expenses expenses = new Expenses(userId);
+		Expenses expenses = new Expenses(userId, expensesDate);
 		
 		int result = 0;
 		try {
@@ -257,7 +257,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 		String dateString = json.getString("expensesDate");
 		Date expensesDate = parseDate(dateString);
 		
-		Expenses expenses = new Expenses(userId);
+		Expenses expenses = new Expenses(userId, expensesDate);
 		
 		int result = 0;
 		try {

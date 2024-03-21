@@ -191,6 +191,7 @@ public class ExpensesDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalAmount = rs.getInt(filter ? "totalIncome" : "totalExpense");
+				System.out.println("Total amount: " + totalAmount); // 디버깅용 로그
 			}
 
 		} finally {
@@ -235,6 +236,8 @@ public class ExpensesDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalCategoryAmount = rs.getInt(filter ? "totalIncome" : "totalExpense");
+				System.out.println("Total amount: " + totalCategoryAmount); // 디버깅용 로그
+				
 			}
 
 		} finally {
