@@ -51,11 +51,11 @@ class Login {
                 icon: 'success',
                 title: '로그인 성공',
                 text: '환영합니다',
-                showConfirmButton: true,
-                timer: 1000, // 확인 버튼 표시
+                showConfirmButton: true,// 확인 버튼 표시
+                
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // 확인 버튼 표시
+                    
                     // 페이지 이동
                     window.location.href = 'account.html';
                 }
