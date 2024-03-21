@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.json.JSONObject;
 
 import DB.DBConnection;
 import DTO.Expenses;
@@ -166,7 +169,8 @@ public class ExpensesDAO {
 	 * @return totalAmount 
 	 */
 	
-	public static int getTotalAmount(Connection conn, boolean isIncome, Expenses expenses) throws Exception {
+	public static JSONObject getTotalAmount(Connection conn, boolean isIncome, Expenses expenses) throws SQLException {
+		JSONObject resultObj = new JSONObject();
         int totalAmount = 0;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -187,6 +191,8 @@ public class ExpensesDAO {
             if (rs.next()) {
                 totalAmount = rs.getInt(isIncome ? "totalIncome" : "totalExpense");
             }
+            
+            resultObj.put(isIncome ? "totalIncome" : "totalExpense", totalAmount);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -196,7 +202,7 @@ public class ExpensesDAO {
             }
         }
 
-        return totalAmount;
+        return resultObj;
     }
 
 	/**
@@ -210,7 +216,8 @@ public class ExpensesDAO {
 	 * 
 	 * @return totalCategoryAmount
 	 */
-	public static int getTotalCategoryAmount(Connection conn, boolean isInCategory, Expenses expenses) throws Exception {
+	public static JSONObject getTotalCategoryAmount(Connection conn, boolean isInCategory, Expenses expenses) throws SQLException {
+		JSONObject resultObj = new JSONObject();
         int totalCategoryAmount = 0;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -232,6 +239,8 @@ public class ExpensesDAO {
             if (rs.next()) {
             	totalCategoryAmount = rs.getInt(isInCategory ? "totalIncome" : "totalExpense");
             }
+            
+            resultObj.put(isInCategory ? "totalIncome" : "totalExpense", totalCategoryAmount);
         } finally {
             if (rs != null) {
                 rs.close();
@@ -241,7 +250,7 @@ public class ExpensesDAO {
             }
         }
 
-        return totalCategoryAmount;
+        return resultObj;
     }
 
 	
