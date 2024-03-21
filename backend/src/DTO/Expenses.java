@@ -41,8 +41,9 @@ public class Expenses {
 	}
 
 	// 혜리 - ExpensesServiceImpl의 getExpensesList에서 사용
-	public Expenses(Integer userId) {
+	public Expenses(Integer userId, Date expensesDate) {
 		this.userId = userId;
+		this.expensesDate = expensesDate;
 	}
 
 	public Integer getExpensesId() {

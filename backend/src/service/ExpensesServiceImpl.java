@@ -61,13 +61,31 @@ public class ExpensesServiceImpl implements ExpensesService {
 			
 		case "getExpensesList":
 			List<Expenses> expensesList = expensesService.getExpensesList(conn, json);
+			JSONObject json1 = new JSONObject();
 			JSONObject json2 = new JSONObject();
 			json2.put("cmd", "getExpensesList");
 			for (Expenses ex : expensesList) {
 				json2.put("expenses", ex);
 			}
-			json.append("expensesList", json2);
-			conn.send(json.toString());
+			json1.append("expensesList", json2);
+			conn.send(json1.toString());
+			break;
+			
+		// 병민 ------------------------------------------------------
+		case "getTotalAmount" :
+			int sum = expensesService.getTotalAmount(conn, json);
+			JSONObject getAmount = new JSONObject();
+			getAmount.put("cmd", "getTotalAmount");
+			getAmount.put("total",sum);
+			conn.send(getAmount.toString());
+			break;
+			
+		case "getTotalCategoryAmount" :
+			int catagorySum = expensesService.getTotalCategoryAmount(conn, json);
+			JSONObject getCatagory = new JSONObject();
+			getCatagory.put("cmd", "getTotalCategoryAmount");
+			getCatagory.put("totalCatagory", catagorySum);
+			conn.send(getCatagory.toString());
 			break;
 			
 		default:
@@ -188,9 +206,11 @@ public class ExpensesServiceImpl implements ExpensesService {
 	public List<Expenses> getExpensesList(WebSocket conn, JSONObject json) {
 
 		Integer userId = json.getInt("userId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
 
 		Boolean filter = json.getBoolean("type");
-		Expenses expenses = new Expenses(userId);
+		Expenses expenses = new Expenses(userId, expensesDate);
 
 		List<Expenses> list = new LinkedList<>();
 		try {
@@ -199,6 +219,54 @@ public class ExpensesServiceImpl implements ExpensesService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	/**
+	 * @author 최병민<br>
+	 *         getTotalAmount : userId를 가져와서 수입 지출 값을 주면 수입 합 또는 지출 합 출력기능
+	 */
+	@Override
+	public int getTotalAmount(WebSocket conn, JSONObject json) {
+		Integer userId = json.getInt("userId");
+
+		Boolean filter = json.getBoolean("type");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+		
+		Expenses expenses = new Expenses(userId);
+		
+		int result = 0;
+		try {
+			result = ExpensesDAO.getTotalAmount(DBConnection.getConnection(), filter, expenses);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * @author 최병민<br>
+	 * 			getTotalCategoryAmount : userId를 가져와서 수입 지출 값을 주고 카테고리 아이디를 주면 수입 합 또는 지출 합 출력기능
+	 */
+	@Override
+	public int getTotalCategoryAmount(WebSocket conn, JSONObject json) {
+		Integer userId = json.getInt("userId");
+
+		Boolean filter = json.getBoolean("type");
+		Integer categoryId = json.getInt("categoryId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+		
+		Expenses expenses = new Expenses(userId);
+		
+		int result = 0;
+		try {
+			result = ExpensesDAO.getTotalCategoryAmount(DBConnection.getConnection(), filter, expenses);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
