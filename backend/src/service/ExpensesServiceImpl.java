@@ -20,15 +20,14 @@ public class ExpensesServiceImpl implements ExpensesService {
 	 *         check을 통해 내역이 DB에 성공적으로 저장됐는지 확인하는 기능
 	 */
 	@Override
-	public void insertExpenses(WebSocket conn, String message) {
-		JSONObject msgObj = new JSONObject(message);
+	public void insertExpenses(WebSocket conn, JSONObject json, String message) {
 
-		Integer userId = msgObj.getInt("userId");
-		Boolean type = msgObj.getBoolean("type");
-		Integer money = msgObj.getInt("money");
-		Integer categoryId = msgObj.getInt("categoryId");
-		String memo = msgObj.getString("memo");
-		String dateString = msgObj.getString("expensesDate");
+		Integer userId = json.getInt("userId");
+		Boolean type = json.getBoolean("type");
+		Integer money = json.getInt("money");
+		Integer categoryId = json.getInt("categoryId");
+		String memo = json.getString("memo");
+		String dateString = json.getString("expensesDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date expensesDate = null;
 		try {
@@ -64,11 +63,10 @@ public class ExpensesServiceImpl implements ExpensesService {
 	 *         check을 통해 내역이 DB에서 성공적으로 삭제됐는지 확인하는 기능
 	 */
 	@Override
-	public void deleteExpenses(WebSocket conn, String message) {
-		JSONObject msgObj = new JSONObject(message);
+	public void deleteExpenses(WebSocket conn, JSONObject json, String message) {
 
-		Integer expensesId = msgObj.getInt("expensesId");
-		Integer userId = msgObj.getInt("userId");
+		Integer expensesId = json.getInt("expensesId");
+		Integer userId = json.getInt("userId");
 
 		Expenses expenses = new Expenses(expensesId, userId);
 
@@ -96,16 +94,15 @@ public class ExpensesServiceImpl implements ExpensesService {
 	 *         check을 통해 내역이 DB에 성공적으로 업데이트됐는지 확인하는 기능
 	 */
 	@Override
-	public void updateExpenses(WebSocket conn, String message) {
-		JSONObject msgObj = new JSONObject(message);
+	public void updateExpenses(WebSocket conn, JSONObject json, String message) {
 
-		Integer expensesId = msgObj.getInt("expensesId");
-		Integer userId = msgObj.getInt("userId");
-		Integer categoryId = msgObj.getInt("categoryId");
-		Boolean type = msgObj.getBoolean("type");
-		Integer money = msgObj.getInt("money");
-		String memo = msgObj.getString("memo");
-		String dateString = msgObj.getString("expensesDate");
+		Integer expensesId = json.getInt("expensesId");
+		Integer userId = json.getInt("userId");
+		Integer categoryId = json.getInt("categoryId");
+		Boolean type = json.getBoolean("type");
+		Integer money = json.getInt("money");
+		String memo = json.getString("memo");
+		String dateString = json.getString("expensesDate");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date expensesDate = null;
 		try {
@@ -140,12 +137,11 @@ public class ExpensesServiceImpl implements ExpensesService {
 	 *         getExpensesList : 수입 지출 내역을 DB에서 가져와 보여주는 기능
 	 */
 	@Override
-	public List<Expenses> getExpensesList(WebSocket conn, String message) {
-		JSONObject msgObj = new JSONObject(message);
+	public List<Expenses> getExpensesList(WebSocket conn, JSONObject json, String message) {
 
-		Integer userId = msgObj.getInt("userId");
+		Integer userId = json.getInt("userId");
 
-		Boolean filter = msgObj.getBoolean("type");
+		Boolean filter = json.getBoolean("type");
 		Expenses expenses = new Expenses(userId);
 		
 		List<Expenses> list = null;
