@@ -231,7 +231,7 @@ class ExpenseAdd {
     }
 
     clickBudgeBtn() {
-        this.budgetBtn.addEventListener('click', ()=> {
+        this.budgetBtn.addEventListener('click', () => {
             this.categorys.classList.add('hidden'); // 안보이기
             this.amount.style.display = 'block';
             this.detail.style.display = 'none';
@@ -241,7 +241,7 @@ class ExpenseAdd {
     }
 
     clickIncomeBtn2() {
-        this.incomeBtn.addEventListener('click', ()=> {
+        this.incomeBtn.addEventListener('click', () => {
             // console.log(this.target);
             // console.log(this.target.parentElement);
             // console.log(this.categorys.classList);
@@ -255,7 +255,7 @@ class ExpenseAdd {
     }
 
     clickOutcomeBtn2() {
-        this.outcomeBtn.addEventListener('click', ()=> {
+        this.outcomeBtn.addEventListener('click', () => {
             this.categorys.classList.remove('hidden'); // 보이기 
             this.incomeCategoryGrid.classList.add('hidden'); // 안보이기
             this.outcomeCategoryGrid.classList.remove('hidden'); //보이기
@@ -276,3 +276,149 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export { Calendar, Quote, ExpensesBox, ExpenseAdd };
+
+/* 테마 색상 변경
+   -----------------------------------------------------------------*/
+   document.getElementById('greenTheme').addEventListener('click', function () {
+    var iframe = document.querySelector('iframe');
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    
+    var header = iframeDoc.querySelector('header');
+    header.style.backgroundColor = 'rgba(111, 242, 132, 0.3)';
+
+    let styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .commitBtn,
+            #addListBtn,
+            .calendar-header,
+            .year-change:hover {
+                background-color: rgba(111, 242, 132, 0.3);
+            }
+    
+            #click-account,
+            #month,
+            .month-change pre,
+            .calendar-days div.current-date {
+                color: rgba(111, 242, 132, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                border-radius: 20px;
+                background-color: rgba(111, 242, 132, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                border-radius: 20px;
+                background-color: rgba(111, 242, 132, 1);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(111, 242, 132, 0.5);
+            }
+    
+            .calendar-days div:hover {
+                background-color: rgba(111, 242, 132, 0.3);
+                color: #f8fbff;
+            }
+        `;
+    document.head.appendChild(styleTag);
+});
+
+document.getElementById('blueTheme').addEventListener('click', function () {
+    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    
+    var header = iframeDoc.querySelector('header');
+    header.style.backgroundColor = 'rgba(55, 159, 235, 0.3)';
+    
+    let styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .commitBtn,
+            #addListBtn,
+            .calendar-header,
+            .year-change:hover {
+                background-color: rgba(55, 159, 235, 0.3);
+            }
+
+            #click-account,
+            #month,
+            .month-change pre,
+            .calendar-days div.current-date {
+                color: rgba(55, 159, 235, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                background-color: rgba(55, 159, 235, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                background-color: rgba(55, 159, 235, 1);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(55, 159, 235, 0.5);
+            }
+    
+            .calendar-days div:hover {
+                background-color: rgba(55, 159, 235, 0.3);
+                color: #f8fbff;
+            }
+        `;
+    document.head.appendChild(styleTag);
+});
+
+document.getElementById('pinkTheme').addEventListener('click', function () {
+    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    
+    var header = iframeDoc.querySelector('header');
+    header.style.backgroundColor = 'rgba(242, 111, 111, 0.3)';
+
+    let styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .commitBtn,
+            #addListBtn,
+            .calendar-header,
+            .year-change:hover {
+                background-color: rgba(242, 111, 111, 0.3);
+            }
+
+            #month,
+            .month-change pre,
+            #click-account,
+            .calendar-days div.current-date {
+                color: rgba(242, 111, 111, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                background-color: rgba(242, 111, 111, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                background-color: rgba(242, 111, 111, 1);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(242, 111, 111, 0.5);
+            }
+    
+            .calendar-days div:hover {
+                background-color: rgba(242, 111, 111, 0.3);
+                color: #f8fbff;
+            }
+        `;
+    document.head.appendChild(styleTag);
+});
+/* [e]채림 */
