@@ -17,7 +17,7 @@ public class Sever extends WebSocketServer {
    
    Map<Integer, Users> sessionUser = new HashMap<Integer, Users>();
    ExpensesServiceImpl expensesService = new ExpensesServiceImpl();
-   UserServiceImpl loginService = new UserServiceImpl();
+   UserServiceImpl userService = new UserServiceImpl();
    
    public static void main(String[] args) {
       String host = "localhost";
@@ -54,12 +54,17 @@ public class Sever extends WebSocketServer {
       System.out.println(cmd);
       
       // 경석--------------------------------------------------
-      if(cmd.equals("Login")) {
+      if(cmd.equals("User")) {
          System.out.println("----------로그인----------");
-         loginService.login(conn, msg, sessionUser);
-         
+         userService.parse(conn, msg, sessionUser);
+      }   
+      
+      
+      
+      
+      
       // 혜리--------------------------------------------------
-      }else if (cmd.equals("insertExpenses")) {
+      else if (cmd.equals("insertExpenses")) {
          System.out.println("----------수입/지출 내역 작성----------");
          expensesService.insertExpenses(conn, msg, message);
          
