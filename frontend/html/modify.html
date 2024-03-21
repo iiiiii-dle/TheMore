@@ -8,6 +8,8 @@
 
 <link rel="stylesheet" href="../style/modify.css">
 <script src="../js/modify.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </head>
 
 <body>
@@ -15,7 +17,7 @@
         <a class="a-link" href="#">The <span id="more">More</span></a>
     </header>
     <div id="container">
-        <form>
+        <form id="modifyInForm">
             <fieldset>
                 <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
                 <h3>회원 정보 수정</h3>
@@ -30,11 +32,11 @@
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="password" name="password" value="" placeholder="변경하실 비밀번호를 입력해주세요">
+                        <input type="password" id="password" name="password" value="" onchange="checkPasswordMatch()" placeholder="변경하실 비밀번호를 입력해주세요">
                     </li>
                     <li>
-                        <label for="checkPassword">비밀번호 확인</label>
-                        <input type="text" id="checkPassword">
+                        <label for="checkPassword">비밀번호 확인 <span id="pwConfirm"></span></label>
+                        <input type="password" id="checkPassword" onchange="checkPasswordMatch()">
                     </li>
                     <li>
                         <label>내 정보</label>
@@ -53,8 +55,8 @@
                     </li>
                 </ul>
                 <div id="button">
-                    <input type="submit" value="저장">
-                    <input type="submit" value="수정">
+                    <input type="button" value="저장" id="save_btn">
+                    <input type="button" value="취소" onclick="cancle()">
                 </div>
             </fieldset>
 
