@@ -177,10 +177,10 @@ public class ExpensesDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql;
-			if (filter) {
+			String sql = null;
+			if (filter == true) {
 				sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1 AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
-			} else {
+			} else if (filter == false){
 				sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0 AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
 			}
 			pstmt = conn.prepareStatement(sql);
@@ -191,7 +191,7 @@ public class ExpensesDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalAmount = rs.getInt(filter ? "totalIncome" : "totalExpense");
-				System.out.println("Total amount: " + totalAmount); // 디버깅용 로그
+				System.out.println(" Total : " + totalAmount); // 디버깅용 로그
 			}
 
 		} finally {
