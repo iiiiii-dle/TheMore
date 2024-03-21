@@ -1,169 +1,166 @@
 
-var socket = new WebSocket("ws://localhost:9000");
+import { LoginSocket } from "./socket/loginSocket.js";
 
-// WebSocket이 열렸을 때 실행될 함수
-socket.onopen = function (event) {
-    console.log("WebSocket 연결 성공");
-};
+class membership {
+    constructor(host, port) {
+        this.socket = new LoginSocket(host, port, this.callback.bind(this));
 
-// WebSocket으로부터 메시지를 받았을 때 실행될 함수
-socket.onmessage = function (event) {
-    console.log("서버로부터 메시지 수신: " + event.data);
-    // 받은 메시지 처리 코드 추가
-};
+        this.elements = {
+            save_button: document.querySelector('#button > #membership')
+        };
 
-
-// 폼을 제출할 때 실행될 함수
-function submitForm() {
-        //e.prevetnDefault(); // 기본 동작 중단
-        var form = document.getElementById("registerForm");
-        var formData = new FormData(form);
-        // FormData를 JSON으로 변환
-        var jsonData = JSON.stringify(Object.fromEntries(formData));
-        //WebSocket을 통해 서버로 데이터 전송
-        socket.send(jsonData);
-
-}
-
-// testData 생성해서 회원가입하는 정보와 비교하기 위함
-const testData = {
-    email: ["123@a.com"],
-    nickName: ["min"],
-}
-
-// 회원 가입 시 회원이 입력한 정보와 testData 비교 함수
-function checkDuplicate(field) {
-    var value = document.getElementById(field).value;
-    if (value.trim() === "") {
-        Swal.fire({
-            icon: "error",
-            title: "입력 오류",
-            text: field === "email" ? "email을 입력하세요" : "닉네임을 입력하세요",
-            showConfirmButton: false,
-            timer: 1000
+        this.elements.save_button.addEventListener('click', () => {
+            this.submitForm();
         });
-        return;
-    }
 
-    // 서버에서 중복 확인 로직 수행
-    // 예시로 alert를 사용하여 결과 보여주기
-    if (field === "email") {
-        if (testData.email.includes(value)) {
-            Swal.fire({
-                icon: "warning",
-                title: "중복 확인",
-                text: "이미 사용 중인 email입니다.",
-                showConfirmButton: false,
-                timer: 1000
-            });
-        } else {
-            Swal.fire({
-                icon: "success",
-                title: "중복 확인",
-                text: "사용 가능한 email입니다.",
-                showConfirmButton: false,
-                timer: 1000
-            });
-        }
-    } else if (field === "nickName") {
-        if (testData.nickName.includes(value)) {
-            Swal.fire({
-                icon: "warning",
-                title: "중복 확인",
-                text: "이미 사용 중인 닉네임입니다.",
-                showConfirmButton: false,
-                timer: 1000
-            });
-        } else {
-            Swal.fire({
-                icon: "success",
-                title: "중복 확인",
-                text: "사용 가능한 닉네임입니다.",
-                showConfirmButton: false,
-                timer: 1000
-            });
-        }
-    }
-}
-function login(){
-    var emailValue = document.getElementById('email').value;
-    var nickNameValue = document.getElementById('nickName').value;
-    var passValue = document.getElementById('password').value;
-    var disclosure = document.getElementById('disclosure').checked;
-    var non_disclosure = document.getElementById('non_disclosure').checked;
-
-    // 이메일 값 확인
-    if (emailValue.trim() === '') {
-        Swal.fire({
-            icon: "warning",
-            title: "email 확인",
-            text: "email을 입력하세요",
-            showConfirmButton: false,
-            timer: 1000
-        });
-    } else if (nickNameValue.trim() === '') { // 닉네임 값 확인
-        Swal.fire({
-            icon: "warning",
-            title: "닉네임 확인",
-            text: "닉네임을 입력하세요",
-            showConfirmButton: false,
-            timer: 1000
-        });
-    } else if(passValue.trim() === ''){ // password 값 확인
-        Swal.fire({
-            icon: "warning",
-            title: "비밀번호 확인",
-            text: "비밀번호를 입력하세요",
-            showConfirmButton: false,
-            timer: 1000
-        });
-    } else if(!disclosure && !non_disclosure){
-        Swal.fire({
-            icon: "warning",
-            title: "내 정보 확인",
-            text: "공개, 비공개를 체크하세요",
-            showConfirmButton: false,
-            timer: 1000
-        });
-    } else { // 이메일과 닉네임, password가 null이 아닌 경우 회원가입 성공
-        Swal.fire({
-            icon: "success",
-            title: "회원가입 성공",
-            text: "환영합니다",
-            showConfirmButton: true,// 확인 버튼 표시
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // 페이지 이동
-                window.location.href = "index.html";
+        document.getElementById("membership").addEventListener("click", this.membership);
+        document.getElementById("checkPassword").addEventListener("input", this.checkPasswordMatch);
+        document.getElementById("disclosure").addEventListener("click", (event) =>{
+            if(event.target.value === "true"){
+                event.target.value = "false"
+            }else{
+                event.target.value = "true";
             }
-        });
+            
+        })
     }
-}
+    // 폼을 제출할 때 실행될 함수
+    submitForm() {
+        const form = document.getElementById('membershipInForm')
+        const formData = {
+            cmd: "User",
+            cmd2: "membership",
+            nickName: form.querySelector('#nickName').value,
+            password: form.querySelector('#password').value,
+            email: form.querySelector('#email').value,
+            isHidden: form.querySelector('#disclosure').value ==="true" ? true : false,
+        }
+
+        // FormData를 JSON으로 변환
+        const jsonData = JSON.stringify(formData);
+        console.log(jsonData);
+        //WebSocket을 통해 서버로 데이터 전송
+        this.socket.sendMessage(jsonData);
+
+    }
+    callback(data) {
+        const json = JSON.parse(data);
+
+        const state = json['state'];
+
+        if(state){
+            // 회원 가입 성공
+            Swal.fire({
+                icon: "question",
+                title: "회원 가입",
+                text: "회원 가입하시겠습니까?",
+                showConfirmButton: true,// 확인 버튼 표시
+                confirmButtonText: "홈페이지 이동"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 페이지 이동
+                    window.location.href = "index.html";
+                }
+            });
+        } else{
+            // 수정 실패
+            Swal.fire({
+                icon: "question",
+                title: "실패",
+                text: "값을 확인해주세요",
+                showConfirmButton: false,// 확인 버튼 표시
+                timer: 1000
+            })
+        }
+    }
 
 
+    checkPasswordMatch() {
+
+        // 비밀번호 확인(input) 필드의 값이 변경될 때마다 비밀번호 일치 여부 확인
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("checkPassword").value;
+        const warn = document.getElementById("pwConfirm");
+        console.log(password);
+        console.log(confirmPassword);
+        console.log(warn);
 
 
-function checkPasswordMatch() {
+        if (password !== confirmPassword) {
+            // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 표시
+            warn.textContent = "비밀번호가 일치하지 않습니다.";
+            warn.style.color = "red"; // 일치하지 않을 때 텍스트 색상을 빨간색으로 변경
+        } else {
+            // 비밀번호와 확인 비밀번호가 일치할 때는 경고 메시지 표시
+            warn.textContent = "비밀번호가 일치합니다.";
+            warn.style.color = "green"; // 일치할 때 텍스트 색상을 초록색으로 변경
+        }
+    }
 
-    // 비밀번호 확인(input) 필드의 값이 변경될 때마다 비밀번호 일치 여부 확인
-document.getElementById("checkPassword").addEventListener("input", checkPasswordMatch);
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("checkPassword").value;
-    const warn = document.getElementById("pwConfirm");
-    console.log(password);
-    console.log(confirmPassword);
-    console.log(warn);
     
 
-    if (password !== confirmPassword) {
-        // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 표시
-        warn.textContent = "비밀번호가 일치하지 않습니다.";
-        warn.style.color = "red"; // 일치하지 않을 때 텍스트 색상을 빨간색으로 변경
-    } else {
-        // 비밀번호와 확인 비밀번호가 일치할 때는 경고 메시지 표시
-        warn.textContent = "비밀번호가 일치합니다.";
-        warn.style.color = "green"; // 일치할 때 텍스트 색상을 초록색으로 변경
-    }
 }
+
+function initailize() {
+    const member = new membership("localhost", 9000);
+} 
+
+
+initailize();
+
+// // 회원 가입 시 회원이 입력한 정보와 testData 비교 함수
+// function checkDuplicate(field) {
+//     var value = document.getElementById(field).value;
+//     if (value.trim() === "") {
+//         Swal.fire({
+//             icon: "error",
+//             title: "입력 오류",
+//             text: field === "email" ? "email을 입력하세요" : "닉네임을 입력하세요",
+//             showConfirmButton: false,
+//             timer: 1000
+//         });
+//         return;
+//     }
+
+//     // 서버에서 중복 확인 로직 수행
+//     // 예시로 alert를 사용하여 결과 보여주기
+//     if (field === "email") {
+//         if (testData.email.includes(value)) {
+//             Swal.fire({
+//                 icon: "warning",
+//                 title: "중복 확인",
+//                 text: "이미 사용 중인 email입니다.",
+//                 showConfirmButton: false,
+//                 timer: 1000
+//             });
+//         } else {
+//             Swal.fire({
+//                 icon: "success",
+//                 title: "중복 확인",
+//                 text: "사용 가능한 email입니다.",
+//                 showConfirmButton: false,
+//                 timer: 1000
+//             });
+//         }
+//     } else if (field === "nickName") {
+//         if (testData.nickName.includes(value)) {
+//             Swal.fire({
+//                 icon: "warning",
+//                 title: "중복 확인",
+//                 text: "이미 사용 중인 닉네임입니다.",
+//                 showConfirmButton: false,
+//                 timer: 1000
+//             });
+//         } else {
+//             Swal.fire({
+//                 icon: "success",
+//                 title: "중복 확인",
+//                 text: "사용 가능한 닉네임입니다.",
+//                 showConfirmButton: false,
+//                 timer: 1000
+//             });
+//         }
+//     }
+// }
 
 

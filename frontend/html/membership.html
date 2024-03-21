@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 가입 페이지</title>
     <link rel="stylesheet" href="../style/membership.css">
-    <script src="../js/membership.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     
 
@@ -17,7 +16,7 @@
         <a class="a-link" href="#">The <span id="more">More</span></a>
     </header>
     <div id="container">
-        <form id="registerForm" onsubmit="submitForm()">
+        <form id="membershipInForm">
             <fieldset>
                 <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
                 <h3>회원 가입</h3>
@@ -36,19 +35,17 @@
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="password" id="password" name="password" value="" onchange="checkPasswordMatch()">
+                        <input type="password" id="password" name="password" value="" >
                     </li>
                     <li>
                         <label for="checkPassword">비밀번호 확인 <span id="pwConfirm"></span></label>
-                        <input type="password" id="checkPassword" onchange="checkPasswordMatch()" >
+                        <input type="password" id="checkPassword" >
                     </li>
                     <li>
                         <label>내 정보</label>
                         <div class="radio">
-                            <input type="radio" name="isHidden" id="disclosure" value="disclosure_yes">
-                            <label for="disclosure">공개</label>
-                            <input type="radio" name="isHidden" id="non_disclosure" value="disclosure_no">
-                            <label for="non_disclosure">비공개</label>
+                            <label for="disclosure">공개 여부</label>
+                            <input type="checkbox" name="isHidden" id="disclosure" value="true"  >
                         </div>
                     </li>
                     <li>
@@ -60,12 +57,14 @@
                 </ul>
 
                 <div id="button">
-                    <input type="button" value="회원 가입" onclick="login()">
+                    <input type="button" value="회원 가입" id="membership">
                 </div>
             </fieldset>
 
 
         </form>
+
+        <script type="module" src="../js/membership.js"></script>
     </div>
 </body>
 
