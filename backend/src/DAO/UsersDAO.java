@@ -130,4 +130,41 @@ public class UsersDAO {
 		return result;
 		
 	}
+	
+	/**
+	 * @author 이경석<br>
+	 * 			getUser : db에 저장된 회원 불러오기<br>
+	 * 
+	 * @return result : db에 불러오기를 성공적으로 되면 유저를 반환
+	 */
+	public static Users getUserByEmail(Connection conn, String email) throws Exception{
+		Users user = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT * FROM users WHERE email = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				user = new Users();
+				user.setUserId(rs.getInt("userId"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setSalt(rs.getString("salt"));
+				user.setNickName(rs.getString("nickName"));
+				user.setJoinDate(rs.getDate("joinDate"));
+				user.setIsActive(rs.getBoolean("isActive"));
+				user.setIsHidden(rs.getBoolean("isHidden"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			rs.close();
+			pstmt.close();
+		}
+		return user;
+	}
+	
+	
 }
