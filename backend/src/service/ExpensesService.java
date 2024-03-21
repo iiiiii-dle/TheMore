@@ -13,4 +13,7 @@ public interface ExpensesService {
 	void deleteExpenses(WebSocket conn, JSONObject json);
 	void updateExpenses(WebSocket conn, JSONObject json);
 	List<Expenses> getExpensesList(WebSocket conn, JSONObject json);
+	
+	int getTotalAmount(WebSocket conn, JSONObject json);
+	int getTotalCategoryAmount(WebSocket conn, JSONObject json);
 }

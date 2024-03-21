@@ -70,6 +70,23 @@ public class ExpensesServiceImpl implements ExpensesService {
 			conn.send(json.toString());
 			break;
 			
+		// 병민 ------------------------------------------------------
+		case "getTotalAmount" :
+			int sum = expensesService.getTotalAmount(conn, json);
+			JSONObject getAmount = new JSONObject();
+			getAmount.put("cmd", "getTotalAmount");
+			getAmount.put("total",sum);
+			conn.send(getAmount.toString());
+			break;
+			
+		case "getTotalCategoryAmount" :
+			int catagorySum = expensesService.getTotalCategoryAmount(conn, json);
+			JSONObject getCatagory = new JSONObject();
+			getCatagory.put("cmd", "getTotalCategoryAmount");
+			getCatagory.put("totalCatagory", catagorySum);
+			conn.send(getCatagory.toString());
+			break;
+			
 		default:
 			conn.send("잘못된 입력입니다.");
 			break;
@@ -199,6 +216,54 @@ public class ExpensesServiceImpl implements ExpensesService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	/**
+	 * @author 최병민<br>
+	 *         getTotalAmount : userId를 가져와서 수입 지출 값을 주면 수입 합 또는 지출 합 출력기능
+	 */
+	@Override
+	public int getTotalAmount(WebSocket conn, JSONObject json) {
+		Integer userId = json.getInt("userId");
+
+		Boolean filter = json.getBoolean("type");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+		
+		Expenses expenses = new Expenses(userId);
+		
+		int result = 0;
+		try {
+			result = ExpensesDAO.getTotalAmount(DBConnection.getConnection(), filter, expenses);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * @author 최병민<br>
+	 * 			getTotalCategoryAmount : userId를 가져와서 수입 지출 값을 주고 카테고리 아이디를 주면 수입 합 또는 지출 합 출력기능
+	 */
+	@Override
+	public int getTotalCategoryAmount(WebSocket conn, JSONObject json) {
+		Integer userId = json.getInt("userId");
+
+		Boolean filter = json.getBoolean("type");
+		Integer categoryId = json.getInt("categoryId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+		
+		Expenses expenses = new Expenses(userId);
+		
+		int result = 0;
+		try {
+			result = ExpensesDAO.getTotalCategoryAmount(DBConnection.getConnection(), filter, expenses);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
