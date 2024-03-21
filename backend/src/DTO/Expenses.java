@@ -45,6 +45,10 @@ public class Expenses {
 		this.userId = userId;
 		this.expensesDate = expensesDate;
 	}
+	// 병민
+	public Expenses(Integer userId) {
+		this.userId = userId;
+	}
 
 	public Integer getExpensesId() {
 		return expensesId;
