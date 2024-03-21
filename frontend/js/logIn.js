@@ -1,6 +1,6 @@
-import { Socket } from './socket/Socket';
+import { LoginSocket } from './socket/loginSocket';
 
-class LoginSocket {
+class Login {
     constructor(host, port) {
         this.socket = new LoginSocket(host, port, this.callback.bind(this));
     }
@@ -52,4 +52,8 @@ class LoginSocket {
     }
 }
 
-function initailize() {}
+function initailize() {
+    const login = new Login('localhost', 9000);
+}
+
+initailize();
