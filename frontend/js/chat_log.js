@@ -1,4 +1,4 @@
-import { ChatSocket } from './socket/ChatSocket.js';
+import { ChatSocket } from './socket/chatSocket';
 
 class Chat_log {
     constructor(host, port) {
