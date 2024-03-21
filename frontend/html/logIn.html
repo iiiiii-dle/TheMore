@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>로그인</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+        <link rel="stylesheet" href="../style/logIn.css" />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    </head>
 
-<link rel="stylesheet" href="../style/logIn.css">
-<script src="../js/logIn.js"></script>
-</head>
+    <body>
+        <header>
+            <a class="a-link" href="#">The <span id="more">More</span></a>
+        </header>
+        <div id="container">
+            <form id="logInForm" onsubmit="submitForm(event)">
+                <fieldset>
+                    <img src="../images/3babypig.png" id="baby-pig" alt="baby pig" />
+                    <h3>로그인</h3>
+                    <ul>
+                        <li>
+                            <label for="email">email</label>
+                            <input type="email" name="email" value="" id="email" placeholder="email을 입력해주세요." />
+                        </li>
 
-<body>
-    <header>
-        <a class="a-link" href="#">The <span id="more">More</span></a>
-    </header>
-    <div id="container">
-        <form id="logInForm" onsubmit="submitForm(event)">
-            <fieldset>
-                <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
-                <h3>로그인</h3>
-                <ul>
-                    <li>
-                        <label for="email">email</label>
-                        <input type="email" name="email" value="" id="email" placeholder="email을 입력해주세요.">
-                    </li>
+                        <li>
+                            <label for="password">비밀번호</label>
+                            <input type="text" name="password" value="" id="password" />
+                        </li>
+                    </ul>
 
-                    <li>
-                        <label for="password">비밀번호</label>
-                        <input type="text" name="password" value="" id="password">
-                    </li>
-
-                </ul>
-
-                <div id="button">
-                    <input type="submit" value="로그인">
-                </div>
-            </fieldset>
-
-
-        </form>
-    </div>
-</body>
-
+                    <div id="button">
+                        <input type="submit" value="로그인" />
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <script type="module" src="../js/logIn.js"></script>
+    </body>
 </html>
+
