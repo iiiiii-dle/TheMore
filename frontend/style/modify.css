@@ -4,7 +4,9 @@
     font-weight: normal;
     font-style: normal;
 }
-
+*{
+    font-family: 'S-CoreDream-3Light';
+}
 header {
     color: #3c3c3c;
     font-family: 'S-CoreDream-3Light';
@@ -110,7 +112,8 @@ input {
 }
 
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="password"] {
     border: none;
     width: 500px;
     border-bottom: 2px solid #FFB1B1;
@@ -119,13 +122,16 @@ input[type="email"] {
     outline: none;
 }
 
-input[type="submit"] {
+input[type="button"] {
     display: inline-block;
     text-align: center;
     background-color: #FFB1B1;
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
+}
+input[type="button"]:hover{
+    background-color: rgba(255, 177, 177, 0.5);
 }
 
 

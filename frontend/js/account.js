@@ -102,6 +102,7 @@ class Calendar {
         }
     }
 
+
      // 각 날짜 클릭 시 처리
      handleDateClick(event) {
         const clickedDate = event.target.textContent;
@@ -109,7 +110,6 @@ class Calendar {
         const month = this.currentMonth + 1; 
         this.selectedDate.innerHTML = `${clickedDate}일`;
         this.select.innerHTML = `${year}-${month}-${clickedDate}`;
-    }
 
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
@@ -129,6 +129,26 @@ class Calendar {
     }
 }
 
+
+    displayExpenseBox() {
+        this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
+            day.addEventListener('click', () => {
+                const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
+                if (expensesBoxStyle.display === 'block') {
+                    this.expensesBox.expensesBox1.style.display = 'none';
+                    this.quote.quote.style.display = 'block';
+                } else {
+                    this.quote.quote.style.display = 'none';
+                    this.expensesBox.expensesBox1.style.display = 'block';
+                }
+
+                this.quote.updateQuote();
+            });
+        });
+    }
+}
+
+
 class Quote {
     constructor() {
         this.quote = document.querySelector('#quote');
@@ -147,7 +167,6 @@ class Quote {
 
         this.updateQuote();
     }
-
     updateQuote() {
         const randomQuote = this.quotes[Math.floor(Math.random() * this.quotes.length)];
         this.quote.innerHTML = randomQuote;
@@ -184,6 +203,7 @@ class ExpensesBox {
         this.clickAddListBtn();
     }
 
+
     clickOutcomeBtn() {
         this.outcomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
             this.expenseList.style.display = 'block';
@@ -211,13 +231,13 @@ class ExpensesBox {
             this.commitBtn.classList.add('hidden'); // 안보이기
         });
     }
-    /*  */
 }
 
 class ExpenseAdd {
     constructor() {
         this.quote = document.querySelector('#quote');
         this.expenseAdd = document.querySelector('.expenseAdd');
+
         this.budgetBtn = document.querySelector('.budgetBtn');
         this.incomeBtn = document.querySelector('#income');
         this.outcomeBtn = document.querySelector('#outcome');
@@ -233,7 +253,9 @@ class ExpenseAdd {
         this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
         this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
         this.clickOutcomeBtn2 = this.clickOutcomeBtn2.bind(this);
+
         // this.clickCancelBtn = this.clickCancelBtn.bind(this);
+
 
         // this.incomeCategoryGrid = this.incomeCategoryGrid.bind(this);
         // this.outcomeCategoryGrid = this.outcomeCategoryGrid.bind(this);
@@ -244,6 +266,7 @@ class ExpenseAdd {
         this.clickOutcomeBtn2();
         this.clickCancelBtn();
         this.clickCommitBtn();
+
     }
 
     clickBudgeBtn() {
@@ -273,7 +296,9 @@ class ExpenseAdd {
             this.categorys.classList.remove('hidden'); // 보이기 
             this.incomeCategoryGrid.classList.add('hidden'); // 안보이기
             this.outcomeCategoryGrid.classList.remove('hidden'); //보이기
+
             this.amount.style.display = 'block';
+
             this.detail.style.display = 'block';
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
