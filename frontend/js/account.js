@@ -204,5 +204,197 @@ document.addEventListener('DOMContentLoaded', () => {
         cancelBtn.classList.remove('hidden'); 
         commitBtn.classList.remove('hidden'); 
     });
+
+     /* 테마 색상 변경
+    -----------------------------------------------------------------*/
+    document.getElementById('greenTheme').addEventListener('click', function() {
+        let styleTag = document.createElement('style');
+        styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .commitBtn,
+            #addListBtn,
+            .calendar-header {
+                background-color: rgba(111, 242, 132, 0.3);
+            }
+
+            #header {
+                background-color: rgba(111, 242, 132, 0.3);
+            }
+
+            #click-account {
+                color: rgba(111, 242, 132, 1);
+            }
+    
+            #month {
+                color: rgba(111, 242, 132, 1);
+            }
+    
+            .month-change pre {
+                color: rgba(111, 242, 132, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                border-radius: 20px;
+                background-color: rgba(111, 242, 132, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                border-radius: 20px;
+                background-color: rgba(111, 242, 132, 1);
+            }
+    
+            .calendar-days div.current-date {
+                color: rgba(111, 242, 132, 1);
+                border-radius: 20%;
+            }
+    
+            .year-change:hover {
+                background-color: rgba(111, 242, 132, 0.3);
+                transition: all .2s ease-in-out;
+                transform: scale(1.12);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(111, 242, 132, 0.5);
+                transition: all .2s ease-in-out;
+                transform: scale(1.12);
+            }
+    
+            .calendar-days div:hover {
+                transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+                background-color: rgba(111, 242, 132, 0.3);
+                border-radius: 20%;
+                color: #f8fbff;
+            }
+        `;
+        document.head.appendChild(styleTag);
+    });
+    
+    document.getElementById('blueTheme').addEventListener('click', function() {
+        let styleTag = document.createElement('style');
+        styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .commitBtn,
+            #addListBtn,
+            .calendar-header {
+                background-color: rgba(55, 159, 235, 0.3);
+            }
+
+            #click-account {
+                color: rgba(55, 159, 235, 1);
+            }
+    
+            #month {
+                color: rgba(55, 159, 235, 1);
+            }
+    
+            .month-change pre {
+                color: rgba(55, 159, 235, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                border-radius: 20px;
+                background-color: rgba(55, 159, 235, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                border-radius: 20px;
+                background-color: rgba(55, 159, 235, 1);
+            }
+    
+            .calendar-days div.current-date {
+                color: rgba(55, 159, 235, 1);
+                border-radius: 20%;
+            }
+    
+            .year-change:hover {
+                background-color: rgba(55, 159, 235, 0.3);
+                transition: all .2s ease-in-out;
+                transform: scale(1.12);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(55, 159, 235, 0.5);
+                transition: all .2s ease-in-out;
+                transform: scale(1.12);
+            }
+    
+            .calendar-days div:hover {
+                transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+                background-color: rgba(55, 159, 235, 0.3);
+                border-radius: 20%;
+                color: #f8fbff;
+            }
+        `;
+        document.head.appendChild(styleTag);
+    });
+
+    document.getElementById('pinkTheme').addEventListener('click', function() {
+        let styleTag = document.createElement('style');
+        styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .commitBtn,
+            #addListBtn,
+            .calendar-header {
+                background-color: rgba(242, 111, 111, 0.3);
+            }
+
+            #click-account {
+                color: rgba(242, 111, 111, 1);
+            }
+    
+            #month {
+                color: rgba(242, 111, 111, 1);
+            }
+    
+            .month-change pre {
+                color: rgba(242, 111, 111, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                border-radius: 20px;
+                background-color: rgba(242, 111, 111, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                border-radius: 20px;
+                background-color: rgba(242, 111, 111, 1);
+            }
+    
+            .calendar-days div.current-date {
+                color: rgba(55, 159, 235, 1);
+                border-radius: 20%;
+            }
+    
+            .year-change:hover {
+                background-color: rgba(242, 111, 111, 0.3);
+                transition: all .2s ease-in-out;
+                transform: scale(1.12);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(242, 111, 111, 0.5);
+                transition: all .2s ease-in-out;
+                transform: scale(1.12);
+            }
+    
+            .calendar-days div:hover {
+                transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+                background-color: rgba(242, 111, 111, 0.3);
+                border-radius: 20%;
+                color: #f8fbff;
+            }
+        `;
+        document.head.appendChild(styleTag);
+    });
     /* [e]채림 */
 });
