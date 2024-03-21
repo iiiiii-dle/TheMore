@@ -11,13 +11,13 @@ import org.json.JSONObject;
 
 import DTO.Users;
 import service.ExpensesServiceImpl;
-import service.LoginService;
+import service.UserServiceImpl;
 
 public class Sever extends WebSocketServer {
    
    Map<Integer, Users> sessionUser = new HashMap<Integer, Users>();
    ExpensesServiceImpl expensesService = new ExpensesServiceImpl();
-   LoginService loginService = new LoginService();
+   UserServiceImpl loginService = new UserServiceImpl();
    
    public static void main(String[] args) {
       String host = "localhost";

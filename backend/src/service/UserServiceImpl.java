@@ -9,9 +9,13 @@ import DAO.UsersDAO;
 import DB.DBConnection;
 import DTO.Users;
 
-public class LoginService {
+public class UserServiceImpl implements UserService {
 	
-
+	/**
+	 * @author 이경석<br>
+	 *         login: 로그인
+	 */
+	@Override
 	public void login(WebSocket socket,JSONObject json, Map<Integer, Users> session) {
 	
 		System.out.println("login Function");
@@ -48,11 +52,6 @@ public class LoginService {
 		
 		socket.send(response.toString());
 		System.out.println("Login Send");
-		
-		
 	}
-	
-	
-	
-	
+
 }
