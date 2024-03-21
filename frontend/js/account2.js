@@ -143,7 +143,7 @@ class ExpensesBox {
         this.expenseList = document.querySelector('.expenseList');
         this.incomeLists = document.querySelector('.incomeLists');
         this.expenseList.style.display = 'none';
-        // this.incomeLists.style.display = 'none';
+        // this.incomeLists.style.display = 'none';   
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
