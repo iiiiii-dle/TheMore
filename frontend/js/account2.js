@@ -143,7 +143,7 @@ class ExpensesBox {
         this.expenseList = document.querySelector('.expenseList');
         this.incomeLists = document.querySelector('.incomeLists');
         this.expenseList.style.display = 'none';
-        // this.incomeLists.style.display = 'none';
+        // this.incomeLists.style.display = 'none';   
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
@@ -263,6 +263,16 @@ class ExpenseAdd {
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
             // console.log('새끼야');
+        });
+    }
+
+    submit() {
+        Swal.fire({
+            icon: "warning",
+            title: "중복 확인",
+            text: "이미 사용 중인 email입니다.",
+            showConfirmButton: false,
+            timer: 1000
         });
     }
 }
