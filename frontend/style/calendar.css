@@ -1,15 +1,16 @@
 .calendar {
     height: 41rem;
-    width: 70%;
+    width: 50%;
     background-color: white;
     border-radius: 25px;
     padding: 20px;
 }
-
+/* 진행바 */
 .progressText {
     width: 100%;
     text-align: right;
-    padding: 0 10px;
+    padding: 0 5px;
+    margin-bottom: 5px;
 }
 
 progress {
@@ -19,29 +20,28 @@ progress {
     /* 브라우저 기본 스타일 제거 */
     appearance: none;
 }
-/* 배경 */
+/* 진행바 배경 색상 */
 progress::-webkit-progress-bar {
     border-radius: 20px;
     background-color: rgba(242, 111, 111, 0.2);
 }
-/* 진행바 */
+/* 진행바 배경 색상(진행중) */
 progress::-webkit-progress-value {
     border-radius: 20px;
     background-color: #F26F6F;
 }
-
+/* 연도 */
 .calendar-header {
     /* #F26F6F 투명도 30 */
     background: rgba(242, 111, 111, 0.3);
     display: flex;
     justify-content: center;
-    border-radius: 7px;
+    border-radius: 10px;
     align-items: center;
-    color: white;
+    color: white; 
     padding: 10px;
 }
 
-/* 연도 */
 .year-picker {
     display: flex;
     align-items: center;
@@ -49,16 +49,15 @@ progress::-webkit-progress-value {
 
 /* 연도 방향키 */
 .year-change {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
     display: grid;
     place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     margin: 0px 10px;
     cursor: pointer;
 }
 
-/* 연도 방향키 hover */
 .year-change:hover {
     background-color: rgba(242, 111, 111, 0.3);
     /* 확대 효과 */
@@ -66,32 +65,31 @@ progress::-webkit-progress-value {
     transform: scale(1.12);
 }
 
-.calendar-body {
-    padding: 10px;
-}
+/* 월 / 요일 / 날짜 */
+/* .calendar-body {
+    padding: 10px
+} */
 
 /* 달 */
 .month-picker {
     display: flex;
-    /* 수평 가운데 정렬 */
     justify-content: center;
-    /* 수직 가운데 정렬 */
     align-items: center;
     color: #F26F6F;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-
 /* 달 방향키 */
 .month-change {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
     display: grid;
     place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     margin: 0px 10px;
     cursor: pointer;
 }
 
-/* 달 방향키  hover */
 .month-change:hover {
     background-color: rgba(242, 111, 111, 0.3);
     /* 확대 효과 */
@@ -105,23 +103,24 @@ progress::-webkit-progress-value {
     place-items: center;
     grid-template-columns: repeat(7, 1fr);
     color: #3C3C3C;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-/* 일 월 화 수 목 금 토 텍스트 */
-.calendar-week-days div {
+/* .calendar-week-days div {
     display: grid;
     place-items: center;
     color: #3C3C3C;
     height: 50px;
-}
+} */
 
 /* 날짜 */
 .calendar-days {
     display: grid;
     place-items: center;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
     color: #3C3C3C;
+    margin-bottom: 10px;
 }
 
 /* 날짜 */

@@ -265,6 +265,16 @@ class ExpenseAdd {
             // console.log('새끼야');
         });
     }
+
+    submit() {
+        Swal.fire({
+            icon: "warning",
+            title: "중복 확인",
+            text: "이미 사용 중인 email입니다.",
+            showConfirmButton: false,
+            timer: 1000
+        });
+    }
 }
 function initialize() {
     const calendar = new Calendar();
