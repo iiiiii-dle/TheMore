@@ -116,11 +116,18 @@ input {
     padding: 5px;
     margin-top: 10px;
     text-align: left;
+    /* position: relative; */
 
 }
+/* input i {
+    position: absolute;
+    left: 75%;
+    top: 27px;
+} */
 
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="password"] {
     border: none;
     width: 500px;
     border-bottom: 2px solid #FFB1B1;
