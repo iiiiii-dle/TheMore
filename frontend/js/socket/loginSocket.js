@@ -7,7 +7,7 @@ class LoginSocket {
     constructor(host, port, callback) {
         this.host = host;
         this.port = port;
-        this.callback  = callback;
+        this.callback = callback;
 
         this.socket = new WebSocket(`ws://${host}:${port}`);
 
@@ -24,6 +24,7 @@ class LoginSocket {
         });
 
         this.socket.addEventListener('message', (event) => {
+            console.log('test');
             this.callback(event.data);
         });
     }

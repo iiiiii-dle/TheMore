@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../style/membership.css">
     <script src="../js/membership.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+    
 
 </head>
 
@@ -33,25 +33,14 @@
                         <input type="text" id="nickName" name="nickName" value="">
                         
 
-                        <label for="email">email</label>
-                        <input type="email" id="email" name="email" value="" placeholder="email을 입력해주세요.">
-                        <button type="button" onclick="checkDuplicate('email')">중복 확인</button>
-
-                    </li>
-                    <li>
-                        <label for="nickName">닉네임 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="nickName" name="nickName" value="">
-                        <button type="button" onclick="checkDuplicate('nickName')">중복 확인</button>
-
-
                     </li>
                     <li>
                         <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
-                        <input type="text" id="password" name="password" value="">
+                        <input type="password" id="password" name="password" value="" onchange="checkPasswordMatch()">
                     </li>
                     <li>
-                        <label for="checkPassword">비밀번호 확인</label>
-                        <input type="text" id="checkPassword" >
+                        <label for="checkPassword">비밀번호 확인 <span id="pwConfirm"></span></label>
+                        <input type="password" id="checkPassword" onchange="checkPasswordMatch()" >
                     </li>
                     <li>
                         <label>내 정보</label>
