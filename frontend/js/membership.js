@@ -122,3 +122,30 @@ function login(){
     }
 }
 
+
+
+
+function checkPasswordMatch() {
+
+    // 비밀번호 확인(input) 필드의 값이 변경될 때마다 비밀번호 일치 여부 확인
+document.getElementById("checkPassword").addEventListener("input", checkPasswordMatch);
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("checkPassword").value;
+    const warn = document.getElementById("pwConfirm");
+    console.log(password);
+    console.log(confirmPassword);
+    console.log(warn);
+    
+
+    if (password !== confirmPassword) {
+        // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 표시
+        warn.textContent = "비밀번호가 일치하지 않습니다.";
+        warn.style.color = "red"; // 일치하지 않을 때 텍스트 색상을 빨간색으로 변경
+    } else {
+        // 비밀번호와 확인 비밀번호가 일치할 때는 경고 메시지 표시
+        warn.textContent = "비밀번호가 일치합니다.";
+        warn.style.color = "green"; // 일치할 때 텍스트 색상을 초록색으로 변경
+    }
+}
+
+
