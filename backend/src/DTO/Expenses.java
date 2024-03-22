@@ -106,4 +106,9 @@ public class Expenses {
 		this.expensesDate = expensesDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Expenses [expensesId=" + expensesId + ", userId=" + userId + ", categoryId=" + categoryId + ", type="
+				+ type + ", money=" + money + ", memo=" + memo + ", expensesDate=" + expensesDate + "]";
+	}
 }
