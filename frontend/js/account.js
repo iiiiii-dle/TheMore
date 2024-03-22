@@ -1,6 +1,9 @@
+import { Socket } from "../js/socket/socket.js";
 
 class Calendar {
-    constructor() {
+    constructor(socket) {
+        this.socket = socket;
+
         this.quote = new Quote();
         this.expensesBox = new ExpensesBox();
         // DOM 요소 찾기
@@ -28,6 +31,10 @@ class Calendar {
         this.generateCalendar(this.currentMonth, this.currentYear);
         // 각 날짜 요소에 클릭 이벤트 추가
         this.calendarDays.addEventListener('click', this.handleDateClick.bind(this));
+    }
+
+    callback(data) {
+
     }
 
     // 이전 년도로 이동
@@ -103,14 +110,14 @@ class Calendar {
     }
 
 
-     // 각 날짜 클릭 시 처리
-     handleDateClick(event) {
+    // 각 날짜 클릭 시 처리
+    handleDateClick(event) {
         const clickedDate = event.target.textContent;
         const year = this.currentYear;
-        const month = this.currentMonth + 1; 
-        this.selectedDate.innerHTML = `${clickedDate}일`;
-        this.select.innerHTML = `${year}-${month}-${clickedDate}`;
-     }
+        const month = this.currentMonth + 1;
+        this.selectedDate.innerHTML = `${clickedDate}일`;           //ExpensesBox
+        this.select.innerHTML = `${year}-${month}-${clickedDate}`; //ExpenseAdd
+    }
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
             day.addEventListener('click', () => {
@@ -154,14 +161,13 @@ class Quote {
 }
 
 class ExpensesBox {
-    constructor() {
+    constructor(socket) {
+        this.socket = socket;
         this.expenseAdd = new ExpenseAdd();
         this.expensesBox1 = document.querySelector('#expensesBox1');
-        // this.selectedDate = document.querySelector('#selectedDate');
         this.expenseList = document.querySelector('.expenseList');
         this.incomeLists = document.querySelector('.incomeLists');
         this.expenseList.style.display = 'none';
-        // this.incomeLists.style.display = 'none';   
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
@@ -172,7 +178,6 @@ class ExpensesBox {
         this.categorys = document.querySelector('.categorys');
         this.amount = document.querySelector('.amount');
         this.detail = document.querySelector('.detail');
-        /*  */
 
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
@@ -214,7 +219,8 @@ class ExpensesBox {
 }
 
 class ExpenseAdd {
-    constructor() {
+    constructor(socket) {
+        this.socket = socket;
         this.quote = document.querySelector('#quote');
         this.expenseAdd = document.querySelector('.expenseAdd');
 
@@ -223,6 +229,8 @@ class ExpenseAdd {
         this.outcomeBtn = document.querySelector('#outcome');
         this.incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
         this.outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
+        this.categoryBtn = document.querySelector('.categoryBtn');
+        this.select = document.querySelector('#select');
 
         this.categorys = document.querySelector('.categorys');
         this.amount = document.querySelector('.amount');
@@ -246,7 +254,7 @@ class ExpenseAdd {
         this.clickOutcomeBtn2();
         this.clickCancelBtn();
         this.clickCommitBtn();
-
+        this.submit();
     }
 
     clickBudgeBtn() {
@@ -282,7 +290,6 @@ class ExpenseAdd {
             this.detail.style.display = 'block';
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
-            // console.log('새끼야');
         });
     }
 
@@ -301,9 +308,92 @@ class ExpenseAdd {
             this.updateQuote();
         });
     }
+
+    getUserId() {
+        return sessionStorage.getItem('userId');
+    }
+
+    getCategoryId() {
+        let categoryId;
+        this.categoryBtn.addEventListener('click', (e) => {
+            categoryId = this.categoryBtn.getAttribute('id');
+        });
+        return categoryId;
+    }
+
+    getType() {
+        let type;
+        this.incomeBtn.addEventListener('click', (e) => {
+            type = 1;
+        });
+        this.outcomeBtn.addEventListener('click', (e) => {
+            type = 0;
+        });
+        return type;
+    }
+
+    getMoney() {
+        let money;
+        this.amount.addEventListener('input', (e) => {
+            money = this.amount.innerHTML;
+        });
+        return money;
+    }
+
+    getMemo() {
+        let memo;
+        this.detail.addEventListener('input', (e) => {
+            memo = this.detail.innerHTML;
+        })
+        return memo;
+    }
+
+    getSelectedDate() {
+        return this.select.innerHTML;
+    }
+
+    submit() {
+        const userId = this.getUserId();
+        const categoryId = this.getCategoryId();
+        const type = this.getType();
+        const money = this.getMoney();
+        const memo = this.getMemo();
+        const expensesDate = new Date(this.getSelectedDate());
+
+        const formData = new FormData();
+        formData.append('userId', userId);
+        formData.append('categoryId', categoryId);
+        formData.append('type', type);
+        formData.append('money', money);
+        formData.append('memo', memo);
+        formData.append('expensesDate', expensesDate);
+
+        formData.append('cmd', 'insertExpenses');
+
+
+        this.commitBtn.addEventListener('click', function () {
+
+            this.socket.send(JSON.stringify(Object.fromEntries(formData)));
+
+            Swal.fire({
+                icon: "success",
+                title: "수입/지출 내역 작성 완료",
+                showConfirmButton: false,
+                timer: 1000
+            });
+
+        });
+    }
+
+
 }
+
 function initialize() {
-    const calendar = new Calendar();
+    const socket = new Socket("localhost", 9000);
+
+    const expenseAdd = new ExpenseAdd(socket);
+    const expensesBox = new ExpensesBox(socket);
+    const calendar = new Calendar(socket);
     calendar.displayExpenseBox();
 }
 
@@ -315,10 +405,10 @@ export { Calendar, Quote, ExpensesBox, ExpenseAdd };
 
 /* 테마 색상 변경
    -----------------------------------------------------------------*/
-   document.getElementById('greenTheme').addEventListener('click', function () {
+document.getElementById('greenTheme').addEventListener('click', function () {
     var iframe = document.querySelector('iframe');
     var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    
+
     var header = iframeDoc.querySelector('header');
     header.style.backgroundColor = 'rgba(111, 242, 132, 0.3)';
 
@@ -367,10 +457,10 @@ export { Calendar, Quote, ExpensesBox, ExpenseAdd };
 document.getElementById('blueTheme').addEventListener('click', function () {
     var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
     var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    
+
     var header = iframeDoc.querySelector('header');
     header.style.backgroundColor = 'rgba(55, 159, 235, 0.3)';
-    
+
     let styleTag = document.createElement('style');
     styleTag.innerHTML = `
             .incomeCategoryGrid button,
@@ -414,7 +504,7 @@ document.getElementById('blueTheme').addEventListener('click', function () {
 document.getElementById('pinkTheme').addEventListener('click', function () {
     var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
     var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    
+
     var header = iframeDoc.querySelector('header');
     header.style.backgroundColor = 'rgba(242, 111, 111, 0.3)';
 
@@ -457,4 +547,3 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
         `;
     document.head.appendChild(styleTag);
 });
-/* [e]채림 */
