@@ -322,11 +322,10 @@ class ExpenseAdd {
             const detail = this.detail.querySelector('input').value;
 
             // 새로운 expense 요소 생성
-            const expenseItem = document.createElement('div');
+            const expenseItem = document.createElement('p');
             expenseItem.classList.add('expenseItem');
             expenseItem.innerHTML = `
-                 <div class="amount">${amount}</div>
-                 <div class="detail">${detail}</div>
+                 <p class="amount">${amount}</p><p class="detail">${detail}</p>
              `;
 
             this.expenseList.appendChild(expenseItem);

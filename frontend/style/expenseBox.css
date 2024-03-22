@@ -98,20 +98,10 @@
     font-size: 17px;
 }
 
-/* .expenseList p {
-    height: 50px;
-    display: inline-block;
-} */
-
-/* .expenseList {
-    height: 50px;
-    border-bottom: 1px solid #3c3c3c;
-} */
-
-/* .expenseName {
-    width: 100px;
-    font-size: 17px;
-} */
+.expenseItem {
+    border-bottom: 1px solid #ccc; /* 선 스타일 지정 */
+    margin-bottom: 10px; /* 각 요소 사이의 간격 조정 */
+}
 
 #addListBtn {
     position: absolute;
