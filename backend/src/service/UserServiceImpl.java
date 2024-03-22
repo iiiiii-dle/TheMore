@@ -159,8 +159,6 @@ public class UserServiceImpl implements UserService {
 		
 		socket.send(response.toString());
 		
-		
-		
 	}
 	
 	
