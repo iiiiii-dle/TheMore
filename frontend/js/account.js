@@ -160,6 +160,7 @@ class ExpensesBox {
     constructor(socket, expenseAdd) {
         this.socket = socket;
         this.expenseAdd = expenseAdd;
+        this.expenseAddDiv = document.querySelector('.expenseAdd');
         this.expensesBox1 = document.querySelector('#expensesBox1');
         this.expenseList = document.querySelector('.expenseList');
         this.incomeLists = document.querySelector('.incomeLists');
@@ -205,7 +206,7 @@ class ExpensesBox {
         this.detail.querySelector('input').value = detail;
 
         // expenseAdd를 보여줌
-        this.expenseAdd.style.display = 'block';
+        this.expenseAddDiv.style.display = 'block';
         this.expensesBox.style.display = 'none';
 
         // 수정된 내용을 저장할 때 기존 expenseItem 삭제
@@ -259,7 +260,7 @@ class ExpensesBox {
     clickAddListBtn() { // expenseAdd 넘어가기 메소드
         this.addButton.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
-            this.expenseAdd.style.display = 'block';
+            this.expenseAddDiv.style.display = 'block';
             this.categorys.classList.add('hidden');
             this.amount.classList.add('hidden');
             this.detail.classList.add('hidden');
