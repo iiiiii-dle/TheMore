@@ -10,6 +10,7 @@ public class Expenses {
 	private Integer money;
 	private String memo;
 	private Date expensesDate; // 입출금 발생 날짜
+	private Integer totalMoney; // 카테고리 총 지출,수입
 
 	// 혜리 - ExpensesDAO의 getExpensesList에서 사용,
 	//		ExpensesServiceImpl의 updateExpenses에서 사용
@@ -21,6 +22,13 @@ public class Expenses {
 		this.type = type;
 		this.money = money;
 		this.memo = memo;
+		this.expensesDate = expensesDate;
+	}
+	// 병민 - ExpensesDAO의 categoryTotalList에서 사용,
+	public Expenses(Integer categoryId, Boolean type, Integer totalMoney, Date expensesDate) {
+		this.categoryId = categoryId;
+		this.type = type;
+		this.totalMoney = totalMoney;
 		this.expensesDate = expensesDate;
 	}
 
@@ -104,6 +112,12 @@ public class Expenses {
 
 	public void setExpensesDate(Date expensesDate) {
 		this.expensesDate = expensesDate;
+	}
+	public Integer getTotalMoney() {
+		return totalMoney;
+	}
+	public void setTotalMoney(Integer totalMoney) {
+		this.totalMoney = totalMoney;
 	}
 
 }
