@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService {
 			this.updateUser(socket,json,session);
 		else if(cmd2.equals("getUserData"))
 			this.getUserData(socket, json, session);
+		else if(cmd2.equals("membership"))
+			this.membership(socket, json);
 			
 	}
 	
@@ -118,6 +120,42 @@ public class UserServiceImpl implements UserService {
 		
 		JSONObject response = new JSONObject(user);
 		response.put("cmd", "getUserData");
+		
+		socket.send(response.toString());
+		
+	}
+
+
+
+	@Override
+	public void membership(WebSocket socket, JSONObject json) {
+		String nickName = json.getString("nickName");
+		String email = json.getString("email");
+		String password = json.getString("password");
+		boolean isHidden = json.getBoolean("isHidden");
+		
+		Users memberUser = new Users(email, password, "salt", nickName, isHidden);
+		int result = 0;
+		
+		try {
+			result = UsersDAO.insertUser(DBConnection.getConnection(), memberUser);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		JSONObject response = new JSONObject();
+		
+		if(result == 0) {
+			// insert 실패 시
+			response.put("cmd", "membership");
+			response.put("state", false);
+			
+		}
+		else {
+			// insert 성공 시
+			response.put("cmd", "membership");
+			response.put("state", true);
+		}
 		
 		socket.send(response.toString());
 		

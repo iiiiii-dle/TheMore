@@ -12,7 +12,21 @@ public class Users {
 	private Boolean isActive;	//계정활성여부(탈퇴 안 하면 1, 탈퇴 시 0)
 	private Boolean isHidden;	//정보공개여부(공개 시 0, 비공개 시 1)
 	
+	
+	
 	//생성자는 필요할 때 추가할 예정
+	
+	public Users() {
+		
+	}
+	public Users(String email, String password, String salt, String nickname, Boolean isHidden) {
+		this.email = email;
+		this.password = password;
+		this.salt = salt;
+		this.nickName = nickname;
+		this.isHidden = isHidden;
+	}
+	
 	
 	public Integer getUserId() {
 		return userId;
