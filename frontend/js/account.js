@@ -115,8 +115,11 @@ class Calendar {
         const clickedDate = event.target.textContent;
         const year = this.currentYear;
         const month = this.currentMonth + 1;
-        this.selectedDate.innerHTML = `${clickedDate}일`;           //ExpensesBox
-        this.select.innerHTML = `${year}-${month}-${clickedDate}`; //ExpenseAdd
+        const clickedDay = event.target.closest('.calendar-days div');
+        if (clickedDay) {
+            this.selectedDate.innerHTML = `${clickedDate}일`;           //ExpensesBox
+            this.select.innerHTML = `${year}-${month}-${clickedDate}`; //ExpenseAdd
+        }
     }
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
@@ -178,6 +181,9 @@ class ExpensesBox {
         this.categorys = document.querySelector('.categorys');
         this.amount = document.querySelector('.amount');
         this.detail = document.querySelector('.detail');
+
+        this.cancelBtn = document.querySelector('.cancelBtn');
+        this.commitBtn = document.querySelector('.commitBtn');
 
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
@@ -373,19 +379,30 @@ class ExpenseAdd {
 
         this.commitBtn.addEventListener('click', function () {
 
-            this.socket.send(JSON.stringify(Object.fromEntries(formData)));
-
-            Swal.fire({
-                icon: "success",
-                title: "수입/지출 내역 작성 완료",
-                showConfirmButton: false,
-                timer: 1000
-            });
-
+            this.socket.sendMessage(JSON.stringify(Object.fromEntries(formData)));
         });
     }
 
-
+    resultHandler(jsonData) {
+        switch (jsonData) {
+            case 'success':
+                Swal.fire({
+                    icon: "success",
+                    title: "수입/지출 내역 작성 완료",
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                break;
+            case 'fail':
+                Swal.fire({
+                    icon: "error",
+                    title: "수입/지출 내역 작성 실패",
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                break;
+        }
+    }
 }
 
 function initialize() {
