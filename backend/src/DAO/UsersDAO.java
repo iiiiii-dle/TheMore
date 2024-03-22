@@ -22,14 +22,14 @@ public class UsersDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "INSERT INTO users (email, password, salt, nickName,joinDate) VALUES (?, ?, ?, ?, ?) ";
+			String sql = "INSERT INTO users (email, password, salt, nickName, isHidden) VALUES (?, ?, ?, ?, ?) ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getSalt());
 			pstmt.setString(4, user.getNickName());
-			pstmt.setDate(5, user.getJoinDate());
-
+			pstmt.setBoolean(5, user.getIsHidden());
+			
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

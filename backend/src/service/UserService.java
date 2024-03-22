@@ -12,4 +12,5 @@ public interface UserService {
 	void login(WebSocket socket,JSONObject json, Map<Integer, Users> session);
 	void updateUser(WebSocket socket,JSONObject json, Map<Integer, Users> session);
 	void getUserData(WebSocket socket,JSONObject json, Map<Integer, Users> session);
+	void membership(WebSocket socket,JSONObject json);
 }
