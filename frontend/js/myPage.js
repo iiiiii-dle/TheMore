@@ -1,43 +1,62 @@
-//Websocket 서버에 연결
-var socket = new WebSocket("ws://localhost:9000");
 
-// WebSocket 연결이 열렸을 때 실행되는 함수
-socket.onopen = function(event){
-    console.log("WebSocket 연결 성공");
-    // 서버로 사용자 정보 요청 메시지 전송
-    socket.send("getUserInfo");
-};
+import { LoginSocket } from '../js/socket/loginSocket.js';
 
-// WebSocket으로부터 메시지를 받았을 때 실행되는 함수
-socket.onmessage = function(event){
-    console.log("서버로부터 메시지 수신: " + event.data);
-    var userInfo = JSON.parse(event.data);//받은 JSON 데이터 파싱
-    // 사용자 정보를 화면에 표시
-    document.getElementById("email").value = userInfo.email;
-    document.getElementById("nickName").value = userInfo.nickName;
-    document.getElementById("joinDate").value = userInfo.joinDate;
-    // isHidden 값에 따라 공개/비공개 라디오 버튼 선택
-    if(userInfo.isHidden){
-        document.getElementById("disclosure").checked = true;
-    }else{
-        document.getElementById("non_disclosure").checked = true;
+class myPage {
+    constructor(host, port) {
+        this.socket = new LoginSocket(host, port, this.callback.bind(this));
+
+        this.elements = {
+            modify_button: document.querySelector('#button > #modify_btn'),
+        };
+        this.elements.modify_button.addEventListener('click', () => {
+            this.modify();
+        });
+
+        this.socket.socket.addEventListener("open", () => {
+            this.sendForm();
+        });
+        document.getElementById("modify_btn").addEventListener("click", this.modify);
     }
-};
+    callback(data) {
+        const json = JSON.parse(data);
 
-// WebSocket 연결이 닫혔을 때 실행되는 함수
-socket.onclose = function(event){
-    console.log("WebSocket 연결 종료");
-};
+        console.log(json);
+        document.getElementById("email").value = json['email']
+        document.getElementById("nickName").value = json['nickName']
+        document.getElementById("joinDate").value = json['joinDate']
+        document.getElementById("disclosure").checked = json['isHidden'];
 
-function modify(){
-    Swal.fire({
-        icon: "question",
-        title: "수정",
-        text: "수정하시겠습니까?",
-        showConfirmButton: true,
-        confirmButtonText: "수정화면으로 이동"
-    }).then((result) => {
-        if(result.isConfirmed)
-            window.location.href = "modify.html";
-    })
+    }
+    sendForm(){
+        const form = document.getElementById('sendForm');
+
+        const formData = {
+            cmd: "User",
+            cmd2: "getUserData",
+            userId: sessionStorage.getItem('userId')
+        }
+        const jsonData = JSON.stringify(formData);
+
+        console.log(jsonData);
+        this.socket.sendMessage(jsonData);
+
+
+    }
+
+    modify() {
+        Swal.fire({
+            icon: "question",
+            title: "수정",
+            text: "수정하시겠습니까?",
+            showConfirmButton: true,
+            confirmButtonText: "수정화면으로 이동"
+        }).then((result) => {
+            if (result.isConfirmed)
+                window.location.href = "modify.html";
+        })
+    }
 }
+function initailize() {
+    const save = new myPage('localhost', 9000);
+}
+initailize();
