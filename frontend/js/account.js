@@ -271,7 +271,6 @@ class ExpenseAdd {
         this.clickIncomeBtn2();
         this.clickOutcomeBtn2();
         this.clickCancelBtn();
-        this.clickCommitBtn();
     }
 
     clickBudgeBtn() {
@@ -322,10 +321,10 @@ class ExpenseAdd {
             const detail = this.detail.querySelector('input').value;
 
             // 새로운 expense 요소 생성
-            const expenseItem = document.createElement('p');
+            const expenseItem = document.createElement('div');
             expenseItem.classList.add('expenseItem');
             expenseItem.innerHTML = `
-                 <p class="amount">${amount}</p><p class="detail">${detail}</p>
+            <span class="amount">${amount} 원 </span><span class="detail"> ㅣ ${detail}</span>
              `;
 
             this.expenseList.appendChild(expenseItem);
