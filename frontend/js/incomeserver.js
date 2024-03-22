@@ -8,9 +8,8 @@ socket.onopen = function() {
         cmd: "Expenses",
         cmd2: "getTotalAmount",
         userId: 1,
-        type: false,
-        expensesDate: 2024-MM-DD,
-        expensesDate: YYYY-3-DD,
+        type: true,
+        expensesDate: '2024-03-20'
     };
     socket.send(JSON.stringify(cmd));
 };

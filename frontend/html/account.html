@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../style/expenseBox.css">
     <link rel="shortcut icon" href="#">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <!-- <script src="../js/account.js" defer></script> -->
 </head>
 
 <body>
@@ -105,22 +104,22 @@
                 <div class="categorys">
                     <lael>카테고리</lael>
                     <div class="outcomeCategoryGrid">
-                        <button>🍚 식비</button>
-                        <button>🚘 교통</button>
-                        <button>📱 통신</button>
-                        <button>🛍️ 쇼핑</button>
-                        <button>🏠 주거</button>
-                        <button>🍀 보험</button>
-                        <button>💸 금융</button>
-                        <button>🎥 문화생활</button>
-                        <button>📖 자기계발</button>
+                        <button class="categoryBtn" id="9">🍚 식비</button>
+                        <button class="categoryBtn" id="8">🚘 교통</button>
+                        <button class="categoryBtn" id="7">📱 통신</button>
+                        <button class="categoryBtn" id="6">🛍️ 쇼핑</button>
+                        <button class="categoryBtn" id="5">🏠 주거</button>
+                        <button class="categoryBtn" id="4">🍀 보험</button>
+                        <button class="categoryBtn" id="3">💸 금융</button>
+                        <button class="categoryBtn" id="2">🎥 문화생활</button>
+                        <button class="categoryBtn" id="1">📖 자기계발</button>
                     </div>
                     <div class="incomeCategoryGrid">
-                        <button>💰 월급</button>
-                        <button>💵 상여금</button>
-                        <button>💸 금융소득</button>
-                        <button>🤑 용돈</button>
-                        <button>🎸 기타</button>
+                        <button class="categoryBtn" id="14">💰 월급</button>
+                        <button class="categoryBtn" id="13">💵 상여금</button>
+                        <button class="categoryBtn" id="12">💸 금융소득</button>
+                        <button class="categoryBtn" id="11">🤑 용돈</button>
+                        <button class="categoryBtn" id="10">🎸 기타</button>
                     </div>
                 </div> <!-- /.category -->
                 <div class="amount">
@@ -133,7 +132,7 @@
                 </div> <!-- /.detail -->
                 <div class="expenseAddBtn">
                     <button class="expensesBtn cancelBtn" type="reset">취소</button>
-                    <button class="expensesBtn commitBtn" type="submit" onclick="submit()">저장</button>
+                    <button class="expensesBtn commitBtn" type="submit">저장</button>
                 </div>
             </div> <!-- /.expenseAdd -->
         </div>

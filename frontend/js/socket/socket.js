@@ -1,4 +1,4 @@
-class stacSocket {
+class Socket {
     /**
      * host: 호스트 주소
      * port: 포트 번호
@@ -34,4 +34,4 @@ class stacSocket {
     }
 }
 
-export { stacSocket };
+export { Socket };
