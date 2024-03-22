@@ -46,7 +46,7 @@ public class UsersDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "UPDATE users SET email = ?, password = ?, salt = ? , nickName =? , joinDate = ?, isHidden = ?, WHERE userId = ?";
+			String sql = "UPDATE users SET email = ?, password = ?, salt = ? , nickName =? , joinDate = ?, isHidden = ? WHERE userId = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getEmail());
 			pstmt.setString(2, user.getPassword());

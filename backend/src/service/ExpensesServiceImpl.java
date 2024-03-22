@@ -41,26 +41,22 @@ public class ExpensesServiceImpl implements ExpensesService {
 	@Override
 	public void parse(WebSocket conn, JSONObject json) {
 		String cmd2 = json.getString("cmd2");
-		ExpensesServiceImpl expensesService = new ExpensesServiceImpl();
 
 		switch (cmd2) {
 		case "insertExpenses":
-			expensesService.insertExpenses(conn, json);
-			conn.send("작성이 완료되었습니다.");
+			this.insertExpenses(conn, json);
 			break;
 			
 		case "deleteExpenses":
-			expensesService.deleteExpenses(conn, json);
-			conn.send("삭제가 완료되었습니다.");
+			this.deleteExpenses(conn, json);
 			break;
 			
 		case "updateExpenses":
-			expensesService.updateExpenses(conn, json);
-			conn.send("수정이 완료되었습니다.");
+			this.updateExpenses(conn, json);
 			break;
 			
 		case "getExpensesList":
-			List<Expenses> expensesList = expensesService.getExpensesList(conn, json);
+			List<Expenses> expensesList = this.getExpensesList(conn, json);
 			JSONObject json1 = new JSONObject();
 			JSONObject json2 = new JSONObject();
 			json2.put("cmd", "getExpensesList");
@@ -73,7 +69,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 			
 		// 병민 ------------------------------------------------------
 		case "getTotalAmount" :
-			int sum = expensesService.getTotalAmount(conn, json);
+			int sum = this.getTotalAmount(conn, json);
 			JSONObject getAmount = new JSONObject();
 			getAmount.put("cmd", "getTotalAmount");
 			getAmount.put("total",sum);
@@ -81,7 +77,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 			break;
 			
 		case "getTotalCategoryAmount" :
-			int catagorySum = expensesService.getTotalCategoryAmount(conn, json);
+			int catagorySum = this.getTotalCategoryAmount(conn, json);
 			JSONObject getCatagory = new JSONObject();
 			getCatagory.put("cmd", "getTotalCategoryAmount");
 			getCatagory.put("totalCatagory", catagorySum);
@@ -118,13 +114,13 @@ public class ExpensesServiceImpl implements ExpensesService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		JSONObject ackObj = new JSONObject();
+		ackObj.put("cmd", "insertExpenses");
 
 		if (check > 0) {
-			JSONObject ackObj = new JSONObject();
 			ackObj.put("result", "success");
 			conn.send(ackObj.toString());
 		} else {
-			JSONObject ackObj = new JSONObject();
 			ackObj.put("result", "fail");
 			conn.send(ackObj.toString());
 		}
@@ -150,12 +146,12 @@ public class ExpensesServiceImpl implements ExpensesService {
 			e.printStackTrace();
 		}
 
+		JSONObject ackObj = new JSONObject();
+		ackObj.put("cmd", "deleteExpenses");
 		if (check > 0) {
-			JSONObject ackObj = new JSONObject();
 			ackObj.put("result", "success");
 			conn.send(ackObj.toString());
 		} else {
-			JSONObject ackObj = new JSONObject();
 			ackObj.put("result", "fail");
 			conn.send(ackObj.toString());
 		}
@@ -187,12 +183,12 @@ public class ExpensesServiceImpl implements ExpensesService {
 			e.printStackTrace();
 		}
 
+		JSONObject ackObj = new JSONObject();
+		ackObj.put("cmd", "updateExpenses");
 		if (check > 0) {
-			JSONObject ackObj = new JSONObject();
 			ackObj.put("result", "success");
 			conn.send(ackObj.toString());
 		} else {
-			JSONObject ackObj = new JSONObject();
 			ackObj.put("result", "fail");
 			conn.send(ackObj.toString());
 		}

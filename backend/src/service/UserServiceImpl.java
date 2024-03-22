@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void updateUser(WebSocket socket, JSONObject json, Map<Integer, Users> session) {
 		// TODO Auto-generated method stub
-		String userId = json.getString("userId");
+		int userId = json.getInt("userId");
 		int result = 0;
 		
 		Users newUser = session.get(userId);
