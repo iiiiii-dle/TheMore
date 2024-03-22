@@ -98,20 +98,20 @@
     font-size: 17px;
 }
 
-.expenseList p {
+/* .expenseList p {
     height: 50px;
     display: inline-block;
-}
+} */
 
 /* .expenseList {
     height: 50px;
     border-bottom: 1px solid #3c3c3c;
 } */
 
-.expenseName {
+/* .expenseName {
     width: 100px;
     font-size: 17px;
-}
+} */
 
 #addListBtn {
     position: absolute;
