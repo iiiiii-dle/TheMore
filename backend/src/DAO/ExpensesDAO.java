@@ -179,9 +179,9 @@ public class ExpensesDAO {
 		try {
 			String sql = null;
 			if (filter == true) {
-				sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1 AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
+				sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1 AND YEAR(expensesDate) = YEAR(?) AND MONTH(expensesDate) = MONTH(?)";
 			} else if (filter == false){
-				sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0 AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
+				sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0 AND YEAR(expensesDate) = YEAR(?) AND MONTH(expensesDate) = MONTH(?)";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, expenses.getUserId());
@@ -223,9 +223,9 @@ public class ExpensesDAO {
 		try {
 			String sql;
 			if (filter) {
-				sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1 AND categoryId = ? AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
+				sql = "SELECT SUM(money) AS totalIncome FROM expenses WHERE userId = ? AND type = 1 AND categoryId = ? AND YEAR(expensesDate) = YEAR(?) AND MONTH(expensesDate) = MONTH(?)";
 			} else {
-				sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0 AND categoryId = ? AND YEAR(expensesDate) = ? AND MONTH(expensesDate) = ?";
+				sql = "SELECT SUM(money) AS totalExpense FROM expenses WHERE userId = ? AND type = 0 AND categoryId = ? AND YEAR(expensesDate) = YEAR(?) AND MONTH(expensesDate) = MONTH(?)";
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, expenses.getUserId());
