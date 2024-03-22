@@ -83,6 +83,18 @@ public class ExpensesServiceImpl implements ExpensesService {
 			getCatagory.put("totalCatagory", catagorySum);
 			conn.send(getCatagory.toString());
 			break;
+		
+		case "categoryTotalList" :
+			List<Expenses> cateTotalList = this.categoryTotalList(conn, json);
+			JSONObject totalJson = new JSONObject();
+			JSONObject totalJson2 = new JSONObject();
+			totalJson2.put("cmd", "categoryTotalList");
+			for (Expenses ex : cateTotalList) {
+				totalJson2.put("expenses", ex);
+			}
+			totalJson.append("cateTotalList", totalJson2);
+			conn.send(totalJson.toString());
+			break;
 			
 		default:
 			conn.send("잘못된 입력입니다.");
@@ -249,7 +261,6 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Integer userId = json.getInt("userId");
 
 		Boolean filter = json.getBoolean("type");
-		Integer categoryId = json.getInt("categoryId");
 		String dateString = json.getString("expensesDate");
 		Date expensesDate = parseDate(dateString);
 		
@@ -263,6 +274,28 @@ public class ExpensesServiceImpl implements ExpensesService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	/**
+	 * @author 카테고리별 지출,수입 총합, 타입, 날짜
+	 */
+	
+	@Override
+	public List<Expenses> categoryTotalList(WebSocket conn, JSONObject json) {
+
+		Integer userId = json.getInt("userId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+
+		Boolean filter = json.getBoolean("type");
+		Expenses expenses = new Expenses(userId, expensesDate);
+
+		List<Expenses> calelist = new LinkedList<>();
+		try {
+			calelist = ExpensesDAO.categoryTotalList(DBConnection.getConnection(), filter, expenses);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return calelist;
 	}
 
 }
