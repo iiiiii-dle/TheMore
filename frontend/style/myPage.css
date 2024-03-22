@@ -4,6 +4,9 @@
     font-weight: normal;
     font-style: normal;
 }
+*{
+    font-family: 'S-CoreDream-3Light';
+}
 
 header {
     color: #3c3c3c;

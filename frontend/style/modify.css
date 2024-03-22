@@ -123,12 +123,16 @@ input[type="password"] {
 }
 
 input[type="button"] {
-    display: inline-block;
+    display: flex;
     text-align: center;
     background-color: #FFB1B1;
     border: none;
     padding: 10px 20px;
     border-radius: 20px;
+    margin-top: 50px;
+    justify-content: space-around;
+    margin-right: 50px;
+    margin-left: 50px;
 }
 input[type="button"]:hover{
     background-color: rgba(255, 177, 177, 0.5);
@@ -142,17 +146,21 @@ input[type="button"]:hover{
     margin-bottom: 30px;
 }
 
-#button > input{
-    margin-top: 50px;
-    justify-content: space-around;
-    margin-right: 50px;
-}
 #warning{
     height: 1rem;
     margin-top: 10px;
 }
-#out{
-    text-align: right;
-    padding-top: 100px;
-    text-decoration: none;
+#warning + span {
+    visibility: hidden;
+    font-size: 0.7rem;
+}
+
+#warning:hover + span{
+    visibility: visible;
+    background-color: #FFB1B1;
+    color: #3C3C3C;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+    left: calc(100% + 10px); /* 이미지 오른쪽에 위치 */
 }

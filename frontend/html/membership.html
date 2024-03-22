@@ -23,18 +23,18 @@
                 <ul>
                     <li>
 
-                        <label for="email">email <button type="button" onclick="checkDuplicate('email')" >중복확인</button></label>
+                        <label for="email">email <img src="../images/warning.png" alt="warning" id="warning"><span>겹치는 email일 경우 회원가입이 되지 않습니다.</span></label>
                         <input type="email" id="email" name="email" value="" placeholder="email을 입력해주세요.">
                         
                     </li>
                     <li>
-                        <label for="nickName">닉네임 <button type="button" onclick="checkDuplicate('nickName')">중복확인</button></label>
+                        <label for="nickName">닉네임 <img src="../images/warning.png" alt="warning" id="warning"><span>겹치는 닉네임일 경우 회원가입이 되지 않습니다.</span></label>
                         <input type="text" id="nickName" name="nickName" value="">
                         
 
                     </li>
                     <li>
-                        <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"></label>
+                        <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"><span>영문, 숫자, 특수문자 중 2종류 이상을 조합하여 최소 10자리 이상</span></label>
                         <input type="password" id="password" name="password" value="" >
                     </li>
                     <li>
@@ -42,7 +42,7 @@
                         <input type="password" id="checkPassword" >
                     </li>
                     <li>
-                        <label>내 정보</label>
+                        <label>내 정보 <img src="../images/warning.png" alt="warning" id="warning"><span>다른 회원에게 내 정보 공개 여부를 선택해주세요.</span></label>
                         <div class="radio">
                             <label for="disclosure">공개 여부</label>
                             <input type="checkbox" name="isHidden" id="disclosure" value="true"  >

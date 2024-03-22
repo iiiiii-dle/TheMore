@@ -163,3 +163,17 @@ input[type="button"]:hover{
     height: 1rem;
     margin-top: 10px;
 }
+#warning + span {
+    visibility: hidden;
+    font-size: 0.7rem;
+}
+
+#warning:hover + span{
+    visibility: visible;
+    background-color: #FFB1B1;
+    color: #3C3C3C;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+    left: calc(100% + 10px); /* 이미지 오른쪽에 위치 */
+}
