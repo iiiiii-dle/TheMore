@@ -30,7 +30,7 @@
         <div id="wrapper">
             <div class="calendar">
                 <div>
-                    <div class="progressText">0 / 예산</div>
+                    <div class="progressText"><span id="budgetAmount">0</span>/예산</div>
                     <progress value="0" max="100" class="progress-bar"></progress>
                 </div>
                 <div class="calendar-header">
@@ -80,15 +80,10 @@
                     <button class="expensesBtn incomeBtn">수입</button>
                     <button class="expensesBtn outcomeBtn">지출</button>
                 </div>
-                <div class="expensesBox">
+                <div>
                     <div class="expenseList">
-                        <p class="expenseName">식비</p>30,000원
-                    </div><br>
-                    <div class="expenseList">
-                        <p class="expenseName">주거비</p>400,000원
-                    </div><br>
-                    <div class="expenseList">
-                        <p class="expenseName">보험비</p>90,000원
+                        <div class="expenseItem">
+                        </div>
                     </div>
                 </div>
                 <button id="addListBtn"><img src="../images/Pluse.png" alt=""></button>
@@ -131,8 +126,8 @@
                     <input type="text" id="detail">
                 </div> <!-- /.detail -->
                 <div class="expenseAddBtn">
-                    <button class="expensesBtn cancelBtn" type="reset">취소</button>
-                    <button class="expensesBtn commitBtn" type="submit">저장</button>
+                    <button class="expensesBtn cancelBtn">취소</button>
+                    <button class="expensesBtn commitBtn">저장</button>
                 </div>
             </div> <!-- /.expenseAdd -->
         </div>
