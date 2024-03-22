@@ -12,6 +12,9 @@ class Save {
         this.elements.save_button.addEventListener('click', () => {
             this.submitForm();
         });
+        this.socket.socket.addEventListener("open", () => {
+            this.sendForm();
+        });
 
         // 비밀번호 확인(input) 필드의 값이 변경될 때마다 비밀번호 일치 여부 확인
         document.getElementById("checkPassword").addEventListener("input", this.checkPasswordMatch);
@@ -25,8 +28,20 @@ class Save {
             
         })
     }
+    sendForm(){
+        const form = document.getElementById('sendForm');
+
+        const formData = {
+            cmd: "User",
+            cmd2: "getUserData",
+            userId: sessionStorage.getItem('userId')
+        }
+        const jsonData = JSON.stringify(formData);
+        console.log(jsonData);
+        this.socket.sendMessage(jsonData);
+    }
     submitForm() {
-        // 폼을 제출할 때 실행될 함수
+        // 폼을 수정하고 제출할 때 실행될 함수(클라이언트에서 서버로 보낼때)
         const form = document.getElementById('modifyInForm');
 
         const formData = {
@@ -47,7 +62,13 @@ class Save {
     callback(data) {
         const json = JSON.parse(data);
 
-        const state = json['state'];
+        const state = json['state']
+
+        console.log(json);
+        document.getElementById("email").value = json['email']
+        document.getElementById("nickName").value = json['nickName']
+        document.getElementById("disclosure").value = json['disclosure']
+
 
         if (state) {
             // 수정 성공
@@ -63,15 +84,6 @@ class Save {
                     window.location.href = "myPage.html";
                 }
             });
-        } else {
-            // 수정 실패
-            Swal.fire({
-                icon: "question",
-                title: "실패",
-                text: "값을 확인해주세요",
-                showConfirmButton: false,// 확인 버튼 표시
-                timer: 1000
-            })
         }
 
     }

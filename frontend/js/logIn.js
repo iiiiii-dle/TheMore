@@ -20,7 +20,8 @@ class Login {
         const formData = new FormData(form);
         // FormData를 JSON으로 변환
 
-        formData.append('cmd', 'Login');
+        formData.append('cmd', 'User');
+        formData.append('cmd2', 'Login');
         const jsonData = JSON.stringify(Object.fromEntries(formData));
 
         console.log(jsonData);
@@ -45,7 +46,9 @@ class Login {
             });
         } else {
             const userId = json['userId'];
-            sessionStorage.setItem('userId', userId);
+            const nickName = json['nickName'];
+            sessionStorage.setItem('userId', userId); 
+            sessionStorage.setItem('nickName', nickName); 
             // 메인 페이지 화면으로 이동
             Swal.fire({
                 icon: 'success',
