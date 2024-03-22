@@ -8,8 +8,9 @@ socket.onopen = function() {
         cmd: "Expenses",
         cmd2: "getTotalAmount",
         userId: 1,
-        type: true,
-        expensesDate: '2024-03-20'
+        // userId: sessionStorage.getItem('userId'),
+        type: false, // 수입형 지출형 2가지로
+        expensesDate: '2024-3-20' // json 형식으로 변경
     };
     socket.send(JSON.stringify(cmd));
 };
