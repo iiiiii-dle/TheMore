@@ -99,7 +99,6 @@
 }
 
 .expenseItem:not(:last-child){
-    border-bottom: 1px solid #ccc; /* 선 스타일 지정 */
     margin-bottom: 10px; /* 각 요소 사이의 간격 조정 */
 }
 

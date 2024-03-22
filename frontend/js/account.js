@@ -104,7 +104,7 @@ class Calendar {
     }
 
     displayExpenseBox() { // expensesBox display 설정
-        this.calendarDays.childNodes.forEach(day => { 
+        this.calendarDays.childNodes.forEach(day => {
             day.addEventListener('click', () => {
                 const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
                 if (expensesBoxStyle.display === 'block') {
@@ -166,8 +166,7 @@ class ExpensesBox {
 
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
-
-        // expenseItem 클릭 시 처리
+        // expenseItem 클릭 시 수정 
         this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
 
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
@@ -177,11 +176,14 @@ class ExpensesBox {
 
     handleExpenseItemClick(event) { // expenseList 안의 expenseItem 수정 
         const clickedItem = event.target.closest('.expenseItem');
-        if (!clickedItem) return; // 클릭된 요소가 expenseItem이 아니면 처리 중단
+        if (!clickedItem) {
+            console.error('clickedItem not found');
+            return;
+        }
 
         // expenseItem의 내용 가져오기
-        const amount = clickedItem.querySelector('.amount').textContent;
-        const detail = clickedItem.querySelector('.detail').textContent;
+        const amount = clickedItem.querySelector('.amount').textContent.trim();
+        const detail = clickedItem.querySelector('.detail').textContent.trim();
 
         // expenseAdd에 내용 채우기
         this.amount.querySelector('input').value = amount;
@@ -200,12 +202,12 @@ class ExpensesBox {
             const newAmount = this.amount.querySelector('input').value;
             const newDetail = this.detail.querySelector('input').value;
 
-            // 새로운 expense 요소 생성
+            /// 새로운 expense 요소 생성
             const newExpenseItem = document.createElement('div');
             newExpenseItem.classList.add('expenseItem');
             newExpenseItem.innerHTML = `
-                <div class="amount">${newAmount}</div>
-                <div class="detail">${newDetail}</div>
+            <div class="amount">${newAmount}</div>
+            <div class="detail">${newDetail}</div>
             `;
 
             // expenseList에 새로운 expenseItem 추가
@@ -221,14 +223,20 @@ class ExpensesBox {
     }
 
     clickOutcomeBtn() { // expensesBox 지출 버튼 메소드
-        this.outcomeBtn.addEventListener('click', () => { 
+        this.outcomeBtn.addEventListener('click', () => {
             this.expenseList.style.display = 'block';
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
         });
     }
 
     clickIncomeBtn() { // expensesBox 수입 버튼 메소드
         this.incomeBtn.addEventListener('click', () => {
             this.expenseList.style.display = 'block';
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
         });
     }
 
@@ -236,11 +244,14 @@ class ExpensesBox {
         this.addButton.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
             this.expenseAdd.style.display = 'block';
-            this.categorys.classList.add('hidden'); // 안보이기
-            this.amount.classList.add('hidden'); // 안보이기
-            this.detail.classList.add('hidden'); // 안보이기
-            this.cancelBtn.classList.add('hidden'); // 안보이기
-            this.commitBtn.classList.add('hidden'); // 안보이기
+            this.categorys.classList.add('hidden');
+            this.amount.classList.add('hidden');
+            this.detail.classList.add('hidden');
+            this.cancelBtn.classList.add('hidden');
+            this.commitBtn.classList.add('hidden');
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
         });
     }
 }
@@ -254,7 +265,7 @@ class ExpenseAdd {
         this.budgetBtn = document.querySelector('.budgetBtn');
         this.incomeBtn = document.querySelector('#income');
         this.outcomeBtn = document.querySelector('#outcome');
-        
+
         this.categorys = document.querySelector('.categorys');
         this.incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
         this.outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
@@ -262,6 +273,13 @@ class ExpenseAdd {
         this.detail = document.querySelector('.detail');
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
+
+        // 초기에 입력창들을 숨김
+        this.amount.classList.add('hidden');
+        this.detail.classList.add('hidden');
+        this.cancelBtn.classList.add('hidden');
+        this.commitBtn.classList.add('hidden');
+
 
         this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
         this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
@@ -271,13 +289,14 @@ class ExpenseAdd {
         this.clickIncomeBtn2();
         this.clickOutcomeBtn2();
         this.clickCancelBtn();
+        this.clickCommitBtn();
     }
 
     clickBudgeBtn() {
         this.budgetBtn.addEventListener('click', () => {
-            this.categorys.classList.add('hidden'); 
-            this.amount.style.display = 'block';
-            this.detail.style.display = 'none';
+            this.categorys.classList.add('hidden');
+            this.amount.classList.remove('hidden');
+            this.detail.classList.add('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
         });
@@ -285,11 +304,11 @@ class ExpenseAdd {
 
     clickIncomeBtn2() {
         this.incomeBtn.addEventListener('click', () => {
-            this.categorys.classList.remove('hidden');  
-            this.incomeCategoryGrid.classList.remove('hidden');  
-            this.outcomeCategoryGrid.classList.add('hidden'); 
-            this.amount.style.display = 'block';
-            this.detail.style.display = 'block';
+            this.categorys.classList.remove('hidden');
+            this.incomeCategoryGrid.classList.remove('hidden');
+            this.outcomeCategoryGrid.classList.add('hidden');
+            this.amount.classList.remove('hidden');
+            this.detail.classList.remove('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
         });
@@ -297,11 +316,11 @@ class ExpenseAdd {
 
     clickOutcomeBtn2() {
         this.outcomeBtn.addEventListener('click', () => {
-            this.categorys.classList.remove('hidden'); 
-            this.incomeCategoryGrid.classList.add('hidden'); 
+            this.categorys.classList.remove('hidden');
+            this.incomeCategoryGrid.classList.add('hidden');
             this.outcomeCategoryGrid.classList.remove('hidden');
-            this.amount.style.display = 'block';
-            this.detail.style.display = 'block';
+            this.amount.classList.remove('hidden');
+            this.detail.classList.remove('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
         });
@@ -324,10 +343,10 @@ class ExpenseAdd {
             const expenseItem = document.createElement('div');
             expenseItem.classList.add('expenseItem');
             expenseItem.innerHTML = `
-            <span class="amount">${amount} 원 </span><span class="detail"> ㅣ ${detail}</span>
+            <span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
              `;
-
-            this.expenseList.appendChild(expenseItem);
+            console.log(expenseItem);
+            this.expenseList.append(expenseItem);
 
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
@@ -496,4 +515,3 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
         `;
     document.head.appendChild(styleTag);
 });
-/* [e]채림 */
