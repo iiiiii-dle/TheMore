@@ -251,5 +251,50 @@ public class ExpensesDAO {
 
 		return totalCategoryAmount;
 	}
+	/**
+	 * @author 최병민
+	 * 			categoryTotalList : 카테고리 별 지출 총합  
+	 * 
+	 * @return cateTotalList
+	 */
+	
+	public static List<Expenses> categoryTotalList(Connection conn, Boolean filter, Expenses expenses) throws Exception {
+		List<Expenses> cateTotalList = new LinkedList<>();
+		String sql;
+		PreparedStatement pstmt = null;
+		try {
+			if (filter.equals(true)) { 
+				sql = "SELECT categoryId, type, SUM(money) AS totalMoney, expensesDate FROM expenses WHERE userId = ? AND Type = 1 AND MONTH(expensesDate) = MONTH(?) GROUP BY categoryId, type, expensesDate";
+			} else if (filter.equals(false)) { 
+				sql = "SELECT categoryId, type, SUM(money) AS totalMoney, expensesDate FROM expenses WHERE userId = ? AND Type = 0 AND MONTH(expensesDate) = MONTH(?) GROUP BY categoryId, type, expensesDate";
+			} else {
+				throw new IllegalArgumentException("불가능한 타입 값입니다. 타입 값은 true, false만 허용됩니다.");
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, expenses.getUserId());
+			pstmt.setDate(2, expenses.getExpensesDate());
+
+			ResultSet rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				System.out.println("조회할 데이터가 없습니다.");
+			} else {
+				do {
+					Integer categoryId = rs.getInt("categoryId");
+					Boolean type = rs.getBoolean("type");
+					Integer totalMoney = rs.getInt("totalMoney");
+					Date expensesDate = rs.getDate("expensesDate");
+
+					Expenses categoryExpenses = new Expenses(categoryId, type, totalMoney, expensesDate);
+					System.out.printf("%s", categoryExpenses);
+					cateTotalList.add(categoryExpenses);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pstmt.close();
+		}
+		return cateTotalList;
+	}
 
 }
