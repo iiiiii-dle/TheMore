@@ -55,8 +55,6 @@ public class UserServiceImpl implements UserService {
 		JSONObject response = new JSONObject();
 		response.put("cmd", "Login");
 		
-		System.out.println(user);
-		System.out.println(user.getPassword());
 		
 		if(user == null || !password.equals(user.getPassword())) {
 			response.put("state", false);
