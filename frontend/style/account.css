@@ -49,3 +49,43 @@
     display: none;
     flex: 1;
 }
+
+.boxWrapper {
+    margin-top: 50px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 350px;
+}
+
+.boxWrapper::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}
+
+.incomeList, .outcomeList {
+    border-bottom: 1px solid #E6E6E6;
+    display: flex;
+}
+
+.incomeList > p, .outcomeList > p {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.categoryName {
+    margin-left: 10px;
+    width: 80px;
+}
+
+.money {
+    width: 120px;
+    text-align: end;
+    margin-right: 40px;
+}
+
+.memo {
+    width: 155px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

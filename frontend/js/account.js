@@ -53,10 +53,6 @@ class Calendar {
         this.calendarDays.addEventListener('click', this.handleDateClick.bind(this));
     }
 
-    callback(data) {
-
-    }
-
     // 이전 년도로 이동
     prevYear() {
         this.currentYear--;
@@ -163,14 +159,12 @@ class ExpensesBox {
         this.socket = socket;
         this.expenseAdd = expenseAdd;
         this.expensesBox1 = document.querySelector('#expensesBox1');
-        this.expenseList = document.querySelector('.expenseList');
-        this.incomeLists = document.querySelector('.incomeLists');
-        this.expenseList.style.display = 'none';
+        this.incomeBox = document.querySelector('.incomeBox');
+        this.outcomeBox = document.querySelector('.outcomeBox');
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
-        /* 채림 */
-        this.expensesBox = document.querySelector('.expensesBox');
+
         this.addButton = document.querySelector('#addListBtn');
         this.expenseAdd = document.querySelector('.expenseAdd');
         this.categorys = document.querySelector('.categorys');
@@ -188,16 +182,19 @@ class ExpensesBox {
         this.clickAddListBtn();
     }
 
-
     clickOutcomeBtn() {
         this.outcomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
-            this.expenseList.style.display = 'block';
+            this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
+            this.incomeBox.style.display = 'none'; // 수정: 수입 목록 숨기기
+            this.outcomeBox.style.display = 'block'; // 추가: 지출 상자 표시
         });
     }
 
     clickIncomeBtn() {
         this.incomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
-            this.expenseList.style.display = 'none';
+            this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
+            this.incomeBox.style.display = 'block'; // 수정: 수입 목록 표시
+            this.outcomeBox.style.display = 'none'; // 추가: 지출 상자 숨기기
         });
     }
 
