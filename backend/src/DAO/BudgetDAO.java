@@ -27,7 +27,7 @@ public class BudgetDAO {
 			
 			pstmt.setInt(1, budget.getUserId());
 			pstmt.setInt(2, budget.getAmount());
-			pstmt.setDate(3, budget.getMonth());
+			pstmt.setDate(3, budget.getBudgetDate());
 			
 			result = pstmt.executeUpdate();
 			
@@ -75,12 +75,13 @@ public class BudgetDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "UPDATE budget SET amount = ?, month = ? WHERE userId = ? AND budgetId = ?";
+			String sql = "UPDATE budget SET amount = ? WHERE userId = ? AND budgetId = ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, budget.getAmount());
-			pstmt.setDate(2, budget.getMonth());
+			pstmt.setInt(2, budget.getUserId());
+			pstmt.setInt(3, budget.getBudgetId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -100,15 +101,15 @@ public class BudgetDAO {
 	 * @return result : budgetList
 	 */
 	
-	public static List<Budget> bringBudget(Connection conn, int userId, Date month) throws Exception {
+	public static List<Budget> bringBudget(Connection conn, int userId, Date budgetDate) throws Exception {
 	    List<Budget> budgetList = new LinkedList<>();
-	    String sql = "SELECT * FROM budget WHERE userId = ? AND month = ?";
+	    String sql = "SELECT * FROM budget WHERE userId = ? AND MONTH(expensesDate) = MONTH(?)";
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, userId);
-	        pstmt.setDate(2, month);
+	        pstmt.setDate(2, budgetDate);
 	        
 	        rs = pstmt.executeQuery();
 	        
@@ -117,7 +118,7 @@ public class BudgetDAO {
 	            // Budget 객체에 결과 값 설정
 	            budget.setUserId(rs.getInt("userId"));
 	            budget.setAmount(rs.getInt("amount"));
-	            budget.setMonth(rs.getDate("month"));
+	            budget.setBudgetDate(rs.getDate("budgetDate"));
 	            // 결과 리스트에 추가
 	            budgetList.add(budget);
 	        }

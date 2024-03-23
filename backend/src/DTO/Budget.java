@@ -6,14 +6,28 @@ public class Budget {
 	private Integer budgetId;
 	private Integer userId;
 	private Integer amount;
-	private Date month;
+	private Date budgetDate;
 	
 	//생성자는 필요할 때 추가할 예정
 	public Budget() {
-		this.budgetId = budgetId;
+		
+	}
+	public Budget(Integer userId, Integer budgetId, Integer amount, Date budgetDate) {
 		this.userId = userId;
+		this.budgetId = budgetId;
 		this.amount = amount;
-		this.month = month;
+		this.budgetDate = budgetDate;
+	}
+	
+	public Budget(Integer userId, Integer budgetId) {
+		this.userId = userId;
+		this.budgetId = budgetId;
+	}
+	
+	public Budget(Integer userId, Integer budgetId, Integer amount) {
+		this.userId = userId;
+		this.budgetId = budgetId;
+		this.amount = amount;
 	}
 	
 	public Integer getBudgetId() {
@@ -34,11 +48,11 @@ public class Budget {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public Date getMonth() {
-		return month;
+	public Date getBudgetDate() {
+		return budgetDate;
 	}
-	public void setMonth(Date month) {
-		this.month = month;
+	public void setBudgetDate(Date budgetDate) {
+		this.budgetDate = budgetDate;
 	}
 
 }
