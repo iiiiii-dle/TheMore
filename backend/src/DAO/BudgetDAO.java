@@ -22,12 +22,13 @@ public class BudgetDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "INSERT INTO budget (userId, amount, month) VALUES ( ?, ?, ?)";
+			String sql = "INSERT INTO budget (userId,budgetId, amount, month) VALUES ( ?,?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, budget.getUserId());
-			pstmt.setInt(2, budget.getAmount());
-			pstmt.setDate(3, budget.getBudgetDate());
+			pstmt.setInt(2, budget.getBudgetId());
+			pstmt.setInt(3, budget.getAmount());
+			pstmt.setDate(4, budget.getBudgetDate());
 			
 			result = pstmt.executeUpdate();
 			

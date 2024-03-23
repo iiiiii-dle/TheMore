@@ -87,12 +87,14 @@ public class ExpensesServiceImpl implements ExpensesService {
 		case "categoryTotalList" :
 			List<Expenses> cateTotalList = this.categoryTotalList(conn, json);
 			JSONObject totalJson = new JSONObject();
-			JSONObject totalJson2 = new JSONObject();
-			totalJson2.put("cmd", "categoryTotalList");
+			
+			
+			totalJson.put("cmd", "categoryTotalList");
 			for (Expenses ex : cateTotalList) {
-				totalJson2.put("expenses", ex);
+				JSONObject expense = new JSONObject(ex);
+				totalJson.append("expenses", expense);
 			}
-			totalJson.append("cateTotalList", totalJson2);
+			
 			conn.send(totalJson.toString());
 			break;
 			
