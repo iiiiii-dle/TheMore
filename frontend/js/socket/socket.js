@@ -43,6 +43,10 @@ class Socket {
             });
         }
     }
+
+    setCallback(callback) {
+        this.callback = callback;
+    }
     
 }
 
