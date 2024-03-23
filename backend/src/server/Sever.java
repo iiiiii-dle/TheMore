@@ -68,6 +68,9 @@ public class Sever extends WebSocketServer {
 		} else if (cmd.equals("Budget")) {
 			budgetService.parse(conn,msg);
 			
+		} else if(cmd.equals("김강~형")){
+			System.out.println("그려~ 동생아");
+			expensesService.statistics(conn, msg);
 		}
 
 //
