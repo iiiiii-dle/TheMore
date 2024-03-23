@@ -277,10 +277,6 @@ class ExpensesBox {
             // expenseList에 새로운 expenseItem 추가
             this.expenseList.appendChild(newExpenseItem);
 
-            // 입력 필드 초기화
-            this.amount.querySelector('input').value = '';
-            this.detail.querySelector('input').value = '';
-
             // expenseAdd 숨김
             this.expenseAddDiv.style.display = 'none';
         });
@@ -393,6 +389,8 @@ class ExpenseAdd {
             if (this.budgetExpenseDivergency === 'budget') {
                 // budget 처리 연산
             } else if (this.budgetExpenseDivergency === 'expenses') {
+                console.log(document.querySelector('#amount'));
+                console.log(document.querySelector('#detail'));
                 this.submit();
             }
         });
@@ -419,7 +417,6 @@ class ExpenseAdd {
         this.clickIncomeBtn2();
         this.clickOutcomeBtn2();
         this.clickCancelBtn();
-        this.clickCommitBtn();
     }
 
     clickBackBtn2() {
@@ -484,7 +481,7 @@ class ExpenseAdd {
     }
 
     clickCommitBtn() {
-        this.commitBtn.addEventListener('click', () => {
+    
             // 입력된 내용 가져오기
             // -----------------------
             const selectedCategory = document.querySelector('.categoryBtn.selected');
@@ -508,10 +505,11 @@ class ExpenseAdd {
             this.expenseAddDiv.style.display = 'none';
             this.expensesBox1.style.display = 'block';
             // this.quote.updateQuote();
-        });
     }
 
     submit() {
+        console.log('amount: ', document.querySelector('#amount').value);
+        console.log('memo: ', document.querySelector('#detail').value);
         const data = {
             cmd: 'Expenses',
             cmd2: 'insertExpenses',
@@ -524,11 +522,17 @@ class ExpenseAdd {
         };
 
         const jsonData = JSON.stringify(data);
+
+        console.log(jsonData)
         this.socket.sendMessage(jsonData);
+
+        // 입력 필드 초기화
+        this.clickCommitBtn(); 
     }
 
-    resultHandler(jsonData) {
-        switch (jsonData) {
+    insertHandler(jsonData) {
+        console.log(jsonData);
+        switch (jsonData['result']) {
             case 'success':
                 Swal.fire({
                     icon: 'success',
@@ -550,7 +554,6 @@ class ExpenseAdd {
 }
 
 function initialize() {
-    const socket = new Socket('localhost', 9000, () => {});
 
     const expenseAdd = new ExpenseAdd(socket);
     const expensesBox = new ExpensesBox(socket, expenseAdd);
@@ -578,9 +581,9 @@ function initialize() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initialize();
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     initialize();
+// });
 
 export { Calendar, Quote, ExpensesBox, ExpenseAdd };
 
@@ -735,9 +738,9 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
                 color: #f8fbff;
             }
 
-            categoryBtn.clicked,
+            .categoryBtn.clicked,
             .commitBtn,
-            #addListBtn, {
+            #addListBtn {
                 background-color: rgba(242, 111, 111, 0.6);
             }
         `;
