@@ -33,7 +33,7 @@ class membership {
             nickName: form.querySelector('#nickName').value,
             password: form.querySelector('#password').value,
             email: form.querySelector('#email').value,
-            isHidden: form.querySelector('#disclosure').value ==="true" ? true : false,
+            isHidden: form.querySelector('#disclosure').value ==="false" ? false : true,
         }
 
         // FormData를 JSON으로 변환
@@ -51,7 +51,7 @@ class membership {
         if(state){
             // 회원 가입 성공
             Swal.fire({
-                icon: "question",
+                icon: "success",
                 title: "회원 가입",
                 text: "회원 가입하시겠습니까?",
                 showConfirmButton: true,// 확인 버튼 표시
