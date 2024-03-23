@@ -14,10 +14,8 @@
     border: 2px solid rgba(60, 60, 60, 0.3);
 }
 
-.circle:active {
-    margin-top: 2px;
-    margin-left: 3px;
-    border: 2px solid rgba(60, 60, 60, 0.5);
+.circle.clicked {
+    border: 2px solid rgba(60, 60, 60, 0.6);
 }
 /* 핑크 테마 버튼 */
 #pinkTheme {
@@ -60,12 +58,25 @@
     margin-left: 20px;
     /* box-sizing: border-box; */
 }
+
 /* 수입 지출 내역 - 날짜 */
 #selectedDate {
     display: block;
     margin-bottom: 10px;
     font-size: 28px;
     color: #3c3c3c;
+}
+
+#backBtn {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    width: 20px;
+    height: 22px;
+    font-size: 17px;
+    border: 1px solid #3c3c3c;
+    border-radius: 50px;
+    font-size: 15px;
 }
 /* 수입 / 지출 버튼 */
 .expensesBtn {
@@ -77,10 +88,8 @@
     font-size: 18px;
 }
 
-.expensesBtn:active {
-    margin-top: 2px;
-    margin-left: 3px;
-    border: 2px solid rgba(60, 60, 60, 0.5);
+.expensesBtn.clicked {
+    border: 1px solid rgba(60, 60, 60, 0.6);
 }
 /* 수입 버튼 색상 */
 .incomeBtn {
@@ -92,25 +101,14 @@
 }
 
 .expenseList {
-    position: absolute;
-    top: 250px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: 17px;
 }
 
-.expenseLists p {
-    height: 50px;
-    display: inline-block;
-}
-
-.expenseList {
-    height: 50px;
-    border-bottom: 1px solid #3c3c3c;
-}
-
-.expenseName {
-    width: 100px;
+.expenseItem:not(:last-child){
+    margin-bottom: 10px; /* 각 요소 사이의 간격 조정 */
 }
 
 #addListBtn {
@@ -120,12 +118,10 @@
     width: 50px;
     height: 50px;
     border-radius: 50px;
-    background-color: rgba(242, 111, 111, 0.3);
+    background-color: rgba(242, 111, 111, 0.7);
 }
 
 #addListBtn:active {
-    margin-top: 2px;
-    margin-left: 3px;
     border: 2px solid rgba(60, 60, 60, 0.5);
 }
 /* --------------------------------------------------------- */
@@ -143,13 +139,27 @@
     margin-left: 20px;
     /* box-sizing: border-box; */
 }
+
 /* 선택 날짜 */
 #select {
     display: block;
     width: 100%;
-    text-align: end;
+    text-align: center;
     font-size: 16px;
 }
+
+#backBtn2 {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    width: 20px;
+    height: 22px;
+    font-size: 17px;
+    border: 1px solid #3c3c3c;
+    border-radius: 50px;
+    font-size: 15px;
+}
+
 /* 예산 / 수입 / 지출 버튼 */
 .selectButtons {
     display: flex;
@@ -166,6 +176,10 @@
     margin-top: 20px;
     margin-bottom: 10px;
     color: #3c3c3c;
+}
+
+.categoryBtn.clicked {
+    background-color: rgba(242, 111, 111, 0.8);;
 }
 /* 지출 카테고리 */
 .outcomeCategoryGrid {
@@ -221,7 +235,7 @@ input[type='text'] {
 }
 /* 저장 버튼 */
 .commitBtn {
-    background-color: rgba(242, 111, 111, 0.3);
+    background-color: rgba(242, 111, 111, 0.7);
 }
 /* 카테고리 gird를 위한 처리 */
 .hidden {

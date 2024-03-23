@@ -30,7 +30,7 @@
         <div id="wrapper">
             <div class="calendar">
                 <div>
-                    <div class="progressText">0 / 예산</div>
+                    <div class="progressText"><span id="budgetAmount">0</span>/예산</div>
                     <progress value="0" max="100" class="progress-bar"></progress>
                 </div>
                 <div class="calendar-header">
@@ -76,6 +76,7 @@
             </div>
             <div class="expensesBox" id="expensesBox1">
                 <div id="selectedDate">날짜</div>
+                <button id="backBtn"> X </button>
                 <div class="selectButtons">
                     <button class="expensesBtn incomeBtn">수입</button>
                     <button class="expensesBtn outcomeBtn">지출</button>
@@ -153,6 +154,11 @@
                             <p class="categoryName">쇼핑</p>
                             <p class="money">5,000원</p>
                             <p class="memo">다이소 키링 구매</p>
+                          </div>
+                    </div>
+                <div>
+                    <div class="expenseList">
+                        <div class="expenseItem">
                         </div>
                     </div>
                 </div>
@@ -161,6 +167,7 @@
             <!-- 채림 -->
             <div class="expenseAdd">
                 <div id="select">날짜</div>
+                <button id="backBtn2"> X </button>
                 <div class="selectButtons">
                     <button class="expensesBtn budgetBtn">예산</button>
                     <button class="expensesBtn incomeBtn" id="income">수입</button>
@@ -196,8 +203,8 @@
                     <input type="text" id="detail">
                 </div> <!-- /.detail -->
                 <div class="expenseAddBtn">
-                    <button class="expensesBtn cancelBtn" type="reset">취소</button>
-                    <button class="expensesBtn commitBtn" type="submit">저장</button>
+                    <button class="expensesBtn cancelBtn">취소</button>
+                    <button class="expensesBtn commitBtn">저장</button>
                 </div>
             </div> <!-- /.expenseAdd -->
         </div>

@@ -30,52 +30,54 @@ class Calendar {
 
         this.quote = new Quote();
         this.expensesBox = new ExpensesBox(socket);
-        
+
         this.calendar = document.querySelector('.calendar');
-        this.calendarDays = document.querySelector('.calendar-days');
+
         this.calendarHeaderYear = document.querySelector('#year');
         this.calendarBodyMonth = document.querySelector('#month');
+        this.calendarDays = document.querySelector('.calendar-days');
+
         this.todayShowTime = document.querySelector('.time-formate');
         this.todayShowDate = document.querySelector('.date-formate');
-        this.selectedDate = document.querySelector('#selectedDate');
-        this.select = document.querySelector('#select');
+        this.selectedDate = document.querySelector('#selectedDate'); // expensesBox 날짜(일)
+        this.select = document.querySelector('#select'); // expenseAdd 날짜(연도-월-일)
 
+        /* 현재 날짜 설정 */
         this.currentDate = new Date();
         this.currentMonth = this.currentDate.getMonth();
         this.currentYear = this.currentDate.getFullYear();
+        this.currentWeek = this.currentDate.getDay(); //-----expenseBox에 나오게 하고 싶어서 일단 선언함(구현 안함)
+
+        /* 캘린더 생성 */
+        this.generateCalendar(this.currentMonth, this.currentYear);
 
         document.querySelector('#pre-year').addEventListener('click', this.prevYear.bind(this));
         document.querySelector('#next-year').addEventListener('click', this.nextYear.bind(this));
         document.querySelector('#pre-month').addEventListener('click', this.prevMonth.bind(this));
         document.querySelector('#next-month').addEventListener('click', this.nextMonth.bind(this));
 
-        this.generateCalendar(this.currentMonth, this.currentYear);
         this.calendarDays.addEventListener('click', this.handleDateClick.bind(this));
     }
 
-    // 이전 년도로 이동
-    prevYear() {
+    prevYear() { // 이전 년도로 이동
         this.currentYear--;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    // 다음 년도로 이동
-    nextYear() {
+    nextYear() { // 다음 년도로 이동
         this.currentYear++;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    // 이전 달로 이동
-    prevMonth() {
-        this.currentMonth = (this.currentMonth - 1 + 12) % 12;
+    prevMonth() { // 이전 달로 이동
+        this.currentMonth = (this.currentMonth + 11) % 12;
         if (this.currentMonth === 11) {
             this.currentYear--;
         }
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    // 다음 달로 이동
-    nextMonth() {
+    nextMonth() { // 다음 달로 이동
         this.currentMonth = (this.currentMonth + 1) % 12;
         if (this.currentMonth === 0) {
             this.currentYear++;
@@ -83,22 +85,21 @@ class Calendar {
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    // 윤년 계산
-    isLeapYear(year) {
+    isLeapYear(year) {  // 윤년 
         return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0);
     }
 
-    // 2월 날짜 반환
-    getFebDays(year) {
+    getFebDays(year) {  // 2월 날짜 반환
         return this.isLeapYear(year) ? 29 : 28;
     }
 
-    // 캘린더 생성
-    generateCalendar(month, year) {
+    generateCalendar(month, year) {   // 캘린더 생성
         const month_names = [
             '1월', '2월', '3월', '4월', '5월', '6월',
             '7월', '8월', '9월', '10월', '11월', '12월',
         ];
+        //-----expensesBox 날짜 옆에 요일 구현 예정
+        // const week_names = ['일', '월', '화', '수', '목', '금', '토'];
         this.calendarDays.innerHTML = '';
         const daysOfMonth = [31, this.getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         const firstDay = new Date(year, month);
@@ -115,7 +116,7 @@ class Calendar {
                     month === this.currentDate.getMonth()) {
                     day.classList.add('current-date');
                 }
-                // 각 날짜 요소에 클릭 이벤트 추가
+                /* 클릭한 날짜 가져오기  */
                 day.addEventListener('click', (event) => {
                     const clickedDate = i - firstDay.getDay() + 1;
                     console.log('Year:', year, 'Month:', month + 1, 'Date:', clickedDate);
@@ -136,6 +137,7 @@ class Calendar {
             this.select.innerHTML = `${year}-${month}-${clickedDate}`; //ExpenseAdd
         }
     }
+
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
             day.addEventListener('click', () => {
@@ -152,12 +154,36 @@ class Calendar {
             });
         });
     }
+
+    // 클릭한 요소에 클래스를 추가하여 배경색을 변경하고, 다른 요소를 클릭할 때 이전 요소의 클래스를 제거함
+    handleDateClick(event) {
+        const clickedDate = event.target.textContent;
+        const year = this.currentYear;
+        const month = this.currentMonth + 1;
+        const clickedDay = event.target.closest('.calendar-days div');
+        const allDays = document.querySelectorAll('.calendar-days div');
+
+        // 클릭된 요소에 클래스 추가
+        if (clickedDay) {
+            clickedDay.classList.add('clicked');
+            this.selectedDate.innerHTML = `${clickedDate}일`;
+            this.select.innerHTML = `${year}-${month}-${clickedDate}`;
+
+            // 다른 요소들의 클래스 제거
+            allDays.forEach(day => {
+                if (day !== clickedDay) {
+                    day.classList.remove('clicked');
+                }
+            });
+        }
+    }
 }
 
 class ExpensesBox {
     constructor(socket, expenseAdd) {
         this.socket = socket;
         this.expenseAdd = expenseAdd;
+        this.expenseAddDiv = document.querySelector('.expenseAdd');
         this.expensesBox1 = document.querySelector('#expensesBox1');
         this.incomeBox = document.querySelector('.incomeBox');
         this.outcomeBox = document.querySelector('.outcomeBox');
@@ -165,21 +191,80 @@ class ExpensesBox {
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
 
+        this.quote = new Quote();
+        this.quoteDiv = document.querySelector('#quote');
+
+        this.expensesBox = document.querySelector('.expensesBox');
+        this.backBtn = document.querySelector('#backBtn');
+        this.expenseBtns = document.querySelectorAll('.expensesBtn');
+        this.expenseList = document.querySelector('.expenseList');
         this.addButton = document.querySelector('#addListBtn');
-        this.expenseAdd = document.querySelector('.expenseAdd');
+
         this.categorys = document.querySelector('.categorys');
         this.amount = document.querySelector('.amount');
         this.detail = document.querySelector('.detail');
-
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
 
+        this.expenseBtns.forEach(button => {
+            button.addEventListener('click', this.handleButtonClick.bind(this));
+        });
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
+        this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
 
-        this.clickOutcomeBtn();
-        this.clickIncomeBtn();
-        this.clickAddListBtn();
+        this.clickBackBtn();
+        this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
+        this.clickIncomeBtn();  // expensesBox 수입 버튼 메소드
+        this.clickAddListBtn(); // expenseAdd 넘어가기 메소드
+    }
+
+    handleExpenseItemClick(event) { // expenseList 안의 expenseItem 수정 
+        const clickedItem = event.target.closest('.expenseItem');
+        if (!clickedItem) {
+            console.error('clickedItem not found');
+            return;
+        }
+
+        // expenseItem의 내용 가져오기
+        const amount = clickedItem.querySelector('.amount').textContent.trim();
+        const detail = clickedItem.querySelector('.detail').textContent.trim();
+
+        // expenseAdd에 내용 채우기
+        this.amount.querySelector('input').value = amount;
+        this.detail.querySelector('input').value = detail;
+
+        // expenseAdd를 보여줌
+        this.expenseAddDiv.style.display = 'block';
+        this.expensesBox.style.display = 'none';
+
+        // 수정된 내용을 저장할 때 기존 expenseItem 삭제
+        this.commitBtn.addEventListener('click', () => {
+            // 기존 expenseItem 삭제
+            clickedItem.remove();
+
+            // 입력된 내용 가져오기
+            const newAmount = this.amount.querySelector('input').value;
+            const newDetail = this.detail.querySelector('input').value;
+
+            /// 새로운 expense 요소 생성
+            const newExpenseItem = document.createElement('div');
+            newExpenseItem.classList.add('expenseItem');
+            newExpenseItem.innerHTML = `
+            <div class="amount">${newAmount}</div>
+            <div class="detail">${newDetail}</div>
+            `;
+
+            // expenseList에 새로운 expenseItem 추가
+            this.expenseList.appendChild(newExpenseItem);
+
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
+
+            // expenseAdd 숨김
+            this.expenseAdd.style.display = 'none';
+        });
     }
 
     clickOutcomeBtn() {
@@ -187,6 +272,9 @@ class ExpensesBox {
             this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
             this.incomeBox.style.display = 'none'; // 수정: 수입 목록 숨기기
             this.outcomeBox.style.display = 'block'; // 추가: 지출 상자 표시
+          // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
         });
     }
 
@@ -195,20 +283,43 @@ class ExpensesBox {
             this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
             this.incomeBox.style.display = 'block'; // 수정: 수입 목록 표시
             this.outcomeBox.style.display = 'none'; // 추가: 지출 상자 숨기기
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
+    });
+    }
+
+    clickBackBtn() {
+        this.backBtn.addEventListener('click', () => {
+            this.expensesBox1.style.display = 'none';
+            this.quote.quote.style.display = 'block'; // quote를 다시 보여주도록 설정
+            this.quote.updateQuote(); // quote를 업데이트
         });
     }
 
-    /* 채림 */
-    clickAddListBtn() {
+    clickAddListBtn() { // expenseAdd 넘어가기 메소드
         this.addButton.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
-            this.expenseAdd.style.display = 'block';
+            this.expenseAddDiv.style.display = 'block';
             this.categorys.classList.add('hidden');
             this.amount.classList.add('hidden');
             this.detail.classList.add('hidden');
             this.cancelBtn.classList.add('hidden');
             this.commitBtn.classList.add('hidden');
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
         });
+    }
+
+    handleButtonClick(event) {
+        const clickedButton = event.target;
+
+        document.querySelectorAll('.clicked').forEach(button => {
+            button.classList.remove('clicked');
+        });
+
+        clickedButton.classList.add('clicked');
     }
 }
 
@@ -220,26 +331,40 @@ class ExpenseAdd {
         this.categoryId = 9;
         this.type = 0;
 
+        this.expensesBox1 = document.querySelector('#expensesBox1');
         this.expenseAdd = document.querySelector('.expenseAdd');
+        this.expenseList = document.querySelector('.expenseList');
 
+        this.expenseAdd = document.querySelector('.expenseAdd');
+        this.backBtn2 = document.querySelector('#backBtn2');
         this.budgetBtn = document.querySelector('.budgetBtn');
         this.incomeBtn = document.querySelector('#income');
         this.outcomeBtn = document.querySelector('#outcome');
-        this.incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
-        this.outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
         this.categoryBtn = document.querySelectorAll('.categoryBtn');
         this.select = document.querySelector('#select');
         this.quoteDiv = document.querySelector('#quote');
 
         this.categorys = document.querySelector('.categorys');
+        this.incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
+        this.outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
+        this.categoryBtns = document.querySelectorAll('.categoryBtn');
         this.amount = document.querySelector('.amount');
         this.detail = document.querySelector('.detail');
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
 
+        // 초기에 입력창들을 숨김
+        this.amount.classList.add('hidden');
+        this.detail.classList.add('hidden');
+        this.cancelBtn.classList.add('hidden');
+        this.commitBtn.classList.add('hidden');
+
         this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
         this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
         this.clickOutcomeBtn2 = this.clickOutcomeBtn2.bind(this);
+        this.categoryBtns.forEach(button => {
+            button.addEventListener('click', this.handleCategoryBtnClick.bind(this));
+        });
 
         this.commitBtn.addEventListener('click', () => {
             this.submit();
@@ -260,6 +385,7 @@ class ExpenseAdd {
             });
         })
 
+        this.clickBackBtn2();
         this.clickBudgeBtn();
         this.clickIncomeBtn2();
         this.clickOutcomeBtn2();
@@ -267,11 +393,19 @@ class ExpenseAdd {
         this.clickCommitBtn();
     }
 
+    clickBackBtn2() {
+        this.backBtn2.addEventListener('click', () => {
+            this.expenseAdd.style.display = 'none';
+            this.quote.quote.style.display = 'block'; 
+            this.quote.updateQuote(); 
+        });
+    }
+
     clickBudgeBtn() {
         this.budgetBtn.addEventListener('click', () => {
-            this.categorys.classList.add('hidden'); // 안보이기
-            this.amount.style.display = 'block';
-            this.detail.style.display = 'none';
+            this.categorys.classList.add('hidden');
+            this.amount.classList.remove('hidden');
+            this.detail.classList.add('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
         });
@@ -279,11 +413,11 @@ class ExpenseAdd {
 
     clickIncomeBtn2() {
         this.incomeBtn.addEventListener('click', () => {
-            this.categorys.classList.remove('hidden');  // 보이기
-            this.incomeCategoryGrid.classList.remove('hidden'); // 보이기 
-            this.outcomeCategoryGrid.classList.add('hidden'); // 안보이기 
-            this.amount.style.display = 'block';
-            this.detail.style.display = 'block';
+            this.categorys.classList.remove('hidden');
+            this.incomeCategoryGrid.classList.remove('hidden');
+            this.outcomeCategoryGrid.classList.add('hidden');
+            this.amount.classList.remove('hidden');
+            this.detail.classList.remove('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
         });
@@ -291,31 +425,59 @@ class ExpenseAdd {
 
     clickOutcomeBtn2() {
         this.outcomeBtn.addEventListener('click', () => {
-            this.categorys.classList.remove('hidden'); // 보이기 
-            this.incomeCategoryGrid.classList.add('hidden'); // 안보이기
-            this.outcomeCategoryGrid.classList.remove('hidden'); //보이기
-
-            this.amount.style.display = 'block';
-
-            this.detail.style.display = 'block';
+            this.categorys.classList.remove('hidden');
+            this.incomeCategoryGrid.classList.add('hidden');
+            this.outcomeCategoryGrid.classList.remove('hidden');
+            this.amount.classList.remove('hidden');
+            this.detail.classList.remove('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
         });
+    }
+
+    handleCategoryBtnClick(event) {
+        const clickedButton = event.target;
+
+        document.querySelectorAll('.clicked').forEach(button => {
+            button.classList.remove('clicked');
+        });
+
+        clickedButton.classList.add('clicked');
     }
 
     clickCancelBtn() {
         this.cancelBtn.addEventListener('click', () => {
             this.expenseAdd.style.display = 'none';
             this.quoteDiv.style.display = 'block';
-            this.updateQuote();
+            this.quote.updateQuote();
         });
     }
 
     clickCommitBtn() {
         this.commitBtn.addEventListener('click', () => {
+            // 입력된 내용 가져오기
+            // -----------------------
+            const selectedCategory = document.querySelector('.categoryBtn.selected');
+            const category = selectedCategory ? selectedCategory.textContent.trim() : '';
+            const amount = this.amount.querySelector('input').value;
+            const detail = this.detail.querySelector('input').value;
+
+            // 새로운 expense 요소 생성
+            const expenseItem = document.createElement('div');
+            expenseItem.classList.add('expenseItem');
+            expenseItem.innerHTML = `
+            <span class="category">${category}</span><span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
+             `;
+
+            console.log(expenseItem);
+            this.expenseList.append(expenseItem);
+
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
+
             this.expenseAdd.style.display = 'none';
-            this.quoteDiv.style.display = 'block';
-            this.quote.updateQuote();
+            this.expensesBox1.style.display = 'block';
+            // this.quote.updateQuote();
         });
     }
 
@@ -358,12 +520,28 @@ class ExpenseAdd {
 }
 
 function initialize() {
-    const socket = new Socket("localhost", 9000, () => {});
+    const socket = new Socket("localhost", 9000, () => { });
 
     const expenseAdd = new ExpenseAdd(socket);
     const expensesBox = new ExpensesBox(socket, expenseAdd);
     const calendar = new Calendar(socket);
     calendar.displayExpenseBox();
+
+    const circleButtons = document.querySelectorAll('.circle');
+
+    circleButtons.forEach(button => {
+        button.addEventListener('click', handleButtonClick);
+    });
+
+    function handleButtonClick(event) {
+        const clickedButton = event.target;
+
+        document.querySelectorAll('.clicked').forEach(button => {
+            button.classList.remove('clicked');
+        });
+
+        clickedButton.classList.add('clicked');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -387,8 +565,6 @@ document.getElementById('greenTheme').addEventListener('click', function () {
             .outcomeCategoryGrid button,
             .amount input,
             .detail input,
-            .commitBtn,
-            #addListBtn,
             .calendar-header,
             .year-change:hover {
                 background-color: rgba(111, 242, 132, 0.3);
@@ -415,9 +591,16 @@ document.getElementById('greenTheme').addEventListener('click', function () {
                 background-color: rgba(111, 242, 132, 0.5);
             }
     
-            .calendar-days div:hover {
-                background-color: rgba(111, 242, 132, 0.3);
+            .calendar-days div.clicked {
+                background-color: rgba(111, 242, 132, 0.8);
+                border-radius: 20%;
                 color: #f8fbff;
+            }
+
+            .categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn {
+                background-color: rgba(111, 242, 132, 0.6);
             }
         `;
     document.head.appendChild(styleTag);
@@ -436,8 +619,6 @@ document.getElementById('blueTheme').addEventListener('click', function () {
             .outcomeCategoryGrid button,
             .amount input,
             .detail input,
-            .commitBtn,
-            #addListBtn,
             .calendar-header,
             .year-change:hover {
                 background-color: rgba(55, 159, 235, 0.3);
@@ -462,9 +643,16 @@ document.getElementById('blueTheme').addEventListener('click', function () {
                 background-color: rgba(55, 159, 235, 0.5);
             }
     
-            .calendar-days div:hover {
-                background-color: rgba(55, 159, 235, 0.3);
+            .calendar-days div.clicked {
+                background-color: rgba(55, 159, 235, 0.8);
+                border-radius: 20%;
                 color: #f8fbff;
+            }
+
+            .categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn {
+                background-color: rgba(55, 159, 235, 0.6);
             }
         `;
     document.head.appendChild(styleTag);
@@ -483,8 +671,6 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
             .outcomeCategoryGrid button,
             .amount input,
             .detail input,
-            .commitBtn,
-            #addListBtn,
             .calendar-header,
             .year-change:hover {
                 background-color: rgba(242, 111, 111, 0.3);
@@ -509,9 +695,16 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
                 background-color: rgba(242, 111, 111, 0.5);
             }
     
-            .calendar-days div:hover {
-                background-color: rgba(242, 111, 111, 0.3);
+            .calendar-days div.clicked {
+                background-color: rgba(242, 111, 111, 0.8);
+                border-radius: 20%;
                 color: #f8fbff;
+            }
+
+            categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn, {
+                background-color: rgba(242, 111, 111, 0.6);
             }
         `;
     document.head.appendChild(styleTag);

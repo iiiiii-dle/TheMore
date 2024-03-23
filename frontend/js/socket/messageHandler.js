@@ -1,6 +1,6 @@
-import { ExpenseAdd } from '../account.js';
+// import { ExpenseAdd } from '../account.js';
 import { Chat_log, Message } from '../chat_log.js';
-import { Socket } from "../js/socket/socket.js";
+import { Socket } from './socket.js';
 
 // 실시간 Socket event 처리 파일
 
@@ -10,8 +10,8 @@ function initialize() {
     const port2 = 9000;
 
     const chat_log = new Chat_log(host, port1);
-    const expenseAdd = new ExpenseAdd(socket);
-    const socket = new Socket(host, port2);
+    // const expenseAdd = new ExpenseAdd(socket);
+    // const socket = new Socket(host, port2);
 }
 
 // 메시지 핸들러 함수. 메시지를 받아오는 것

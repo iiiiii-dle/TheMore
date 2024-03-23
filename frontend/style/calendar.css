@@ -65,11 +65,6 @@ progress::-webkit-progress-value {
     transform: scale(1.12);
 }
 
-/* 월 / 요일 / 날짜 */
-/* .calendar-body {
-    padding: 10px
-} */
-
 /* 달 */
 .month-picker {
     display: flex;
@@ -107,13 +102,6 @@ progress::-webkit-progress-value {
     margin-bottom: 10px;
 }
 
-/* .calendar-week-days div {
-    display: grid;
-    place-items: center;
-    color: #3C3C3C;
-    height: 50px;
-} */
-
 /* 날짜 */
 .calendar-days {
     display: grid;
@@ -135,8 +123,7 @@ progress::-webkit-progress-value {
     padding-top: 3px;
 }
 
-.calendar-days div:hover {
-    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+.calendar-days div.clicked {
     background-color: #fbc7d4;
     border-radius: 20%;
     color: #f8fbff;
