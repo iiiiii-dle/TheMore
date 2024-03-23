@@ -14,10 +14,8 @@
     border: 2px solid rgba(60, 60, 60, 0.3);
 }
 
-.circle:active {
-    margin-top: 2px;
-    margin-left: 3px;
-    border: 2px solid rgba(60, 60, 60, 0.5);
+.circle.clicked {
+    border: 2px solid rgba(60, 60, 60, 0.6);
 }
 /* 핑크 테마 버튼 */
 #pinkTheme {
@@ -77,10 +75,8 @@
     font-size: 18px;
 }
 
-.expensesBtn:active {
-    margin-top: 2px;
-    margin-left: 3px;
-    border: 2px solid rgba(60, 60, 60, 0.5);
+.expensesBtn.clicked {
+    border: 1px solid rgba(60, 60, 60, 0.6);
 }
 /* 수입 버튼 색상 */
 .incomeBtn {
@@ -156,6 +152,10 @@
     margin-bottom: 10px;
     color: #3c3c3c;
 }
+
+.categoryBtn.clicked {
+    background-color: rgba(242, 111, 111, 0.8);;
+}
 /* 지출 카테고리 */
 .outcomeCategoryGrid {
     display: grid;
@@ -221,9 +221,3 @@ input[type='text'] {
     display: block;
 }
 /* --------------------------------------------------------- */
-
-button:active {
-    margin-top: 2px;
-    margin-left: 3px;
-    border: 2px solid rgba(60, 60, 60, 0.5);
-}

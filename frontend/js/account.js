@@ -30,13 +30,13 @@ class Calendar {
 
         this.quote = new Quote();
         this.expensesBox = new ExpensesBox(socket);
-        
+
         this.calendar = document.querySelector('.calendar');
-      
+
         this.calendarHeaderYear = document.querySelector('#year');
         this.calendarBodyMonth = document.querySelector('#month');
         this.calendarDays = document.querySelector('.calendar-days');
-      
+
         this.todayShowTime = document.querySelector('.time-formate');
         this.todayShowDate = document.querySelector('.date-formate');
         this.selectedDate = document.querySelector('#selectedDate'); // expensesBox 날짜(일)
@@ -59,8 +59,7 @@ class Calendar {
         this.calendarDays.addEventListener('click', this.handleDateClick.bind(this));
     }
 
-    // 이전 년도로 이동
-    prevYear() {
+    prevYear() { // 이전 년도로 이동
         this.currentYear--;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
@@ -138,6 +137,7 @@ class Calendar {
             this.select.innerHTML = `${year}-${month}-${clickedDate}`; //ExpenseAdd
         }
     }
+
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
             day.addEventListener('click', () => {
@@ -154,6 +154,29 @@ class Calendar {
             });
         });
     }
+
+    // 클릭한 요소에 클래스를 추가하여 배경색을 변경하고, 다른 요소를 클릭할 때 이전 요소의 클래스를 제거함
+    handleDateClick(event) {
+        const clickedDate = event.target.textContent;
+        const year = this.currentYear;
+        const month = this.currentMonth + 1;
+        const clickedDay = event.target.closest('.calendar-days div');
+        const allDays = document.querySelectorAll('.calendar-days div');
+
+        // 클릭된 요소에 클래스 추가
+        if (clickedDay) {
+            clickedDay.classList.add('clicked');
+            this.selectedDate.innerHTML = `${clickedDate}일`;
+            this.select.innerHTML = `${year}-${month}-${clickedDate}`;
+
+            // 다른 요소들의 클래스 제거
+            allDays.forEach(day => {
+                if (day !== clickedDay) {
+                    day.classList.remove('clicked');
+                }
+            });
+        }
+    }
 }
 
 class ExpensesBox {
@@ -166,9 +189,9 @@ class ExpensesBox {
         this.incomeLists = document.querySelector('.incomeLists');
         this.expenseList.style.display = 'none';
 
-
         this.expensesBox1 = document.querySelector('#expensesBox1');
         this.expensesBox = document.querySelector('.expensesBox');
+        this.expenseBtns = document.querySelectorAll('.expensesBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.expenseList = document.querySelector('.expenseList');
@@ -180,9 +203,11 @@ class ExpensesBox {
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
 
+        this.expenseBtns.forEach(button => {
+            button.addEventListener('click', this.handleButtonClick.bind(this));
+        });
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
-        // expenseItem 클릭 시 수정 
         this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
 
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
@@ -241,7 +266,6 @@ class ExpensesBox {
     clickOutcomeBtn() { // expensesBox 지출 버튼 메소드
         this.outcomeBtn.addEventListener('click', () => {
             this.expenseList.style.display = 'block';
-
             // 입력 필드 초기화
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
@@ -270,6 +294,16 @@ class ExpensesBox {
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
         });
+    }  
+
+    handleButtonClick(event) {
+        const clickedButton = event.target;
+
+        document.querySelectorAll('.clicked').forEach(button => {
+            button.classList.remove('clicked');
+        });
+
+        clickedButton.classList.add('clicked');
     }
 }
 
@@ -281,6 +315,7 @@ class ExpenseAdd {
         this.categoryId = 9;
         this.type = 0;
 
+        this.expensesBox1 = document.querySelector('#expensesBox1'); 
         this.expenseAdd = document.querySelector('.expenseAdd');
         this.expenseList = document.querySelector('.expenseList');
 
@@ -295,6 +330,7 @@ class ExpenseAdd {
         this.categorys = document.querySelector('.categorys');
         this.incomeCategoryGrid = document.querySelector('.incomeCategoryGrid');
         this.outcomeCategoryGrid = document.querySelector('.outcomeCategoryGrid');
+        this.categoryBtns = document.querySelectorAll('.categoryBtn');
         this.amount = document.querySelector('.amount');
         this.detail = document.querySelector('.detail');
         this.cancelBtn = document.querySelector('.cancelBtn');
@@ -310,6 +346,9 @@ class ExpenseAdd {
         this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
         this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
         this.clickOutcomeBtn2 = this.clickOutcomeBtn2.bind(this);
+        this.categoryBtns.forEach(button => {
+            button.addEventListener('click', this.handleCategoryBtnClick.bind(this));
+        });
 
         this.commitBtn.addEventListener('click', () => {
             this.submit();
@@ -371,6 +410,16 @@ class ExpenseAdd {
         });
     }
 
+    handleCategoryBtnClick(event) {
+        const clickedButton = event.target;
+
+        document.querySelectorAll('.clicked').forEach(button => {
+            button.classList.remove('clicked');
+        });
+
+        clickedButton.classList.add('clicked');
+    }
+
     clickCancelBtn() {
         this.cancelBtn.addEventListener('click', () => {
             this.expenseAdd.style.display = 'none';
@@ -398,7 +447,7 @@ class ExpenseAdd {
             this.detail.querySelector('input').value = '';
 
             this.expenseAdd.style.display = 'none';
-            this.quoteDiv.style.display = 'block';
+            this.expensesBox1.style.display = 'block';
             this.quote.updateQuote();
         });
     }
@@ -442,12 +491,28 @@ class ExpenseAdd {
 }
 
 function initialize() {
-    const socket = new Socket("localhost", 9000, () => {});
+    const socket = new Socket("localhost", 9000, () => { });
 
     const expenseAdd = new ExpenseAdd(socket);
     const expensesBox = new ExpensesBox(socket, expenseAdd);
     const calendar = new Calendar(socket);
     calendar.displayExpenseBox();
+
+    const circleButtons = document.querySelectorAll('.circle');
+
+    circleButtons.forEach(button => {
+        button.addEventListener('click', handleButtonClick);
+    });
+
+    function handleButtonClick(event) {
+        const clickedButton = event.target;
+
+        document.querySelectorAll('.clicked').forEach(button => {
+            button.classList.remove('clicked');
+        });
+
+        clickedButton.classList.add('clicked');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -499,9 +564,14 @@ document.getElementById('greenTheme').addEventListener('click', function () {
                 background-color: rgba(111, 242, 132, 0.5);
             }
     
-            .calendar-days div:hover {
-                background-color: rgba(111, 242, 132, 0.3);
+            .calendar-days div.clicked {
+                background-color: rgba(111, 242, 132, 0.8);
+                border-radius: 20%;
                 color: #f8fbff;
+            }
+
+            .categoryBtn.clicked {
+                background-color: rgba(111, 242, 132, 0.8);
             }
         `;
     document.head.appendChild(styleTag);
@@ -546,9 +616,14 @@ document.getElementById('blueTheme').addEventListener('click', function () {
                 background-color: rgba(55, 159, 235, 0.5);
             }
     
-            .calendar-days div:hover {
-                background-color: rgba(55, 159, 235, 0.3);
+            .calendar-days div.clicked {
+                background-color: rgba(55, 159, 235, 0.8);
+                border-radius: 20%;
                 color: #f8fbff;
+            }
+
+            .categoryBtn.clicked {
+                background-color: rgba(55, 159, 235, 0.7);
             }
         `;
     document.head.appendChild(styleTag);
@@ -593,9 +668,14 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
                 background-color: rgba(242, 111, 111, 0.5);
             }
     
-            .calendar-days div:hover {
-                background-color: rgba(242, 111, 111, 0.3);
+            .calendar-days div.clicked {
+                background-color: rgba(242, 111, 111, 0.8);
+                border-radius: 20%;
                 color: #f8fbff;
+            }
+
+            categoryBtn.clicked {
+                background-color: rgba(242, 111, 111, 0.8);
             }
         `;
     document.head.appendChild(styleTag);
