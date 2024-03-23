@@ -25,17 +25,19 @@ class Quote {
 }
 
 class Calendar {
-    constructor(socket) {
+    constructor(socket, expensesBox) {
         this.socket = socket;
 
         this.quote = new Quote();
-        this.expensesBox = new ExpensesBox(socket);
+        this.expensesBox = expensesBox;
 
         this.calendar = document.querySelector('.calendar');
 
         this.calendarHeaderYear = document.querySelector('#year');
         this.calendarBodyMonth = document.querySelector('#month');
         this.calendarDays = document.querySelector('.calendar-days');
+
+        this.allDays = document.querySelectorAll('.calendar-days div');
 
         this.todayShowTime = document.querySelector('.time-formate');
         this.todayShowDate = document.querySelector('.date-formate');
@@ -138,9 +140,18 @@ class Calendar {
         const year = this.currentYear;
         const month = this.currentMonth + 1;
         const clickedDay = event.target.closest('.calendar-days div');
+
         if (clickedDay) {
-            this.selectedDate.innerHTML = `${clickedDate}일`; //ExpensesBox
-            this.select.innerHTML = `${year}-${month}-${clickedDate}`; //ExpenseAdd
+            clickedDay.classList.add('clicked');
+            this.selectedDate.innerHTML = `${clickedDate}일`;
+            this.select.innerHTML = `${year}-${month}-${clickedDate}`;
+
+            // 다른 요소들의 클래스 제거
+            this.allDays.forEach(day => {
+                if (day !== clickedDay) {
+                    day.classList.remove('clicked');
+                }
+            });
         }
     }
 
@@ -271,7 +282,7 @@ class ExpensesBox {
             this.detail.querySelector('input').value = '';
 
             // expenseAdd 숨김
-            this.expenseAdd.style.display = 'none';
+            this.expenseAddDiv.style.display = 'none';
         });
     }
 
@@ -345,10 +356,8 @@ class ExpenseAdd {
         this.type = 0;
 
         this.expensesBox1 = document.querySelector('#expensesBox1');
-        this.expenseAdd = document.querySelector('.expenseAdd');
+        this.expenseAddDiv = document.querySelector('.expenseAdd');
         this.expenseList = document.querySelector('.expenseList');
-
-        this.expenseAdd = document.querySelector('.expenseAdd');
         this.backBtn2 = document.querySelector('#backBtn2');
         this.budgetBtn = document.querySelector('#budget');
         this.incomeBtn = document.querySelector('#income');
@@ -415,7 +424,7 @@ class ExpenseAdd {
 
     clickBackBtn2() {
         this.backBtn2.addEventListener('click', () => {
-            this.expenseAdd.style.display = 'none';
+            this.expenseAddDiv.style.display = 'none';
             this.quote.quote.style.display = 'block';
             this.quote.updateQuote();
         });
@@ -468,7 +477,7 @@ class ExpenseAdd {
 
     clickCancelBtn() {
         this.cancelBtn.addEventListener('click', () => {
-            this.expenseAdd.style.display = 'none';
+            this.expenseAddDiv.style.display = 'none';
             this.quoteDiv.style.display = 'block';
             this.quote.updateQuote();
         });
@@ -496,7 +505,7 @@ class ExpenseAdd {
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
 
-            this.expenseAdd.style.display = 'none';
+            this.expenseAddDiv.style.display = 'none';
             this.expensesBox1.style.display = 'block';
             // this.quote.updateQuote();
         });
@@ -545,12 +554,16 @@ function initialize() {
 
     const expenseAdd = new ExpenseAdd(socket);
     const expensesBox = new ExpensesBox(socket, expenseAdd);
-    const calendar = new Calendar(socket);
+    const calendar = new Calendar(socket, expensesBox);
     calendar.displayExpenseBox();
 
     const circleButtons = document.querySelectorAll('.circle');
 
-    circleButtons.forEach((button) => {
+    circleButtons.forEach(button => {
+        button.removeEventListener('click', handleButtonClick);
+    });
+
+    circleButtons.forEach(button => {
         button.addEventListener('click', handleButtonClick);
     });
 
