@@ -28,26 +28,22 @@ function initialize() {
         console.log('test2');
         const jsonData = JSON.parse(data);
         const cmd = jsonData['cmd'];
+
         if (cmd == 'insertExpenses') 
             expenseAdd.insertHandler(jsonData);
+
+        // else if (cmd = 'deleteExpenses')
+        //     expenseAdd.deleteHandler(jsonData);
+
+        // else if (cmd = 'updateExpenses')
+        //     expenseAdd.updateHandler(jsonData);
+
         else if ((cmd = 'getExpensesList')) {
-            expenseAdd.listHandler(jsonData);
+            expensesBox.listHandler(jsonData);
         }
     }
     mainSocket.setCallback(messageHandler);
 
 }
-
-// 메시지 핸들러 함수. 메시지를 받아오는 것
-// function messageHandler(data) {
-//     const jsonData = JSON.parse(data);
-
-//     switch (jsonData['cmd']) {             
-//         // case 'deleteExpenses':
-//         //     this.expenseAdd.resultHandler(jsonData);
-//         // case 'updateExpenses':
-//         //     this.expenseAdd.resultHandler(jsonData);
-//     }
-// }
 
 initialize();

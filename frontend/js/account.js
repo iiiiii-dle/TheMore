@@ -224,6 +224,8 @@ class ExpensesBox {
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
 
+        this.select = document.querySelector('#select');
+
         this.expenseBtns.forEach((button) => {
             button.addEventListener('click', this.handleButtonClick.bind(this));
         });
@@ -291,6 +293,17 @@ class ExpensesBox {
             // 입력 필드 초기화
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
+
+            const data = {
+                cmd: 'Expenses',
+                cmd2: 'getExpensesList',
+                userId: sessionStorage.getItem('userId'),
+                expensesDate: this.select.textContent,
+                type: this.type
+            }
+
+            const jsonData = JSON.stringify(data);
+            this.socket.sendMessage(jsonData);
         });
     }
 
@@ -303,6 +316,17 @@ class ExpensesBox {
             // 입력 필드 초기화
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
+
+            const data = {
+                cmd: 'Expenses',
+                cmd2: 'getExpensesList',
+                userId: sessionStorage.getItem('userId'),
+                expensesDate: this.select.textContent,
+                type: this.type
+            }
+
+            const jsonData = JSON.stringify(data);
+            this.socket.sendMessage(jsonData);
         });
     }
 
@@ -338,6 +362,84 @@ class ExpensesBox {
         });
 
         clickedButton.classList.add('clicked');
+    }
+
+    listHandler(jsonData) {
+        jsonData['expensesList'].forEach((expenses) => {
+            const categoryId = expenses['categoryId'];
+            const type = expenses['type'];
+            const money = expenses['money'];
+            const memo = expenses['memo'];
+            const categoryName = '';
+
+            switch (categoryId) {
+                case 1:
+                    categoryName = '자기계발';
+                    break;
+                case 2:
+                    categoryName = '문화생활';
+                    break;
+                case 3:
+                    categoryName = '금융';
+                    break;
+                case 4:
+                    categoryName = '보험';
+                    break;
+                case 5:
+                    categoryName = '주거';
+                    break;
+                case 6:
+                    categoryName = '쇼핑';
+                    break;
+                case 7:
+                    categoryName = '통신';
+                    break;
+                case 8:
+                    categoryName = '교통';
+                    break;
+                case 9:
+                    categoryName = '식비';
+                    break;
+                case 10:
+                    categoryName = '기타';
+                    break;
+                case 11:
+                    categoryName = '용돈';
+                    break;
+                case 12:
+                    categoryName = '금융소득';
+                    break;
+                case 13:
+                    categoryName = '상여금';
+                    break;
+                case 14:
+                    categoryName = '월급';
+                    break;
+            }
+
+            const expenseItem = document.createElement('div');
+            
+            if (type === true) {
+                expenseItem.classList.add('incomeBox');
+                expenseItem.innerHTML = `
+                <div class="incomeList">
+                <p class="categoryName">${categoryName}</p>
+                <p class="money">${money}원</p>
+                <p class="memo">${memo}</p>
+                </div>
+                `;
+            } else {
+                expenseItem.classList.add('outcomeBox');
+                expenseItem.innerHTML = `
+                <div class="outcomeList">
+                <p class="categoryName">${categoryName}</p>
+                <p class="money">${money}원</p>
+                <p class="memo">${memo}</p>
+                </div>
+                `;
+            }
+            boxWrapper.appendChild(expenseItem);
+        });
     }
 }
 
@@ -400,6 +502,7 @@ class ExpenseAdd {
             this.categoryId = 14;
             this.budgetExpenseDivergency = 'expenses';
         });
+
         this.outcomeBtn.addEventListener('click', (e) => {
             this.type = false;
             this.categoryId = 9;
@@ -481,30 +584,30 @@ class ExpenseAdd {
     }
 
     clickCommitBtn() {
-    
-            // 입력된 내용 가져오기
-            // -----------------------
-            const selectedCategory = document.querySelector('.categoryBtn.selected');
-            const category = selectedCategory ? selectedCategory.textContent.trim() : '';
-            const amount = this.amount.querySelector('input').value;
-            const detail = this.detail.querySelector('input').value;
 
-            // 새로운 expense 요소 생성
-            const expenseItem = document.createElement('div');
-            expenseItem.classList.add('expenseItem');
-            expenseItem.innerHTML = `
+        // 입력된 내용 가져오기
+        // -----------------------
+        const selectedCategory = document.querySelector('.categoryBtn.selected');
+        const category = selectedCategory ? selectedCategory.textContent.trim() : '';
+        const amount = this.amount.querySelector('input').value;
+        const detail = this.detail.querySelector('input').value;
+
+        // 새로운 expense 요소 생성
+        const expenseItem = document.createElement('div');
+        expenseItem.classList.add('expenseItem');
+        expenseItem.innerHTML = `
             <span class="category">${category}</span><span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
              `;
 
-            console.log(expenseItem);
-            this.expenseList.append(expenseItem);
+        console.log(expenseItem);
+        this.expenseList.append(expenseItem);
 
-            this.amount.querySelector('input').value = '';
-            this.detail.querySelector('input').value = '';
+        this.amount.querySelector('input').value = '';
+        this.detail.querySelector('input').value = '';
 
-            this.expenseAddDiv.style.display = 'none';
-            this.expensesBox1.style.display = 'block';
-            // this.quote.updateQuote();
+        this.expenseAddDiv.style.display = 'none';
+        this.expensesBox1.style.display = 'block';
+        // this.quote.updateQuote();
     }
 
     submit() {
@@ -522,16 +625,13 @@ class ExpenseAdd {
         };
 
         const jsonData = JSON.stringify(data);
-
-        console.log(jsonData)
         this.socket.sendMessage(jsonData);
 
         // 입력 필드 초기화
-        this.clickCommitBtn(); 
+        this.clickCommitBtn();
     }
 
     insertHandler(jsonData) {
-        console.log(jsonData);
         switch (jsonData['result']) {
             case 'success':
                 Swal.fire({
