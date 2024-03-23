@@ -19,10 +19,10 @@ public class DBConnection {
 //	private static final String userName = "idle"; // Username
 //	private static String password = "20240320!!"; // Password
 
-	private static final String location = "//localhost:3306/";
-	private static final String databaseName = "themore"; // DB name
-	private static final String userName = "kim"; // Username
-	private static String password = "1234"; // Password
+	private static final String location = "//localhost:3306/"; // 테스트용입니다.
+	private static final String databaseName = "themore"; // 테스트용입니다. 
+	private static final String userName = "kim"; // 테스트용입니다.
+	private static String password = "1234"; // 테스트용입니다.
 	
 	
 	private static final String DB_URL = protocol + vendor + location + databaseName;

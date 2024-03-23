@@ -298,6 +298,10 @@ public class ExpensesServiceImpl implements ExpensesService {
 		}
 		return calelist;
 	}
+	/**
+	 * @author 김강현<br>
+	 * 				로그인 한 userId와 선택한 년,월의 값을 DB에 전달하여 카테고리별 수입,지출의 총 합을 가져온다.
+	 */
 	@Override
 	public List<Expenses> statistics(WebSocket conn, JSONObject json){
 		Integer userId = json.getInt("userId");

@@ -302,9 +302,15 @@ public class ExpensesDAO {
 		return cateTotalList;
 	}
 	
+	/**
+	 * @author 김강현
+	 * 			statistics : 카테고리별 지출, 수입 총합
+	 * 
+	 * @return statistics
+	 */
 	public static List<Expenses> statistics(Connection conn, Expenses expenses, WebSocket socket) throws Exception{
 		
-		List<Expenses> statistics = new LinkedList<Expenses>();
+//		List<Expenses> statistics = new LinkedList<Expenses>(); // 바로 소켓으로 전달하기때문에 사용 안함
 		String sql;
 		PreparedStatement pstmt = null;
 		sql = "SELECT categoryId, SUM(CASE WHEN type = 1 THEN money ELSE 0 END) AS type_1_totalMoney, SUM(CASE WHEN type = 0 THEN money ELSE 0 END) AS type_0_totalMoney FROM Expenses WHERE userId = ? AND MONTH(expensesDate) = MONTH(?) GROUP BY categoryId";
@@ -313,7 +319,7 @@ public class ExpensesDAO {
 			
 		pstmt = conn.prepareStatement(sql);
 //		pstmt.setInt(1, expenses.getUserId());
-		pstmt.setInt(1, expenses.getUserId());
+		pstmt.setInt(1, 1); // 유저 아이디 1강제 주입 / 테스트용
 		pstmt.setDate(2, expenses.getExpensesDate());
 		
 		ResultSet rs = pstmt.executeQuery();
@@ -332,7 +338,7 @@ public class ExpensesDAO {
 				
 				JSONObject response = new JSONObject();
 				
-				response.put("cmd", "김현~강");
+				response.put("cmd", "김~현~강");
 				response.put("categoryId", categoryId);
 				response.put("type1_money", type1_money);
 				response.put("type0_money", type0_money);
