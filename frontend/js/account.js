@@ -189,8 +189,12 @@ class ExpensesBox {
         this.incomeLists = document.querySelector('.incomeLists');
         this.expenseList.style.display = 'none';
 
+        this.quote = new Quote();
+        this.quoteDiv = document.querySelector('#quote');
+
         this.expensesBox1 = document.querySelector('#expensesBox1');
         this.expensesBox = document.querySelector('.expensesBox');
+        this.backBtn = document.querySelector('#backBtn');
         this.expenseBtns = document.querySelectorAll('.expensesBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
         this.outcomeBtn = document.querySelector('.outcomeBtn');
@@ -210,6 +214,7 @@ class ExpensesBox {
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
         this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
 
+        this.clickBackBtn();
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
         this.clickIncomeBtn();  // expensesBox 수입 버튼 메소드
         this.clickAddListBtn(); // expenseAdd 넘어가기 메소드
@@ -263,6 +268,14 @@ class ExpensesBox {
         });
     }
 
+    clickBackBtn() {
+        this.backBtn.addEventListener('click', () => {
+            this.expensesBox1.style.display = 'none';
+            this.quote.quote.style.display = 'block'; // quote를 다시 보여주도록 설정
+            this.quote.updateQuote(); // quote를 업데이트
+        });
+    }
+
     clickOutcomeBtn() { // expensesBox 지출 버튼 메소드
         this.outcomeBtn.addEventListener('click', () => {
             this.expenseList.style.display = 'block';
@@ -294,7 +307,7 @@ class ExpensesBox {
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
         });
-    }  
+    }
 
     handleButtonClick(event) {
         const clickedButton = event.target;
@@ -315,11 +328,12 @@ class ExpenseAdd {
         this.categoryId = 9;
         this.type = 0;
 
-        this.expensesBox1 = document.querySelector('#expensesBox1'); 
+        this.expensesBox1 = document.querySelector('#expensesBox1');
         this.expenseAdd = document.querySelector('.expenseAdd');
         this.expenseList = document.querySelector('.expenseList');
 
         this.expenseAdd = document.querySelector('.expenseAdd');
+        this.backBtn2 = document.querySelector('#backBtn2');
         this.budgetBtn = document.querySelector('.budgetBtn');
         this.incomeBtn = document.querySelector('#income');
         this.outcomeBtn = document.querySelector('#outcome');
@@ -341,7 +355,6 @@ class ExpenseAdd {
         this.detail.classList.add('hidden');
         this.cancelBtn.classList.add('hidden');
         this.commitBtn.classList.add('hidden');
-
 
         this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
         this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
@@ -369,11 +382,20 @@ class ExpenseAdd {
             });
         })
 
+        this.clickBackBtn2();
         this.clickBudgeBtn();
         this.clickIncomeBtn2();
         this.clickOutcomeBtn2();
         this.clickCancelBtn();
         this.clickCommitBtn();
+    }
+
+    clickBackBtn2() {
+        this.backBtn2.addEventListener('click', () => {
+            this.expenseAdd.style.display = 'none';
+            this.quote.quote.style.display = 'block'; 
+            this.quote.updateQuote(); 
+        });
     }
 
     clickBudgeBtn() {
@@ -424,13 +446,16 @@ class ExpenseAdd {
         this.cancelBtn.addEventListener('click', () => {
             this.expenseAdd.style.display = 'none';
             this.quoteDiv.style.display = 'block';
-            this.updateQuote();
+            this.quote.updateQuote();
         });
     }
 
     clickCommitBtn() {
         this.commitBtn.addEventListener('click', () => {
             // 입력된 내용 가져오기
+            // -----------------------
+            const selectedCategory = document.querySelector('.categoryBtn.selected');
+            const category = selectedCategory ? selectedCategory.textContent.trim() : '';
             const amount = this.amount.querySelector('input').value;
             const detail = this.detail.querySelector('input').value;
 
@@ -438,8 +463,9 @@ class ExpenseAdd {
             const expenseItem = document.createElement('div');
             expenseItem.classList.add('expenseItem');
             expenseItem.innerHTML = `
-            <span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
+            <span class="category">${category}</span><span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
              `;
+
             console.log(expenseItem);
             this.expenseList.append(expenseItem);
 
@@ -448,7 +474,7 @@ class ExpenseAdd {
 
             this.expenseAdd.style.display = 'none';
             this.expensesBox1.style.display = 'block';
-            this.quote.updateQuote();
+            // this.quote.updateQuote();
         });
     }
 
@@ -536,8 +562,6 @@ document.getElementById('greenTheme').addEventListener('click', function () {
             .outcomeCategoryGrid button,
             .amount input,
             .detail input,
-            .commitBtn,
-            #addListBtn,
             .calendar-header,
             .year-change:hover {
                 background-color: rgba(111, 242, 132, 0.3);
@@ -570,8 +594,10 @@ document.getElementById('greenTheme').addEventListener('click', function () {
                 color: #f8fbff;
             }
 
-            .categoryBtn.clicked {
-                background-color: rgba(111, 242, 132, 0.8);
+            .categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn {
+                background-color: rgba(111, 242, 132, 0.6);
             }
         `;
     document.head.appendChild(styleTag);
@@ -590,8 +616,6 @@ document.getElementById('blueTheme').addEventListener('click', function () {
             .outcomeCategoryGrid button,
             .amount input,
             .detail input,
-            .commitBtn,
-            #addListBtn,
             .calendar-header,
             .year-change:hover {
                 background-color: rgba(55, 159, 235, 0.3);
@@ -622,8 +646,10 @@ document.getElementById('blueTheme').addEventListener('click', function () {
                 color: #f8fbff;
             }
 
-            .categoryBtn.clicked {
-                background-color: rgba(55, 159, 235, 0.7);
+            .categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn {
+                background-color: rgba(55, 159, 235, 0.6);
             }
         `;
     document.head.appendChild(styleTag);
@@ -642,8 +668,6 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
             .outcomeCategoryGrid button,
             .amount input,
             .detail input,
-            .commitBtn,
-            #addListBtn,
             .calendar-header,
             .year-change:hover {
                 background-color: rgba(242, 111, 111, 0.3);
@@ -674,8 +698,10 @@ document.getElementById('pinkTheme').addEventListener('click', function () {
                 color: #f8fbff;
             }
 
-            categoryBtn.clicked {
-                background-color: rgba(242, 111, 111, 0.8);
+            categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn, {
+                background-color: rgba(242, 111, 111, 0.6);
             }
         `;
     document.head.appendChild(styleTag);
