@@ -145,13 +145,15 @@
     background-color: #dac60e;
 }
 
-#chat_send > .input-div > textarea {
-    text-indent: 10px;
+#chat_send > .input-div {
+    display: flex;
 }
 
-#chat_send > .input-div > textarea::-webkit-input-placeholder {
-    /* WebKit browsers */
-    line-height: 2em;
+#chat_send > .input-div > textarea {
+    flex: 1;
+    position: relative;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 .hide {
