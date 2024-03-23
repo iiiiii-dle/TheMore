@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.java_websocket.WebSocket;
 import org.json.JSONObject;
 
 import DB.DBConnection;
@@ -344,5 +345,59 @@ public class ExpensesDAO {
 		return stacCateTotalList;
 	}
 	
+	/**
+	 * @author 김강현
+	 * 			statistics : 카테고리별 지출, 수입 총합
+	 * 
+	 * @return statistics
+	 */
+	public static List<Expenses> statistics(Connection conn, Expenses expenses, WebSocket socket) throws Exception{
+		
+//		List<Expenses> statistics = new LinkedList<Expenses>(); // 바로 소켓으로 전달하기때문에 사용 안함
+		String sql;
+		PreparedStatement pstmt = null;
+		sql = "SELECT categoryId, SUM(CASE WHEN type = 1 THEN money ELSE 0 END) AS type_1_totalMoney, SUM(CASE WHEN type = 0 THEN money ELSE 0 END) AS type_0_totalMoney FROM Expenses WHERE userId = ? AND MONTH(expensesDate) = MONTH(?) GROUP BY categoryId";
+		
+		try {
+			
+		pstmt = conn.prepareStatement(sql);
+//		pstmt.setInt(1, expenses.getUserId());
+		pstmt.setInt(1, 1); // 유저 아이디 1강제 주입 / 테스트용
+		pstmt.setDate(2, expenses.getExpensesDate());
+		
+		ResultSet rs = pstmt.executeQuery();
+		if (!rs.next()) {
+			System.out.println("조회할 데이터가 없습니다.");
+		} else {
+			do {
+				Integer categoryId = rs.getInt("categoryId");
+				Integer type1_money = rs.getInt("type_1_totalMoney"); // 수입
+				Integer type0_money = rs.getInt("type_0_totalMoney"); // 지출
+				
+//				System.out.println("categoryId >>> "+ categoryId);
+//				System.out.println("type1_money >>> "+ type1_money);
+//				System.out.println("type0_money >>> "+ type0_money);
+//				System.out.println("");
+				
+				JSONObject response = new JSONObject();
+				
+				response.put("cmd", "김~현~강");
+				response.put("categoryId", categoryId);
+				response.put("type1_money", type1_money);
+				response.put("type0_money", type0_money);
+				System.out.println(response);
+				socket.send(response.toString());
+
+			} while (rs.next());
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			pstmt.close();
+		}
+			
+		return null;
+		
+	}
 
 }
