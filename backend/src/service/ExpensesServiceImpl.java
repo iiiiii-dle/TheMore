@@ -97,6 +97,19 @@ public class ExpensesServiceImpl implements ExpensesService {
 			
 			conn.send(totalJson.toString());
 			break;
+		
+		case "stacTotalList" :
+			List<Expenses> stacCateTotalList = this.stacTotalList(conn, json);
+			JSONObject stacJson = new JSONObject();
+			
+			stacJson.put("cmd", "stacTotalList");
+			for( Expenses ex : stacCateTotalList) {
+				JSONObject stacJson2 = new JSONObject(ex);
+				stacJson2.append("expenses", stacJson2);
+			}
+			
+			conn.send(stacJson.toString());
+			break;
 			
 		default:
 			conn.send("잘못된 입력입니다.");
@@ -299,5 +312,24 @@ public class ExpensesServiceImpl implements ExpensesService {
 		}
 		return calelist;
 	}
+	
+	@Override
+	public List<Expenses> stacTotalList(WebSocket conn, JSONObject json) {
+		Integer userId = json.getInt("userId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+		
+		Boolean filter = json.getBoolean("type");
+		Expenses expenses = new Expenses(userId, expensesDate);
+		
+		List<Expenses> caleStaclist = new LinkedList<>();
+		try {
+			caleStaclist = ExpensesDAO.stacTotalList(DBConnection.getConnection(), filter, expenses);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return caleStaclist;
+	}
 
+	
 }
