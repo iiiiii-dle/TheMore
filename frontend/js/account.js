@@ -185,19 +185,18 @@ class ExpensesBox {
         this.expenseAdd = expenseAdd;
         this.expenseAddDiv = document.querySelector('.expenseAdd');
         this.expensesBox1 = document.querySelector('#expensesBox1');
-        this.expenseList = document.querySelector('.expenseList');
-        this.incomeLists = document.querySelector('.incomeLists');
-        this.expenseList.style.display = 'none';
+        this.incomeBox = document.querySelector('.incomeBox');
+        this.outcomeBox = document.querySelector('.outcomeBox');
+
+        this.outcomeBtn = document.querySelector('.outcomeBtn');
+        this.incomeBtn = document.querySelector('.incomeBtn');
 
         this.quote = new Quote();
         this.quoteDiv = document.querySelector('#quote');
 
-        this.expensesBox1 = document.querySelector('#expensesBox1');
         this.expensesBox = document.querySelector('.expensesBox');
         this.backBtn = document.querySelector('#backBtn');
         this.expenseBtns = document.querySelectorAll('.expensesBtn');
-        this.incomeBtn = document.querySelector('.incomeBtn');
-        this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.expenseList = document.querySelector('.expenseList');
         this.addButton = document.querySelector('#addListBtn');
 
@@ -268,29 +267,33 @@ class ExpensesBox {
         });
     }
 
+    clickOutcomeBtn() {
+        this.outcomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
+            this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
+            this.incomeBox.style.display = 'none'; // 수정: 수입 목록 숨기기
+            this.outcomeBox.style.display = 'block'; // 추가: 지출 상자 표시
+          // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
+        });
+    }
+
+    clickIncomeBtn() {
+        this.incomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
+            this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
+            this.incomeBox.style.display = 'block'; // 수정: 수입 목록 표시
+            this.outcomeBox.style.display = 'none'; // 추가: 지출 상자 숨기기
+            // 입력 필드 초기화
+            this.amount.querySelector('input').value = '';
+            this.detail.querySelector('input').value = '';
+    });
+    }
+
     clickBackBtn() {
         this.backBtn.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
             this.quote.quote.style.display = 'block'; // quote를 다시 보여주도록 설정
             this.quote.updateQuote(); // quote를 업데이트
-        });
-    }
-
-    clickOutcomeBtn() { // expensesBox 지출 버튼 메소드
-        this.outcomeBtn.addEventListener('click', () => {
-            this.expenseList.style.display = 'block';
-            // 입력 필드 초기화
-            this.amount.querySelector('input').value = '';
-            this.detail.querySelector('input').value = '';
-        });
-    }
-
-    clickIncomeBtn() { // expensesBox 수입 버튼 메소드
-        this.incomeBtn.addEventListener('click', () => {
-            this.expenseList.style.display = 'block';
-            // 입력 필드 초기화
-            this.amount.querySelector('input').value = '';
-            this.detail.querySelector('input').value = '';
         });
     }
 
