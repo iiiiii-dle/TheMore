@@ -2,7 +2,6 @@ package server;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.java_websocket.WebSocket;
@@ -10,8 +9,8 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import org.json.JSONObject;
 
-import DTO.Expenses;
 import DTO.Users;
+import service.BudgetServicelmpl;
 import service.ExpensesServiceImpl;
 import service.UserServiceImpl;
 
@@ -20,6 +19,7 @@ public class Sever extends WebSocketServer {
 	Map<Integer, Users> sessionUser = new HashMap<Integer, Users>();
 	ExpensesServiceImpl expensesService = new ExpensesServiceImpl();
 	UserServiceImpl userService = new UserServiceImpl();
+	BudgetServicelmpl budgetService = new 	BudgetServicelmpl();
 
 	public static void main(String[] args) {
 		String host = "localhost";
@@ -64,7 +64,11 @@ public class Sever extends WebSocketServer {
 		} else if (cmd.equals("Expenses")) {
 			expensesService.parse(conn, msg);
 
-	}
+			// 병민 ----------------------------------------------
+		} else if (cmd.equals("Budget")) {
+			budgetService.parse(conn,msg);
+			
+		}
 
 //
 //      // 민재--------------------------------------------------
