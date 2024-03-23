@@ -14,11 +14,17 @@ public class DBConnection {
 	// field
 	private static final String protocol = "jdbc";
 	private static final String vendor = ":mysql:";
-	private static final String location = "//192.168.0.73:3306/";
-	private static final String databaseName = "themore"; // DB name
-	private static final String userName = "idle"; // Username
-	private static String password = "20240320!!"; // Password
+//	private static final String location = "//192.168.0.73:3306/";
+//	private static final String databaseName = "themore"; // DB name
+//	private static final String userName = "idle"; // Username
+//	private static String password = "20240320!!"; // Password
 
+	private static final String location = "//localhost:3306/";
+	private static final String databaseName = "themore"; // DB name
+	private static final String userName = "kim"; // Username
+	private static String password = "1234"; // Password
+	
+	
 	private static final String DB_URL = protocol + vendor + location + databaseName;
 	private static final String jdbcUrl = DB_URL + "?serverTimezone = UTC";
 

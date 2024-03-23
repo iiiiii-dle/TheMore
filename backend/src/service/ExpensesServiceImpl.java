@@ -287,7 +287,6 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Integer userId = json.getInt("userId");
 		String dateString = json.getString("expensesDate");
 		Date expensesDate = parseDate(dateString);
-
 		Boolean filter = json.getBoolean("type");
 		Expenses expenses = new Expenses(userId, expensesDate);
 
@@ -299,5 +298,23 @@ public class ExpensesServiceImpl implements ExpensesService {
 		}
 		return calelist;
 	}
-
+	@Override
+	public List<Expenses> statistics(WebSocket conn, JSONObject json){
+		Integer userId = json.getInt("userId");
+		String dateString = json.getString("expensesDate");
+		Date expensesDate = parseDate(dateString);
+		Expenses expenses = new Expenses(userId, expensesDate);
+		
+		List<Expenses> kimlist = new LinkedList<>();
+		
+		
+		try {
+			kimlist = ExpensesDAO.statistics(DBConnection.getConnection(), expenses , conn);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return kimlist;
+		
+	}
 }
