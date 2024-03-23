@@ -18,6 +18,7 @@ function initialize() {
     });
 
     // 각종 기능 선언
+    const chat_log = new Chat_log(host, port1);
     const expenseAdd = new ExpenseAdd(mainSocket);
     const expensesBox = new ExpensesBox(mainSocket, expenseAdd);
     const calendar = new Calendar(mainSocket, expensesBox);
@@ -29,21 +30,16 @@ function initialize() {
         const jsonData = JSON.parse(data);
         const cmd = jsonData['cmd'];
 
-        if (cmd == 'insertExpenses') 
-            expenseAdd.insertHandler(jsonData);
-
+        if (cmd == 'insertExpenses') expenseAdd.insertHandler(jsonData);
         // else if (cmd = 'deleteExpenses')
         //     expenseAdd.deleteHandler(jsonData);
-
         // else if (cmd = 'updateExpenses')
         //     expenseAdd.updateHandler(jsonData);
-
         else if ((cmd = 'getExpensesList')) {
             expensesBox.listHandler(jsonData);
         }
     }
     mainSocket.setCallback(messageHandler);
-
 }
 
 initialize();

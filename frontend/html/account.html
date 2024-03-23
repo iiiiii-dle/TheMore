@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <link rel="stylesheet" href="../style/quote.css">
     <link rel="stylesheet" href="../style/expenseBox.css">
+    <link rel="stylesheet" href="../style/chat_log.css" />
     <link rel="shortcut icon" href="#">
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
@@ -209,7 +213,26 @@
                 </div>
             </div> <!-- /.expenseAdd -->
         </div>
-        <script type="module" src="../js/account.js"></script>
+
+        <!-- chat_log -->
+        <div id="chat_wrapper">
+            <div id="chat_header">
+                <span>🐳자린 고비 채팅창</span>
+                <button><span class="material-symbols-rounded"> close </span></button>
+            </div>
+            <div id="chat_body">
+                <div id="chat">
+                    <ul></ul>
+                </div>
+            </div>
+            <div id="chat_send">
+                <div class="input-div"><textarea placeholder="메시지를 입력하세요"></textarea></div>
+            </div>
+            <div id="chat_footer">
+                <button>전송</button>
+            </div>
+        </div>
+
         <script type="module" src="../js/socket/messageHandler.js"></script>
         <script type="module" src="../js/colorTheme.js"></script>
 </body>
