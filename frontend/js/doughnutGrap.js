@@ -18,7 +18,7 @@ socket.onopen = function () {
 socket.onmessage = function (event) {
     console.log('Received from server: %s', event.data);
     const jsonData = JSON.parse(event.data);
-    const categoryData = jsonData.cateTotalList?.expenses;
+    const categoryData = jsonData.expenses;
 
     if (categoryData) {
         const data_grap = {
@@ -33,10 +33,29 @@ socket.onmessage = function (event) {
             }]
         };
 
+        // 중복된 카테고리를 하나로 합치기 위한 객체 생성
+        const categoryMap = {};
+
+        // categoryData 배열을 순회하면서 카테고리 아이디별로 돈을 합산
         categoryData.forEach(item => {
-            data_grap.labels.push(item.categoryId); // 카테고리 아이디를 라벨로 사용
-            data_grap.datasets[0].data.push(item.totalMoney); // 카테고리별 총 금액을 데이터로 사용
+            const categoryId = item.categoryId;
+            const money = item.money;
+
+            // 카테고리 아이디가 이미 존재하는 경우 해당 카테고리에 돈을 합산
+            if (categoryMap[categoryId]) {
+                categoryMap[categoryId] += money;
+            } else { // 카테고리 아이디가 존재하지 않는 경우 새로운 항목을 추가
+                categoryMap[categoryId] = money;
+            }
         });
+
+        // 합산된 데이터를 data_grap에 추가
+        for (const categoryId in categoryMap) {
+            if (Object.hasOwnProperty.call(categoryMap, categoryId)) {
+                data_grap.labels.push(categoryId);
+                data_grap.datasets[0].data.push(categoryMap[categoryId]);
+            }
+        }
         // 차트 옵션
         const options_grap = {
             responsive: false,

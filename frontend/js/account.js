@@ -1,4 +1,4 @@
-import { Socket } from "../js/socket/socket.js";
+import { Socket } from '../js/socket/socket.js';
 
 class Quote {
     constructor() {
@@ -13,7 +13,7 @@ class Quote {
             '"돈이 전부는 아니지만, <br> 그만한 게 없다." <br> <br> - 메이웨더',
             '"돈지갑의 밑바닥이 드러났을 때의 <br> 절약은 이미 늦은 행위다." <br> <br> - 세네카',
             '"검약은 멋진 수입이다." <br> <br> - 에라스무스',
-            '"근면은 부유의 오른손이요, 절약은 그 왼손이다." <br> <br> - J.레이'
+            '"근면은 부유의 오른손이요, 절약은 그 왼손이다." <br> <br> - J.레이',
         ];
 
         this.updateQuote();
@@ -61,17 +61,20 @@ class Calendar {
         this.calendarDays.addEventListener('click', this.handleDateClick.bind(this));
     }
 
-    prevYear() { // 이전 년도로 이동
+    prevYear() {
+        // 이전 년도로 이동
         this.currentYear--;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    nextYear() { // 다음 년도로 이동
+    nextYear() {
+        // 다음 년도로 이동
         this.currentYear++;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    prevMonth() { // 이전 달로 이동
+    prevMonth() {
+        // 이전 달로 이동
         this.currentMonth = (this.currentMonth + 11) % 12;
         if (this.currentMonth === 11) {
             this.currentYear--;
@@ -79,7 +82,8 @@ class Calendar {
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    nextMonth() { // 다음 달로 이동
+    nextMonth() {
+        // 다음 달로 이동
         this.currentMonth = (this.currentMonth + 1) % 12;
         if (this.currentMonth === 0) {
             this.currentYear++;
@@ -87,19 +91,19 @@ class Calendar {
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
-    isLeapYear(year) {  // 윤년 
-        return ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0);
+    isLeapYear(year) {
+        // 윤년
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
     }
 
-    getFebDays(year) {  // 2월 날짜 반환
+    getFebDays(year) {
+        // 2월 날짜 반환
         return this.isLeapYear(year) ? 29 : 28;
     }
 
-    generateCalendar(month, year) {   // 캘린더 생성
-        const month_names = [
-            '1월', '2월', '3월', '4월', '5월', '6월',
-            '7월', '8월', '9월', '10월', '11월', '12월',
-        ];
+    generateCalendar(month, year) {
+        // 캘린더 생성
+        const month_names = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
         //-----expensesBox 날짜 옆에 요일 구현 예정
         // const week_names = ['일', '월', '화', '수', '목', '금', '토'];
         this.calendarDays.innerHTML = '';
@@ -113,9 +117,11 @@ class Calendar {
             let day = document.createElement('div');
             if (i >= firstDay.getDay()) {
                 day.innerHTML = i - firstDay.getDay() + 1;
-                if (i - firstDay.getDay() + 1 === this.currentDate.getDate() &&
+                if (
+                    i - firstDay.getDay() + 1 === this.currentDate.getDate() &&
                     year === this.currentDate.getFullYear() &&
-                    month === this.currentDate.getMonth()) {
+                    month === this.currentDate.getMonth()
+                ) {
                     day.classList.add('current-date');
                 }
                 /* 클릭한 날짜 가져오기  */
@@ -150,7 +156,8 @@ class Calendar {
     }
 
     displayExpenseBox() {
-        this.calendarDays.childNodes.forEach(day => { // calendarDays의 자식 요소에 대해 forEach를 사용
+        this.calendarDays.childNodes.forEach((day) => {
+            // calendarDays의 자식 요소에 대해 forEach를 사용
             day.addEventListener('click', () => {
                 const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
                 if (expensesBoxStyle.display === 'block') {
@@ -181,7 +188,7 @@ class Calendar {
             this.select.innerHTML = `${year}-${month}-${clickedDate}`;
 
             // 다른 요소들의 클래스 제거
-            allDays.forEach(day => {
+            allDays.forEach((day) => {
                 if (day !== clickedDay) {
                     day.classList.remove('clicked');
                 }
@@ -217,7 +224,7 @@ class ExpensesBox {
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
 
-        this.expenseBtns.forEach(button => {
+        this.expenseBtns.forEach((button) => {
             button.addEventListener('click', this.handleButtonClick.bind(this));
         });
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
@@ -226,11 +233,12 @@ class ExpensesBox {
 
         this.clickBackBtn();
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
-        this.clickIncomeBtn();  // expensesBox 수입 버튼 메소드
+        this.clickIncomeBtn(); // expensesBox 수입 버튼 메소드
         this.clickAddListBtn(); // expenseAdd 넘어가기 메소드
     }
 
-    handleExpenseItemClick(event) { // expenseList 안의 expenseItem 수정 
+    handleExpenseItemClick(event) {
+        // expenseList 안의 expenseItem 수정
         const clickedItem = event.target.closest('.expenseItem');
         if (!clickedItem) {
             console.error('clickedItem not found');
@@ -279,7 +287,8 @@ class ExpensesBox {
     }
 
     clickOutcomeBtn() {
-        this.outcomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
+        this.outcomeBtn.addEventListener('click', () => {
+            // 화살표 함수로 변경
             this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
             this.incomeBox.style.display = 'none'; // 수정: 수입 목록 숨기기
             this.outcomeBox.style.display = 'block'; // 추가: 지출 상자 표시
@@ -290,7 +299,8 @@ class ExpensesBox {
     }
 
     clickIncomeBtn() {
-        this.incomeBtn.addEventListener('click', () => { // 화살표 함수로 변경
+        this.incomeBtn.addEventListener('click', () => {
+            // 화살표 함수로 변경
             this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
             this.incomeBox.style.display = 'block'; // 수정: 수입 목록 표시
             this.outcomeBox.style.display = 'none'; // 추가: 지출 상자 숨기기
@@ -308,7 +318,8 @@ class ExpensesBox {
         });
     }
 
-    clickAddListBtn() { // expenseAdd 넘어가기 메소드
+    clickAddListBtn() {
+        // expenseAdd 넘어가기 메소드
         this.addButton.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
             this.expenseAddDiv.style.display = 'block';
@@ -326,7 +337,7 @@ class ExpensesBox {
     handleButtonClick(event) {
         const clickedButton = event.target;
 
-        document.querySelectorAll('.clicked').forEach(button => {
+        document.querySelectorAll('.clicked').forEach((button) => {
             button.classList.remove('clicked');
         });
 
@@ -339,6 +350,8 @@ class ExpenseAdd {
         this.socket = socket;
         this.quote = new Quote();
 
+        this.budgetExpenseDivergency = 'expenses';
+
         this.categoryId = 9;
         this.type = 0;
 
@@ -346,7 +359,7 @@ class ExpenseAdd {
         this.expenseAddDiv = document.querySelector('.expenseAdd');
         this.expenseList = document.querySelector('.expenseList');
         this.backBtn2 = document.querySelector('#backBtn2');
-        this.budgetBtn = document.querySelector('.budgetBtn');
+        this.budgetBtn = document.querySelector('#budget');
         this.incomeBtn = document.querySelector('#income');
         this.outcomeBtn = document.querySelector('#outcome');
         this.categoryBtn = document.querySelectorAll('.categoryBtn');
@@ -371,28 +384,35 @@ class ExpenseAdd {
         this.clickBudgeBtn = this.clickBudgeBtn.bind(this);
         this.clickIncomeBtn2 = this.clickIncomeBtn2.bind(this);
         this.clickOutcomeBtn2 = this.clickOutcomeBtn2.bind(this);
-        this.categoryBtns.forEach(button => {
+        this.categoryBtns.forEach((button) => {
             button.addEventListener('click', this.handleCategoryBtnClick.bind(this));
         });
 
         this.commitBtn.addEventListener('click', () => {
-            this.submit();
+            // 분기 설정
+            if (this.budgetExpenseDivergency === 'budget') {
+                // budget 처리 연산
+            } else if (this.budgetExpenseDivergency === 'expenses') {
+                this.submit();
+            }
         });
 
         this.incomeBtn.addEventListener('click', (e) => {
             this.type = true;
             this.categoryId = 14;
+            this.budgetExpenseDivergency = 'expenses';
         });
         this.outcomeBtn.addEventListener('click', (e) => {
             this.type = false;
             this.categoryId = 9;
+            this.budgetExpenseDivergency = 'expenses';
         });
 
         this.categoryBtn.forEach((element) => {
             element.addEventListener('click', (event) => {
                 this.categoryId = event.target.getAttribute('id');
             });
-        })
+        });
 
         this.clickBackBtn2();
         this.clickBudgeBtn();
@@ -417,6 +437,7 @@ class ExpenseAdd {
             this.detail.classList.add('hidden');
             this.cancelBtn.classList.remove('hidden');
             this.commitBtn.classList.remove('hidden');
+            this.budgetExpenseDivergency = 'budget';
         });
     }
 
@@ -447,7 +468,7 @@ class ExpenseAdd {
     handleCategoryBtnClick(event) {
         const clickedButton = event.target;
 
-        document.querySelectorAll('.clicked').forEach(button => {
+        document.querySelectorAll('.clicked').forEach((button) => {
             button.classList.remove('clicked');
         });
 
@@ -492,15 +513,15 @@ class ExpenseAdd {
 
     submit() {
         const data = {
-            'cmd': 'Expenses',
-            'cmd2': 'insertExpenses',
-            'userId': sessionStorage.getItem('userId'),
-            'categoryId': this.categoryId,
-            'type': this.type,
-            'money': document.querySelector("#amount").value,
-            'memo': document.querySelector('#detail').value,
-            'expensesDate': this.select.textContent,
-        }
+            cmd: 'Expenses',
+            cmd2: 'insertExpenses',
+            userId: sessionStorage.getItem('userId'),
+            categoryId: this.categoryId,
+            type: this.type,
+            money: document.querySelector('#amount').value,
+            memo: document.querySelector('#detail').value,
+            expensesDate: this.select.textContent,
+        };
 
         const jsonData = JSON.stringify(data);
         this.socket.sendMessage(jsonData);
@@ -510,18 +531,18 @@ class ExpenseAdd {
         switch (jsonData) {
             case 'success':
                 Swal.fire({
-                    icon: "success",
-                    title: "수입/지출 내역 작성 완료",
+                    icon: 'success',
+                    title: '수입/지출 내역 작성 완료',
                     showConfirmButton: false,
-                    timer: 1000
+                    timer: 1000,
                 });
                 break;
             case 'fail':
                 Swal.fire({
-                    icon: "error",
-                    title: "수입/지출 내역 작성 실패",
+                    icon: 'error',
+                    title: '수입/지출 내역 작성 실패',
                     showConfirmButton: false,
-                    timer: 1000
+                    timer: 1000,
                 });
                 break;
         }
@@ -529,7 +550,7 @@ class ExpenseAdd {
 }
 
 function initialize() {
-    const socket = new Socket("localhost", 9000, () => { });
+    const socket = new Socket('localhost', 9000, () => {});
 
     const expenseAdd = new ExpenseAdd(socket);
     const expensesBox = new ExpensesBox(socket, expenseAdd);
@@ -549,7 +570,7 @@ function initialize() {
     function handleButtonClick(event) {
         const clickedButton = event.target;
 
-        document.querySelectorAll('.clicked').forEach(button => {
+        document.querySelectorAll('.clicked').forEach((button) => {
             button.classList.remove('clicked');
         });
 
