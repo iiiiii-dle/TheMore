@@ -300,5 +300,49 @@ public class ExpensesDAO {
 		}
 		return cateTotalList;
 	}
+	
+	public static List<Expenses> stacTotalList(Connection conn, Boolean filter, Expenses expenses) throws Exception {
+		List<Expenses> stacCateTotalList = new LinkedList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		try {
+			if (filter.equals(true)) {
+				sql = "SELECT * FROM expenses WHERE userId = ? AND Type = 1 AND (MONTH(expensesDate) = MONTH(CURRENT_DATE()) OR MONTH(expensesDate) = MONTH(CURRENT_DATE()) - 1)";
+			} else if (filter.equals(false)) {
+				sql = "SELECT * FROM expenses WHERE userId = ? AND Type = 0 AND (MONTH(expensesDate) = MONTH(CURRENT_DATE()) OR MONTH(expensesDate) = MONTH(CURRENT_DATE()) - 1)";
+			} else {
+				throw new IllegalArgumentException("불가능한 타입 값입니다. 타입 값은 true, false만 허용됩니다.");
+			}
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, expenses.getUserId());
+			pstmt.setDate(2, expenses.getExpensesDate());
+			
+			rs = pstmt.executeQuery();
+			if (!rs.next()) {
+				System.out.println("조회할 데이터가 없습니다.");
+			} else {
+				do {
+					Integer expensesId = rs.getInt("expensesId");
+					Integer userId = rs.getInt("userId");
+					Integer categoryId = rs.getInt("categoryId");
+					Boolean type = rs.getBoolean("type");
+					Integer money = rs.getInt("money");
+					String memo = rs.getString("memo");
+					Date expensesDate = rs.getDate("expensesDate");
+				Expenses stacExpenses = new Expenses(expensesId, userId, categoryId, type, money, memo, expensesDate);
+				System.out.printf("%s", stacExpenses);
+				stacCateTotalList.add(stacExpenses);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pstmt.close();
+		}
+		return stacCateTotalList;
+	}
+	
 
 }
