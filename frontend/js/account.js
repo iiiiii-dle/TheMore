@@ -583,32 +583,32 @@ class ExpenseAdd {
         });
     }
 
-    clickCommitBtn() {
+    // clickCommitBtn() {
 
-        // 입력된 내용 가져오기
-        // -----------------------
-        const selectedCategory = document.querySelector('.categoryBtn.selected');
-        const category = selectedCategory ? selectedCategory.textContent.trim() : '';
-        const amount = this.amount.querySelector('input').value;
-        const detail = this.detail.querySelector('input').value;
+    //     // 입력된 내용 가져오기
+    //     // -----------------------
+    //     const selectedCategory = document.querySelector('.categoryBtn.selected');
+    //     const category = selectedCategory ? selectedCategory.textContent.trim() : '';
+    //     const amount = this.amount.querySelector('input').value;
+    //     const detail = this.detail.querySelector('input').value;
 
-        // 새로운 expense 요소 생성
-        const expenseItem = document.createElement('div');
-        expenseItem.classList.add('expenseItem');
-        expenseItem.innerHTML = `
-            <span class="category">${category}</span><span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
-             `;
+    //     // 새로운 expense 요소 생성
+    //     const expenseItem = document.createElement('div');
+    //     expenseItem.classList.add('expenseItem');
+    //     expenseItem.innerHTML = `
+    //         <span class="category">${category}</span><span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
+    //          `;
 
-        console.log(expenseItem);
-        this.expenseList.append(expenseItem);
+    //     console.log(expenseItem);
+    //     this.expenseList.append(expenseItem);
 
-        this.amount.querySelector('input').value = '';
-        this.detail.querySelector('input').value = '';
+    //     this.amount.querySelector('input').value = '';
+    //     this.detail.querySelector('input').value = '';
 
-        this.expenseAddDiv.style.display = 'none';
-        this.expensesBox1.style.display = 'block';
-        // this.quote.updateQuote();
-    }
+    //     this.expenseAddDiv.style.display = 'none';
+    //     this.expensesBox1.style.display = 'block';
+    //     // this.quote.updateQuote();
+    // }
 
     submit() {
         console.log('amount: ', document.querySelector('#amount').value);
@@ -627,8 +627,8 @@ class ExpenseAdd {
         const jsonData = JSON.stringify(data);
         this.socket.sendMessage(jsonData);
 
-        // 입력 필드 초기화
-        this.clickCommitBtn();
+        // // 입력 필드 초기화
+        // this.clickCommitBtn();
     }
 
     insertHandler(jsonData) {
