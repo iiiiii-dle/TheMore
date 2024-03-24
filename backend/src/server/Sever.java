@@ -19,7 +19,7 @@ public class Sever extends WebSocketServer {
 	Map<Integer, Users> sessionUser = new HashMap<Integer, Users>();
 	ExpensesServiceImpl expensesService = new ExpensesServiceImpl();
 	UserServiceImpl userService = new UserServiceImpl();
-	BudgetServicelmpl budgetService = new 	BudgetServicelmpl();
+	BudgetServicelmpl budgetService = new BudgetServicelmpl();
 
 	public static void main(String[] args) {
 		String host = "localhost";
@@ -60,28 +60,14 @@ public class Sever extends WebSocketServer {
 		if (cmd.equals("User")) {
 			userService.parse(conn, msg, sessionUser);
 
-			// 혜리--------------------------------------------------
+		// 혜리--------------------------------------------------
 		} else if (cmd.equals("Expenses")) {
 			expensesService.parse(conn, msg);
 
-			// 병민 ----------------------------------------------
+		// 병민 ----------------------------------------------
 		} else if (cmd.equals("Budget")) {
-			budgetService.parse(conn,msg);
-			
-		} else if(cmd.equals("김강~형")){
-			System.out.println("그려~ 동생아");
-			expensesService.statistics(conn, msg);
+			budgetService.parse(conn, msg);
 		}
-
-//
-//      // 민재--------------------------------------------------
-//      // 데이터베이스 업데이트 등의 작업 수행
-//      String email = msgObj.getString("email");
-//      String nickName = msgObj.getString("nickName");
-//      String password = msgObj.getString("password");
-//      boolean isHidden = msgObj.getBoolean("isHidden");
-//
-//      conn.send("정보가 성공적으로 업데이트되었습니다.");
 	}
 
 	@Override

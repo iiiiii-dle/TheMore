@@ -3,11 +3,15 @@ package service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.java_websocket.WebSocket;
 import org.json.JSONObject;
+
+import com.mysql.cj.xdevapi.JsonNumber;
 
 import DAO.ExpensesDAO;
 import DB.DBConnection;
@@ -56,15 +60,8 @@ public class ExpensesServiceImpl implements ExpensesService {
 			break;
 			
 		case "getExpensesList":
-			List<Expenses> expensesList = this.getExpensesList(conn, json);
-			JSONObject json1 = new JSONObject();
-			JSONObject json2 = new JSONObject();
-			json1.put("cmd", "getExpensesList");
-			for (Expenses ex : expensesList) {
-				json2.put("expenses", ex);
-			}
-			json1.append("expensesList", json2);
-			conn.send(json1.toString());
+			JSONObject expensesList = this.getExpensesList(conn, json);
+			conn.send(expensesList.toString());
 			break;
 			
 		// 병민 ------------------------------------------------------
@@ -224,9 +221,10 @@ public class ExpensesServiceImpl implements ExpensesService {
 	/**
 	 * @author 서혜리<br>
 	 *         getExpensesList : 수입 지출 내역을 DB에서 가져와 보여주는 기능
+	 * @return 
 	 */
 	@Override
-	public List<Expenses> getExpensesList(WebSocket conn, JSONObject json) {
+	public JSONObject getExpensesList(WebSocket conn, JSONObject json) {
 
 		Integer userId = json.getInt("userId");
 		String dateString = json.getString("expensesDate");
@@ -235,13 +233,15 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Boolean filter = json.getBoolean("type");
 		Expenses expenses = new Expenses(userId, expensesDate);
 
-		List<Expenses> list = new LinkedList<>();
+//		List<JSONObject> list = new LinkedList<>();
+		JSONObject msg = new JSONObject();
 		try {
-			list = ExpensesDAO.getExpensesList(DBConnection.getConnection(), filter, expenses);
+			msg = ExpensesDAO.getExpensesList(DBConnection.getConnection(), filter, expenses);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+//		return list;
+		return msg;
 	}
 	
 	/**
