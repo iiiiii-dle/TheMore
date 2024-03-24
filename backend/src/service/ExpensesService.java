@@ -19,7 +19,6 @@ public interface ExpensesService {
 	int getTotalCategoryAmount(WebSocket conn, JSONObject json);
 	List<Expenses> categoryTotalList(WebSocket conn, JSONObject json);
 	List<Expenses> stacTotalList(WebSocket conn, JSONObject json);
-	
-	//김강현짱----------------------------------------------------------
+	//김강현
 	List<Expenses> statistics(WebSocket conn, JSONObject json);
 }

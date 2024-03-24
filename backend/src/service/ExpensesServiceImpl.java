@@ -107,6 +107,10 @@ public class ExpensesServiceImpl implements ExpensesService {
 			
 			conn.send(stacJson.toString());
 			break;
+			// 김강현
+		case "grapList" :
+			this.statistics(conn, json);
+			break;
 			
 		default:
 			conn.send("잘못된 입력입니다.");
@@ -342,16 +346,13 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Date expensesDate = parseDate(dateString);
 		Expenses expenses = new Expenses(userId, expensesDate);
 		
-		List<Expenses> kimlist = new LinkedList<>();
-		
-		
 		try {
-			kimlist = ExpensesDAO.statistics(DBConnection.getConnection(), expenses , conn);
+			ExpensesDAO.statistics(DBConnection.getConnection(), expenses , conn);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return kimlist;
+		return null;
 		
 	}
 	
