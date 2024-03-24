@@ -145,12 +145,14 @@ public class ExpensesDAO {
 			} else {
 				do {
 					JSONObject json2 = new JSONObject();
+					Integer expensesId = rs.getInt("expensesId");
 					Integer categoryId = rs.getInt("categoryId");
 					Boolean type = rs.getBoolean("type");
 					Integer money = rs.getInt("money");
 					String memo = rs.getString("memo");
 					Date expensesDate = rs.getDate("expensesDate");
 					
+					json2.put("expensesId", expensesId);
 					json2.put("categoryId", categoryId);
 					json2.put("type", type);
 					json2.put("money", money);
