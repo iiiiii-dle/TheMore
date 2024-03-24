@@ -16,7 +16,7 @@
     text-decoration: none;
 }
 #click-account {
-    color: #3C3C3C;
+    color: #3C3C3C !important;
 }
 
 #click-statistics {
@@ -32,4 +32,43 @@
 }
 input:focus{
 outline: none;
+}
+
+/* 채림----------------------------------*/
+#select {
+    margin-top: 35px;
+}
+
+/* 페이지 테마 변경 버튼 */
+.circle {
+    position: absolute; 
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(60, 60, 60, 0.3);
+}
+
+.circle.clicked {
+    border: 2px solid rgba(60, 60, 60, 0.6);
+}
+/* 핑크 테마 버튼 */
+#pinkTheme {
+    right: 180px;
+    background-color: rgba(242, 111, 111, 0.3);
+}
+/* 연두 테마 버튼 */
+#greenTheme {
+    right: 130px;
+    background-color: rgba(111, 242, 132, 0.3);
+}
+/* 하늘 테마 버튼 */
+#blueTheme {
+    right: 80px; 
+    background-color: rgba(55, 159, 235, 0.3);
+}
+/* 채팅 버튼 */
+.chatImg {
+    position: absolute;
+    right: 20px;
+    top: 150px;
 }
