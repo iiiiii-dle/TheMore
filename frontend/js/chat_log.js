@@ -4,6 +4,9 @@ class Chat_log {
     constructor(host, port) {
         // 소켓 연결
         this.chatSocket = new Socket(host, port, this.receiveMessage.bind(this));
+        const tmp = localStorage.getItem('chat_log');
+        this.chatLog = tmp ? JSON.parse(tmp) : [];
+
         /**
          * Dom 객체 찾기
          */
@@ -18,6 +21,11 @@ class Chat_log {
             chat_log_send_button: document.querySelector('#chat_footer > button'),
             chat_log_open_button: document.querySelector('.chatImg'),
         };
+
+        if (Array.isArray(this.chatLog))
+            this.chatLog.forEach((msg) => {
+                this.setMessage(msg);
+            });
 
         /**
          * 이벤트 기능 정의
@@ -83,6 +91,8 @@ class Chat_log {
 
         // message format sender 등 수정 필요
         const message = new Message(sessionStorage.getItem('userId'), text, 'Me', true);
+        this.chatLog.push(message);
+        localStorage.setItem('chat_log', JSON.stringify(this.chatLog));
 
         this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
         this.elements.chat_log_message_input.value = '';
@@ -97,10 +107,17 @@ class Chat_log {
         const message = new Message(json['userId'], json['message'], json['sender'], json['isMe']);
 
         this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
+        this.chatLog.push(JSON.stringify(message));
+        localStorage.setItem('chat_log', JSON.stringify(this.chatLog));
     }
 
     scrollDown() {
         this.elements.chat_log_body_chat.scrollTop = this.elements.chat_log_body_chat.scrollHeight; // 자동으로 스크롤 하단으로 내리기
+    }
+
+    setMessage(json) {
+        const message = new Message(json['userId'], json['message'], json['sender'], json['isMe']);
+        this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
     }
 }
 
