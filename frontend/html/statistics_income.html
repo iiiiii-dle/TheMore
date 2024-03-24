@@ -14,6 +14,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/month.js" defer></script>
+<script src="../js/statistics.js" defer type="module"></script>
 <body>
     <div id="container">
         <iframe src="../component/header.html" style="border: none;" width="100%" height="100%"></iframe>
@@ -35,7 +36,12 @@
     </div>
     <div id="grape_left">
         <div id="mark">
-            <!--지출 내역-->
+            <ul>
+                <li>
+                    <label for="expendCon">지출 : </label>
+                    <input type="text" id="expendCon" name="ex" readonly>
+                </li>
+            </ul>
         </div>
         <div id="grape">
             <canvas id="myChart" width="600px" height="300px"></canvas>
@@ -50,8 +56,8 @@
         </div>
     </div>
 
-    <script src="../js/st_grape_income.js"></script>
-    <script src="../js/st_stac_income.js"></script>
+    <!-- <script src="../js/st_grape_income.js"></script>
+    <script src="../js/st_stac_income.js"></script> -->
 
 </body>
 

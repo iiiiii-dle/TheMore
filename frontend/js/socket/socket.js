@@ -29,20 +29,20 @@ class Socket {
         });
     }
 
-    // sendMessage(message) {
-    //     this.socket.send(message);
-    // }
-    // 소켓 연결되기전에 서버에 보내려고 해서 추가했습니다. - 김강현
     sendMessage(message) {
-        if (this.socket.readyState === WebSocket.OPEN) {
-            this.socket.send(message);
-        } else {
-            console.log('[sendMessage] 소켓이 열리지 않았습니다. 메시지가 대기열에 추가되었습니다.');
-            this.socket.addEventListener('open', () => {
-                this.socket.send(message);
-            });
-        }
+        this.socket.send(message);
     }
+    // 소켓 연결되기전에 서버에 보내려고 해서 추가했습니다. - 김강현
+    // sendMessage(message) {
+    //     if (this.socket.readyState === WebSocket.OPEN) {
+    //         this.socket.send(message);
+    //     } else {
+    //         console.log('[sendMessage] 소켓이 열리지 않았습니다. 메시지가 대기열에 추가되었습니다.');
+    //         this.socket.addEventListener('open', () => {
+    //             this.socket.send(message);
+    //         });
+    //     }
+    // }
 
     setCallback(callback) {
         this.callback = callback;
