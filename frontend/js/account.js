@@ -699,17 +699,89 @@ function initialize() {
 
 export { Calendar, Quote, ExpensesBox, ExpenseAdd };
 
-/* 테마 색상 변경
-   -----------------------------------------------------------------*/
+/* 웹 페이지 테마를 변경하는 기능
+   localStorage 사용
+---------------------------------*/
+// 페이지 로드 시 저장된 테마 적용 
+window.addEventListener('load', function () {
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
+});
+
+// 테마 변경 시 localStorage에 저장 
+document.getElementById('pinkTheme').addEventListener('click', function () {
+    applyTheme('pink');
+    localStorage.setItem('theme', 'pink');
+});
+
 document.getElementById('greenTheme').addEventListener('click', function () {
+    applyTheme('green');
+    localStorage.setItem('theme', 'green');
+});
+
+document.getElementById('blueTheme').addEventListener('click', function () {
+    applyTheme('blue');
+    localStorage.setItem('theme', 'blue');
+});
+
+// 테마 적용 함수 
+function applyTheme(theme) {
     var iframe = document.querySelector('iframe');
     var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
     var header = iframeDoc.querySelector('header');
-    header.style.backgroundColor = 'rgba(111, 242, 132, 0.3)';
+    var styleTag = document.createElement('style');
 
-    let styleTag = document.createElement('style');
-    styleTag.innerHTML = `
+    switch (theme) {
+        case 'pink':
+            header.style.backgroundColor = 'rgba(242, 111, 111, 0.3)';
+            styleTag.innerHTML = `
+            .incomeCategoryGrid button,
+            .outcomeCategoryGrid button,
+            .amount input,
+            .detail input,
+            .calendar-header,
+            .year-change:hover {
+                background-color: rgba(242, 111, 111, 0.3);
+            }
+
+            #month,
+            .month-change pre,
+            #click-account,
+            .calendar-days div.current-date {
+                color: rgba(242, 111, 111, 1);
+            }
+    
+            progress::-webkit-progress-bar {
+                background-color: rgba(242, 111, 111, 0.2);
+            }
+    
+            progress::-webkit-progress-value {
+                background-color: rgba(242, 111, 111, 1);
+            }
+    
+            .month-change:hover {
+                background-color: rgba(242, 111, 111, 0.5);
+            }
+    
+            .calendar-days div.clicked {
+                background-color: rgba(242, 111, 111, 0.8);
+                border-radius: 20%;
+                color: #f8fbff;
+            }
+
+            .categoryBtn.clicked,
+            .commitBtn,
+            #addListBtn {
+                background-color: rgba(242, 111, 111, 0.6);
+            }
+            `;
+            break;
+        case 'green':
+            header.style.backgroundColor = 'rgba(111, 242, 132, 0.3)';
+            styleTag.innerHTML = `
             .incomeCategoryGrid button,
             .outcomeCategoryGrid button,
             .amount input,
@@ -751,19 +823,11 @@ document.getElementById('greenTheme').addEventListener('click', function () {
             #addListBtn {
                 background-color: rgba(111, 242, 132, 0.6);
             }
-        `;
-    document.head.appendChild(styleTag);
-});
-
-document.getElementById('blueTheme').addEventListener('click', function () {
-    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
-    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-    var header = iframeDoc.querySelector('header');
-    header.style.backgroundColor = 'rgba(55, 159, 235, 0.3)';
-
-    let styleTag = document.createElement('style');
-    styleTag.innerHTML = `
+            `;
+            break;
+        case 'blue':
+            header.style.backgroundColor = 'rgba(55, 159, 235, 0.3)';
+            styleTag.innerHTML = `
             .incomeCategoryGrid button,
             .outcomeCategoryGrid button,
             .amount input,
@@ -803,58 +867,9 @@ document.getElementById('blueTheme').addEventListener('click', function () {
             #addListBtn {
                 background-color: rgba(55, 159, 235, 0.6);
             }
-        `;
+            `;
+            break;
+    }
+
     document.head.appendChild(styleTag);
-});
-
-document.getElementById('pinkTheme').addEventListener('click', function () {
-    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
-    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-    var header = iframeDoc.querySelector('header');
-    header.style.backgroundColor = 'rgba(242, 111, 111, 0.3)';
-
-    let styleTag = document.createElement('style');
-    styleTag.innerHTML = `
-            .incomeCategoryGrid button,
-            .outcomeCategoryGrid button,
-            .amount input,
-            .detail input,
-            .calendar-header,
-            .year-change:hover {
-                background-color: rgba(242, 111, 111, 0.3);
-            }
-
-            #month,
-            .month-change pre,
-            #click-account,
-            .calendar-days div.current-date {
-                color: rgba(242, 111, 111, 1);
-            }
-    
-            progress::-webkit-progress-bar {
-                background-color: rgba(242, 111, 111, 0.2);
-            }
-    
-            progress::-webkit-progress-value {
-                background-color: rgba(242, 111, 111, 1);
-            }
-    
-            .month-change:hover {
-                background-color: rgba(242, 111, 111, 0.5);
-            }
-    
-            .calendar-days div.clicked {
-                background-color: rgba(242, 111, 111, 0.8);
-                border-radius: 20%;
-                color: #f8fbff;
-            }
-
-            .categoryBtn.clicked,
-            .commitBtn,
-            #addListBtn {
-                background-color: rgba(242, 111, 111, 0.6);
-            }
-        `;
-    document.head.appendChild(styleTag);
-});
+}
