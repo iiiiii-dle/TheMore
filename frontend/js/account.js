@@ -201,7 +201,7 @@ class ExpensesBox {
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
-        this.deleteBtn = document.querySelector('.deleteBtn');
+        
 
         this.quote = new Quote();
         this.quoteDiv = document.querySelector('#quote');
@@ -225,7 +225,6 @@ class ExpensesBox {
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
 
-        // this.clickDeleteBtn();
         this.clickBackBtn();
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
         this.clickIncomeBtn(); // expensesBox 수입 버튼 메소드
@@ -288,20 +287,20 @@ class ExpensesBox {
         });
     }
 
-    // clickDeleteBtn() {
-    //     this.deleteBtn.addEventListener('click', (e) => {
-    //         console.log('deleteBtn 클릭');
-    //         const expensesId = e.target.closest('.expenseItem').dataset.expensesId;
-    //         const data = {
-    //             cmd: 'Expenses',
-    //             cmd2: 'deleteExpenses',
-    //             userId: sessionStorage.getItem('userId'),
-    //             expensesId: expensesId
-    //         };
-    //         const jsonData = JSON.stringify(data);
-    //         this.socket.sendMessage(jsonData);
-    //     });
-    // }
+    clickDeleteBtn(e) {
+        e.addEventListener('click', () => {
+            const expensesId = e.parentNode.parentNode.querySelector('.expensesId').innerHTML;
+            console.log(expensesId);
+            const data = {
+                cmd: 'Expenses',
+                cmd2: 'deleteExpenses',
+                userId: sessionStorage.getItem('userId'),
+                expensesId: expensesId
+            };
+            const jsonData = JSON.stringify(data);
+            this.socket.sendMessage(jsonData);
+        });
+    }
 
     clickAddListBtn() {
         // expenseAdd 넘어가기 메소드
@@ -411,6 +410,8 @@ class ExpensesBox {
                     `;
                     this.outcomeBox.appendChild(expenseItem);
                 }
+
+                this.clickDeleteBtn(expenseItem.querySelector('.deleteBtn'));
             });
         } else {
             const expenseIncomeItem = document.createElement('div');
@@ -437,6 +438,8 @@ class ExpensesBox {
                     title: '수입/지출 내역 삭제 완료',
                     showConfirmButton: false,
                     timer: 1000,
+                }).then(() => {
+                    location.reload(true);
                 });
                 break;
             case 'fail':
@@ -445,6 +448,8 @@ class ExpensesBox {
                     title: '수입/지출 내역 삭제 실패',
                     showConfirmButton: false,
                     timer: 1000,
+                }).then(() => {
+                    location.reload(true);
                 });
                 break;
         }
@@ -588,33 +593,6 @@ class ExpenseAdd {
             this.quote.updateQuote();
         });
     }
-
-    // clickCommitBtn() {
-
-    //     // 입력된 내용 가져오기
-    //     // -----------------------
-    //     const selectedCategory = document.querySelector('.categoryBtn.selected');
-    //     const category = selectedCategory ? selectedCategory.textContent.trim() : '';
-    //     const amount = this.amount.querySelector('input').value;
-    //     const detail = this.detail.querySelector('input').value;
-
-    //     // 새로운 expense 요소 생성
-    //     const expenseItem = document.createElement('div');
-    //     expenseItem.classList.add('expenseItem');
-    //     expenseItem.innerHTML = `
-    //         <span class="category">${category}</span><span class="amount"> ${amount} </span><span class="detail"> ${detail}</span>
-    //          `;
-
-    //     console.log(expenseItem);
-    //     this.expenseList.append(expenseItem);
-
-    //     this.amount.querySelector('input').value = '';
-    //     this.detail.querySelector('input').value = '';
-
-    //     this.expenseAddDiv.style.display = 'none';
-    //     this.expensesBox1.style.display = 'block';
-    //     // this.quote.updateQuote();
-    // }
 
     submit() {
         const data = {

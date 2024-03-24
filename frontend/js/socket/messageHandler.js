@@ -31,15 +31,12 @@ function initialize() {
         const cmd = jsonData['cmd'];
         console.log(jsonData);
 
-        if (cmd == 'insertExpenses') 
+        if (cmd == 'insertExpenses')
             expenseAdd.insertHandler(jsonData);
         else if (cmd == 'deleteExpenses')
-            expenseAdd.deleteHandler(jsonData);
-        // else if (cmd == 'updateExpenses')
-        //     expenseAdd.updateHandler(jsonData);
-        else if ((cmd == 'getExpensesList')) {
+            expensesBox.deleteHandler(jsonData);
+        else if ((cmd == 'getExpensesList'))
             expensesBox.listHandler(jsonData);
-        }
     }
     mainSocket.setCallback(messageHandler);
 }
