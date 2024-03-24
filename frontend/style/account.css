@@ -75,16 +75,23 @@
 .categoryName {
     margin-left: 10px;
     width: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .money {
     width: 120px;
     text-align: end;
     margin-right: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .memo {
-    width: 155px;
+    width: 220px;
+    margin-left: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

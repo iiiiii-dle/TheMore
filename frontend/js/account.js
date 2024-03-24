@@ -127,7 +127,6 @@ class Calendar {
                 /* 클릭한 날짜 가져오기  */
                 day.addEventListener('click', (event) => {
                     const clickedDate = i - firstDay.getDay() + 1;
-                    console.log('Year:', year, 'Month:', month + 1, 'Date:', clickedDate);
                 });
             }
             this.calendarDays.appendChild(day);
@@ -240,18 +239,18 @@ class ExpensesBox {
     }
 
     handleItemClick(event) {
-        // expenseList 안의 expenseItem 수정
+        // 클릭된 요소의 부모 중 클래스가 'incomeList'인 요소를 찾기
         const clickedItem = event.target.closest('.incomeList');
-        if (!clickedItem) {
+        if (!clickedItem) { // 클릭된 요소가 없을 경우 콘솔에 출력
             console.error('clickedItem not found');
             return;
         }
 
-        // expenseItem의 내용 가져오기
+        // incomeList의 내용 가져오기
         const amount = clickedItem.querySelector('.amount').textContent.trim();
         const detail = clickedItem.querySelector('.detail').textContent.trim();
 
-        // expenseAdd에 내용 채우기
+        // incomeList에 내용 채우기
         this.amount.querySelector('input').value = amount;
         this.detail.querySelector('input').value = detail;
 
@@ -299,7 +298,7 @@ class ExpensesBox {
                 cmd2: 'getExpensesList',
                 userId: sessionStorage.getItem('userId'),
                 expensesDate: this.select.textContent,
-                type: this.type
+                type: false
             }
 
             const jsonData = JSON.stringify(data);
@@ -322,7 +321,7 @@ class ExpensesBox {
                 cmd2: 'getExpensesList',
                 userId: sessionStorage.getItem('userId'),
                 expensesDate: this.select.textContent,
-                type: this.type
+                type: true
             }
 
             const jsonData = JSON.stringify(data);
@@ -365,81 +364,98 @@ class ExpensesBox {
     }
 
     listHandler(jsonData) {
-        jsonData['expensesList'].forEach((expenses) => {
-            const categoryId = expenses['categoryId'];
-            const type = expenses['type'];
-            const money = expenses['money'];
-            const memo = expenses['memo'];
-            const categoryName = '';
+        // 초기화
+        this.incomeBox.innerHTML = '';
+        this.outcomeBox.innerHTML = '';
 
-            switch (categoryId) {
-                case 1:
-                    categoryName = '자기계발';
-                    break;
-                case 2:
-                    categoryName = '문화생활';
-                    break;
-                case 3:
-                    categoryName = '금융';
-                    break;
-                case 4:
-                    categoryName = '보험';
-                    break;
-                case 5:
-                    categoryName = '주거';
-                    break;
-                case 6:
-                    categoryName = '쇼핑';
-                    break;
-                case 7:
-                    categoryName = '통신';
-                    break;
-                case 8:
-                    categoryName = '교통';
-                    break;
-                case 9:
-                    categoryName = '식비';
-                    break;
-                case 10:
-                    categoryName = '기타';
-                    break;
-                case 11:
-                    categoryName = '용돈';
-                    break;
-                case 12:
-                    categoryName = '금융소득';
-                    break;
-                case 13:
-                    categoryName = '상여금';
-                    break;
-                case 14:
-                    categoryName = '월급';
-                    break;
-            }
+        if (jsonData && jsonData['expensesList']) {
+            jsonData['expensesList'].forEach((expenses) => {
+                const categoryId = expenses['categoryId'];
+                const type = expenses['type'];
+                const money = expenses['money'];
+                const memo = expenses['memo'];
+                let categoryName = '';
 
-            const expenseItem = document.createElement('div');
-            
-            if (type === true) {
-                expenseItem.classList.add('incomeBox');
-                expenseItem.innerHTML = `
-                <div class="incomeList">
-                <p class="categoryName">${categoryName}</p>
-                <p class="money">${money}원</p>
-                <p class="memo">${memo}</p>
-                </div>
-                `;
-            } else {
-                expenseItem.classList.add('outcomeBox');
-                expenseItem.innerHTML = `
-                <div class="outcomeList">
-                <p class="categoryName">${categoryName}</p>
-                <p class="money">${money}원</p>
-                <p class="memo">${memo}</p>
-                </div>
-                `;
-            }
-            boxWrapper.appendChild(expenseItem);
-        });
+                switch (categoryId) {
+                    case 1:
+                        categoryName = '자기계발';
+                        break;
+                    case 2:
+                        categoryName = '문화생활';
+                        break;
+                    case 3:
+                        categoryName = '금융';
+                        break;
+                    case 4:
+                        categoryName = '보험';
+                        break;
+                    case 5:
+                        categoryName = '주거';
+                        break;
+                    case 6:
+                        categoryName = '쇼핑';
+                        break;
+                    case 7:
+                        categoryName = '통신';
+                        break;
+                    case 8:
+                        categoryName = '교통';
+                        break;
+                    case 9:
+                        categoryName = '식비';
+                        break;
+                    case 10:
+                        categoryName = '기타';
+                        break;
+                    case 11:
+                        categoryName = '용돈';
+                        break;
+                    case 12:
+                        categoryName = '금융소득';
+                        break;
+                    case 13:
+                        categoryName = '상여금';
+                        break;
+                    case 14:
+                        categoryName = '월급';
+                        break;
+                }
+
+                const expenseItem = document.createElement('div');
+
+                if (type === true) {
+                    expenseItem.classList.add('incomeList');
+                    expenseItem.innerHTML = `
+                    <p class="categoryName">${categoryName}</p>
+                    <p class="money">${money}원</p>
+                    <p class="memo">${memo}</p>
+                    `;
+                    this.incomeBox.appendChild(expenseItem);
+                } else if (type === false) {
+                    expenseItem.classList.add('outcomeList');
+                    expenseItem.innerHTML = `
+                    <p class="categoryName">${categoryName}</p>
+                    <p class="money">${money}원</p>
+                    <p class="memo">${memo}</p>
+                    `;
+                    this.outcomeBox.appendChild(expenseItem);
+                }
+            });
+        } else {
+            const expenseIncomeItem = document.createElement('div');
+            expenseIncomeItem.classList.add('incomeList');
+            expenseIncomeItem.innerHTML = `
+        <p class="memo">조회할 데이터가 없습니다.</p>
+        `;
+            document.querySelector('.incomeBox').appendChild(expenseIncomeItem);
+
+            const expenseOutcomeItem = document.createElement('div');
+            expenseOutcomeItem.classList.add('outcomeList');
+            expenseOutcomeItem.innerHTML = `
+        <p class="memo">조회할 데이터가 없습니다.</p>
+        `;
+            document.querySelector('.outcomeBox').appendChild(expenseOutcomeItem);
+        }
     }
 }
 
@@ -491,8 +507,6 @@ class ExpenseAdd {
             if (this.budgetExpenseDivergency === 'budget') {
                 // budget 처리 연산
             } else if (this.budgetExpenseDivergency === 'expenses') {
-                console.log(document.querySelector('#amount'));
-                console.log(document.querySelector('#detail'));
                 this.submit();
             }
         });
@@ -611,8 +625,6 @@ class ExpenseAdd {
     // }
 
     submit() {
-        console.log('amount: ', document.querySelector('#amount').value);
-        console.log('memo: ', document.querySelector('#detail').value);
         const data = {
             cmd: 'Expenses',
             cmd2: 'insertExpenses',
