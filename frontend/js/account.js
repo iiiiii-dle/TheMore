@@ -139,6 +139,11 @@ class Calendar {
         const year = this.currentYear;
         const month = this.currentMonth + 1;
         const clickedDay = event.target.closest('.calendar-days div');
+        const allDays = document.querySelectorAll('.calendar-days div');
+        const incomeBox = document.querySelector('.incomeBox');
+            incomeBox.innerHTML = '';
+            const outcomeBox = document.querySelector('.outcomeBox');
+            outcomeBox.innerHTML = '';
 
         if (clickedDay) {
             clickedDay.classList.add('clicked');
@@ -146,16 +151,28 @@ class Calendar {
             this.select.innerHTML = `${year}-${month}-${clickedDate}`;
 
             // 다른 요소들의 클래스 제거
-            this.allDays.forEach(day => {
+            allDays.forEach(day => {
                 if (day !== clickedDay) {
                     day.classList.remove('clicked');
                 }
             });
+
+            if (!clickedDay.classList.contains('clicked')) {
+            incomeBox.innerHTML = '';
+            outcomeBox.innerHTML = '';
+        }
+
+        clickedDay.classList.toggle('clicked');
         }
     }
 
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach((day) => {
+            // 초기화
+            const incomeBox = document.querySelector('.incomeBox');
+            incomeBox.innerHTML = '';
+            const outcomeBox = document.querySelector('.outcomeBox');
+            outcomeBox.innerHTML = '';
             // calendarDays의 자식 요소에 대해 forEach를 사용
             day.addEventListener('click', () => {
                 const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
@@ -170,29 +187,6 @@ class Calendar {
                 this.quote.updateQuote();
             });
         });
-    }
-
-    // 클릭한 요소에 클래스를 추가하여 배경색을 변경하고, 다른 요소를 클릭할 때 이전 요소의 클래스를 제거함
-    handleDateClick(event) {
-        const clickedDate = event.target.textContent;
-        const year = this.currentYear;
-        const month = this.currentMonth + 1;
-        const clickedDay = event.target.closest('.calendar-days div');
-        const allDays = document.querySelectorAll('.calendar-days div');
-
-        // 클릭된 요소에 클래스 추가
-        if (clickedDay) {
-            clickedDay.classList.add('clicked');
-            this.selectedDate.innerHTML = `${clickedDate}일`;
-            this.select.innerHTML = `${year}-${month}-${clickedDate}`;
-
-            // 다른 요소들의 클래스 제거
-            allDays.forEach((day) => {
-                if (day !== clickedDay) {
-                    day.classList.remove('clicked');
-                }
-            });
-        }
     }
 }
 
@@ -285,7 +279,8 @@ class ExpensesBox {
 
     clickOutcomeBtn() {
         this.outcomeBtn.addEventListener('click', () => {
-            // 화살표 함수로 변경
+            this.incomeBox.innerHTML = '';
+            this.outcomeBox.innerHTML = '';
             this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
             this.incomeBox.style.display = 'none'; // 수정: 수입 목록 숨기기
             this.outcomeBox.style.display = 'block'; // 추가: 지출 상자 표시
@@ -308,7 +303,8 @@ class ExpensesBox {
 
     clickIncomeBtn() {
         this.incomeBtn.addEventListener('click', () => {
-            // 화살표 함수로 변경
+            this.incomeBox.innerHTML = '';
+            this.outcomeBox.innerHTML = '';
             this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
             this.incomeBox.style.display = 'block'; // 수정: 수입 목록 표시
             this.outcomeBox.style.display = 'none'; // 추가: 지출 상자 숨기기
