@@ -141,9 +141,9 @@ class Calendar {
         const clickedDay = event.target.closest('.calendar-days div');
         const allDays = document.querySelectorAll('.calendar-days div');
         const incomeBox = document.querySelector('.incomeBox');
-            incomeBox.innerHTML = '';
-            const outcomeBox = document.querySelector('.outcomeBox');
-            outcomeBox.innerHTML = '';
+        incomeBox.innerHTML = '';
+        const outcomeBox = document.querySelector('.outcomeBox');
+        outcomeBox.innerHTML = '';
 
         if (clickedDay) {
             clickedDay.classList.add('clicked');
@@ -158,11 +158,11 @@ class Calendar {
             });
 
             if (!clickedDay.classList.contains('clicked')) {
-            incomeBox.innerHTML = '';
-            outcomeBox.innerHTML = '';
-        }
+                incomeBox.innerHTML = '';
+                outcomeBox.innerHTML = '';
+            }
 
-        clickedDay.classList.toggle('clicked');
+            clickedDay.classList.toggle('clicked');
         }
     }
 
@@ -201,6 +201,7 @@ class ExpensesBox {
 
         this.outcomeBtn = document.querySelector('.outcomeBtn');
         this.incomeBtn = document.querySelector('.incomeBtn');
+        this.deleteBtn = document.querySelector('.deleteBtn');
 
         this.quote = new Quote();
         this.quoteDiv = document.querySelector('#quote');
@@ -208,7 +209,6 @@ class ExpensesBox {
         this.expensesBox = document.querySelector('.expensesBox');
         this.backBtn = document.querySelector('#backBtn');
         this.expenseBtns = document.querySelectorAll('.expensesBtn');
-        this.expenseList = document.querySelector('.expenseList');
         this.addButton = document.querySelector('#addListBtn');
 
         this.categorys = document.querySelector('.categorys');
@@ -224,57 +224,12 @@ class ExpensesBox {
         });
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
-        // this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
 
+        // this.clickDeleteBtn();
         this.clickBackBtn();
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
         this.clickIncomeBtn(); // expensesBox 수입 버튼 메소드
         this.clickAddListBtn(); // expenseAdd 넘어가기 메소드
-    }
-
-    handleItemClick(event) {
-        // 클릭된 요소의 부모 중 클래스가 'incomeList'인 요소를 찾기
-        const clickedItem = event.target.closest('.incomeList');
-        if (!clickedItem) { // 클릭된 요소가 없을 경우 콘솔에 출력
-            console.error('clickedItem not found');
-            return;
-        }
-
-        // incomeList의 내용 가져오기
-        const amount = clickedItem.querySelector('.amount').textContent.trim();
-        const detail = clickedItem.querySelector('.detail').textContent.trim();
-
-        // incomeList에 내용 채우기
-        this.amount.querySelector('input').value = amount;
-        this.detail.querySelector('input').value = detail;
-
-        // expenseAdd를 보여줌
-        this.expenseAddDiv.style.display = 'block';
-        this.expensesBox.style.display = 'none';
-
-        // 수정된 내용을 저장할 때 기존 expenseItem 삭제
-        this.commitBtn.addEventListener('click', () => {
-            // 기존 expenseItem 삭제
-            clickedItem.remove();
-
-            // 입력된 내용 가져오기
-            const newAmount = this.amount.querySelector('input').value;
-            const newDetail = this.detail.querySelector('input').value;
-
-            /// 새로운 expense 요소 생성
-            const newExpenseItem = document.createElement('div');
-            newExpenseItem.classList.add('expenseItem');
-            newExpenseItem.innerHTML = `
-            <div class="amount">${newAmount}</div>
-            <div class="detail">${newDetail}</div>
-            `;
-
-            // expenseList에 새로운 expenseItem 추가
-            this.expenseList.appendChild(newExpenseItem);
-
-            // expenseAdd 숨김
-            this.expenseAddDiv.style.display = 'none';
-        });
     }
 
     clickOutcomeBtn() {
@@ -333,6 +288,21 @@ class ExpensesBox {
         });
     }
 
+    // clickDeleteBtn() {
+    //     this.deleteBtn.addEventListener('click', (e) => {
+    //         console.log('deleteBtn 클릭');
+    //         const expensesId = e.target.closest('.expenseItem').dataset.expensesId;
+    //         const data = {
+    //             cmd: 'Expenses',
+    //             cmd2: 'deleteExpenses',
+    //             userId: sessionStorage.getItem('userId'),
+    //             expensesId: expensesId
+    //         };
+    //         const jsonData = JSON.stringify(data);
+    //         this.socket.sendMessage(jsonData);
+    //     });
+    // }
+
     clickAddListBtn() {
         // expenseAdd 넘어가기 메소드
         this.addButton.addEventListener('click', () => {
@@ -366,6 +336,7 @@ class ExpensesBox {
 
         if (jsonData && jsonData['expensesList']) {
             jsonData['expensesList'].forEach((expenses) => {
+                const expensesId = expenses['expensesId'];
                 const categoryId = expenses['categoryId'];
                 const type = expenses['type'];
                 const money = expenses['money'];
@@ -422,17 +393,21 @@ class ExpensesBox {
                 if (type === true) {
                     expenseItem.classList.add('incomeList');
                     expenseItem.innerHTML = `
+                    <p class="expensesId" style="display:none">${expensesId}</p>
                     <p class="categoryName">${categoryName}</p>
                     <p class="money">${money}원</p>
                     <p class="memo">${memo}</p>
+                    <button class="deleteBtn"><img src="../images/delete.png" alt="삭제 버튼" class="deleteBtn"></button>
                     `;
                     this.incomeBox.appendChild(expenseItem);
                 } else if (type === false) {
                     expenseItem.classList.add('outcomeList');
                     expenseItem.innerHTML = `
+                    <p class="expensesId" style="display:none">${expensesId}</p>
                     <p class="categoryName">${categoryName}</p>
                     <p class="money">${money}원</p>
                     <p class="memo">${memo}</p>
+                    <button class="deleteBtn"><img src="../images/delete.png" alt="삭제 버튼" class="deleteBtn"></button>
                     `;
                     this.outcomeBox.appendChild(expenseItem);
                 }
@@ -451,6 +426,27 @@ class ExpensesBox {
         <p class="memo">조회할 데이터가 없습니다.</p>
         `;
             document.querySelector('.outcomeBox').appendChild(expenseOutcomeItem);
+        }
+    }
+
+    deleteHandler(jsonData) {
+        switch (jsonData['result']) {
+            case 'success':
+                Swal.fire({
+                    icon: 'success',
+                    title: '수입/지출 내역 삭제 완료',
+                    showConfirmButton: false,
+                    timer: 1000,
+                });
+                break;
+            case 'fail':
+                Swal.fire({
+                    icon: 'error',
+                    title: '수입/지출 내역 삭제 실패',
+                    showConfirmButton: false,
+                    timer: 1000,
+                });
+                break;
         }
     }
 }
