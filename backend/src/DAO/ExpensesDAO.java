@@ -368,15 +368,31 @@ public class ExpensesDAO {
 		String sql;
 		JSONObject result = new JSONObject();
 		PreparedStatement pstmt = null;
-		sql = "SELECT categoryId, SUM(CASE WHEN type = 1 THEN money ELSE 0 END) AS type_1_totalMoney, SUM(CASE WHEN type = 0 THEN money ELSE 0 END) AS type_0_totalMoney FROM Expenses WHERE userId = ? AND MONTH(expensesDate) = MONTH(?) GROUP BY categoryId";
+		sql = " SELECT \r\n"
+				+ "    categoryId, \r\n"
+				+ "    SUM(CASE WHEN type = 1 AND MONTH(expensesDate) = MONTH(?) THEN money ELSE 0 END) AS current_month_income,\r\n"
+				+ "    SUM(CASE WHEN type = 0 AND MONTH(expensesDate) = MONTH(?) THEN money ELSE 0 END) AS current_month_expense,\r\n"
+				+ "    SUM(CASE WHEN type = 1 AND MONTH(expensesDate) = MONTH(? - INTERVAL 1 MONTH) THEN money ELSE 0 END) AS prev_month_income,\r\n"
+				+ "    SUM(CASE WHEN type = 0 AND MONTH(expensesDate) = MONTH(? - INTERVAL 1 MONTH) THEN money ELSE 0 END) AS prev_month_expense\r\n"
+				+ "FROM \r\n"
+				+ "    Expenses \r\n"
+				+ "WHERE \r\n"
+				+ "    userId = ? AND\r\n"
+				+ "    (MONTH(expensesDate) = MONTH(?) OR MONTH(expensesDate) = MONTH(? - INTERVAL 1 MONTH))\r\n"
+				+ "GROUP BY \r\n"
+				+ "    categoryId;";
 		
 		result.put("cmd", "test");
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, expenses.getUserId());
+			pstmt.setDate(1, expenses.getExpensesDate());
 			pstmt.setDate(2, expenses.getExpensesDate());
-
+			pstmt.setDate(3, expenses.getExpensesDate());
+			pstmt.setDate(4, expenses.getExpensesDate());
+			pstmt.setInt(5, expenses.getUserId());
+			pstmt.setDate(6, expenses.getExpensesDate());
+			pstmt.setDate(7, expenses.getExpensesDate());
 			ResultSet rs = pstmt.executeQuery();
 			if (!rs.next()) {
 				System.out.println("조회할 데이터가 없습니다.");
@@ -384,13 +400,17 @@ public class ExpensesDAO {
 				do {
 					JSONObject response = new JSONObject();
 					Integer categoryId = rs.getInt("categoryId");
-					Integer type1_money = rs.getInt("type_1_totalMoney"); // 수입
-					Integer type0_money = rs.getInt("type_0_totalMoney"); // 지출
+					Integer currentMonthIncome = rs.getInt("current_month_income"); // 수입
+					Integer currentMonthExpense = rs.getInt("current_month_expense"); // 지출
+					Integer prevMonthIncome = rs.getInt("prev_month_income"); // 지난달 수입
+					Integer prevMonthExpense = rs.getInt("prev_month_expense"); // 지난달 지출
 
 
 					response.put("categoryId", categoryId);
-					response.put("type1_money", type1_money);
-					response.put("type0_money", type0_money);
+					response.put("currentMonthIncome", currentMonthIncome);
+					response.put("currentMonthExpense", currentMonthExpense);
+					response.put("prevMonthIncome", prevMonthIncome);
+					response.put("prevMonthExpense", prevMonthExpense);
 					
 					result.append("list", response);
 
