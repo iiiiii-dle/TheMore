@@ -14,17 +14,14 @@ class Login {
     }
 
     submitForm() {
-        console.log('test');
         // 폼을 제출할 때 실행될 함수
         const form = document.getElementById('logInForm');
         const formData = new FormData(form);
         // FormData를 JSON으로 변환
-
         formData.append('cmd', 'User');
         formData.append('cmd2', 'Login');
         const jsonData = JSON.stringify(Object.fromEntries(formData));
 
-        console.log(jsonData);
         //WebSocket을 통해 서버로 데이터 전송
         this.socket.sendMessage(jsonData);
     }
@@ -32,7 +29,6 @@ class Login {
     callback(data) {
         const json = JSON.parse(data);
 
-        console.log(json);
         const state = json['state'];
 
         if (!state) {
@@ -58,7 +54,6 @@ class Login {
                 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    
                     // 페이지 이동
                     window.location.href = 'account.html';
                 }

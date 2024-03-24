@@ -1,6 +1,5 @@
 import { LoginSocket } from "./socket/loginSocket.js";
 
-// 저장 버튼 클릭하면 어떻게 해야할까?
 class Save {
     constructor(host, port) {
         this.socket = new LoginSocket(host, port, this.callback.bind(this));
@@ -37,7 +36,7 @@ class Save {
             userId: sessionStorage.getItem('userId')
         }
         const jsonData = JSON.stringify(formData);
-        console.log(jsonData);
+
         this.socket.sendMessage(jsonData);
     }
     submitForm() {
@@ -54,8 +53,6 @@ class Save {
 
         }
         const jsonData = JSON.stringify(formData);
-
-        console.log(jsonData);
         // WebSocket을 통해 서버로 데이터 전송
         this.socket.sendMessage(jsonData);
     }
@@ -64,7 +61,6 @@ class Save {
 
         const state = json['state']
 
-        console.log(json);
         document.getElementById("email").value = json['email']
         document.getElementById("nickName").value = json['nickName']
         document.getElementById("disclosure").value = json['disclosure']
@@ -87,18 +83,12 @@ class Save {
         }
 
     }
-
     // 비밀번호 확인에서 비밀번호가 같은지 확인하는 기능
     checkPasswordMatch() {
-
 
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("checkPassword").value;
         const warn = document.getElementById("pwConfirm");
-        console.log(password);
-        console.log(confirmPassword);
-        console.log(warn);
-
 
         if (password !== confirmPassword) {
             // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 표시
@@ -132,21 +122,3 @@ function initailize() {
 }
 
 initailize();
-
-
-
-
-
-
-// // 사용자가 입력한 정보를 JSON 형식으로 변환
-// var userInfo = {
-//     cmd: "User",
-//     cmd2: "updateUser",
-//     userId: sessionStorage.getItem('userId'),
-//     nickName: nickName,
-//     password: password,
-//     isHidden: isHidden
-// };
-
-// // 서버로 사용자 정보 전송
-// socket.send(JSON.stringify(userInfo));

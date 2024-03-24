@@ -60,19 +60,15 @@ fieldset {
     border: none;
     text-align: center;
     padding-top: 30px;
-
 }
 
 #baby-pig {
     /* Rectangle 50 */
-
     position: absolute;
     top: -120px;
     left: 50%;
     transform: translateX(-50%);
-
 }
-
 
 ul {
     list-style-type: none;
@@ -126,7 +122,6 @@ input[type="button"] {
 input[type="button"]:hover{
     background-color: rgba(255, 177, 177, 0.5);
 }
-
 
 #button {
     margin-left: 250px;
