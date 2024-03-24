@@ -9,6 +9,7 @@
     align-items: center;
     padding-top: 0;
     margin-bottom: 0 50px;
+    list-style: none;
 }
 #section-link li{
     padding-right:50px;
