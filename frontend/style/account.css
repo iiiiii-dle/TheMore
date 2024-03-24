@@ -75,25 +75,41 @@
 
 .categoryName {
     margin-left: 10px;
-    width: 80px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    flex:  2;
 }
 
 .money {
-    width: 120px;
     text-align: end;
     margin-right: 40px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    flex:  2;
 }
 
 .memo {
-    width: 220px;
     margin-left: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    flex:  5;
+}
+
+.deleteBtn {
+    text-align: end;
+    flex:  1;
+    margin-right: 10px;
+}
+
+#backBtn > img, #backBtn2 > img, .deleteBtn > img {
+    width: 20px;
+    height: 20px;
+}
+
+.expensesId {
+    color: white;
+    width: 0;
 }
