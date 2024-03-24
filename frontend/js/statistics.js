@@ -110,3 +110,61 @@ document.addEventListener("DOMContentLoaded",()=>{
     initialize();
 });
 export { 현재날짜 }
+
+/* 채림 ----------------------------------------*/
+document.getElementById('pinkTheme').addEventListener('click', function () {
+    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    var header = iframeDoc.querySelector('header');
+    header.style.backgroundColor = 'rgba(242, 111, 111, 0.3)';
+
+    let styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+            #click-statistics {
+                color: rgba(242, 111, 111, 1);
+            }
+            #click-account {
+                color: #3c3c3c !important;
+            }
+        `;
+    document.head.appendChild(styleTag);
+});
+
+document.getElementById('greenTheme').addEventListener('click', function () {
+    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    var header = iframeDoc.querySelector('header');
+    header.style.backgroundColor = 'rgba(111, 242, 132, 0.3)';
+
+    let styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+            #click-statistics {
+                color: rgba(111, 242, 132, 1);
+            }
+            #click-account {
+                color: #3c3c3c !important;
+            }
+        `;
+    document.head.appendChild(styleTag);
+});
+
+document.getElementById('blueTheme').addEventListener('click', function () {
+    var iframe = document.querySelector('iframe'); // 수정: iframe 변수 재정의
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    var header = iframeDoc.querySelector('header');
+    header.style.backgroundColor = 'rgba(55, 159, 235, 0.3)';
+
+    let styleTag = document.createElement('style');
+    styleTag.innerHTML = `
+            #click-statistics {
+                color: rgba(55, 159, 235, 1);
+            }
+            #click-account {
+                color: #3c3c3c !important;
+            }
+        `;
+    document.head.appendChild(styleTag);
+});
