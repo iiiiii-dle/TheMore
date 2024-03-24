@@ -1,23 +1,31 @@
-const socket = new WebSocket('ws://localhost:9000');
+import { Socket } from "./socket/socket.js";
 
-socket.onopen = function() {
-    console.log('Connected to werver');
+class DoughnutIncome {
+    constructor(host,port) {
+        this.socket = new Socket(host, port, this.callback.bind(this));
+        this.today = new Date();
+        this.nowYear = this.today.getFullYear();
+        this.nowMonth = this.today.getMonth() + 1;
+        this.nowDay = this.today.getDate();
+        this.myChart = document.querySelector("#myChart");
+    }
 
-    // 서버에 getCategoryTotal 명령 전송
-    const cmd = {
-        cmd: "Expenses",
-        cmd2: "categoryTotalList",
-        userId: 1,
-        type: true,
-        expensesDate: '2024-03-20'
+    doughnutChart(){
+        const cmd = {
+            'cmd': "Expenses",
+            'cmd2': "categoryTotalList",
+            'userId': sessionStorage.getItem('userId'),
+            'type': false,
+            'expensesDate': `${this.nowYear}-${this.nowMonth}-${this.nowDay}`
+    
+        };
+        const dough_Chart = JSON.stringify(cmd);
+        this.socket.sendMessage(dough_Chart);
+    }
 
-    };
-    socket.send(JSON.stringify(cmd));
-}
-
-socket.onmessage = function(event) {
-    console.log('Received from server: %s', event.data);
-    const jsonData = JSON.parse(event.data);
+    callback(data) {
+        console.log('Received from server: %s', data);
+    const jsonData = JSON.parse(data);
     const categoryData = jsonData.expenses;
 
     if(categoryData) {
@@ -74,7 +82,13 @@ const myChart_grap = new Chart(ctx_grap, {
     }else{
         console.error('categoryData is undefined or null');
     }
+    }
+
+
 }
-socket.onclose = function() {
-    console.log('Disconnected from server');
+
+function initialize() {
+    const doughnutIncome = new DoughnutIncome('localhost', 9000);
+    doughnutIncome.doughnutChart();
 }
+initialize();

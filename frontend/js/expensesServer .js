@@ -1,4 +1,4 @@
-import { Socket } from "../js/socket/socket.js";
+import { Socket } from "./socket/socket.js";
 
 // 서버로부터 받은 데이터를 처리할 콜백 함수 정의
 class AllTotal {
@@ -17,7 +17,7 @@ class AllTotal {
             'cmd': "Expenses",
             'cmd2': "getTotalAmount",
             'userId': sessionStorage.getItem('userId'),
-            'type': false,
+            'type': true,
             'expensesDate': `${this.nowYear}-${this.nowMonth}-${this.nowDay}`
         };
         const totalData = JSON.stringify(cmd);
