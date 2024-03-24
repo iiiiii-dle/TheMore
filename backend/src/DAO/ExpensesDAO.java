@@ -5,13 +5,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.java_websocket.WebSocket;
 import org.json.JSONObject;
 
-import DB.DBConnection;
 import DTO.Expenses;
 
 public class ExpensesDAO {
@@ -119,8 +121,10 @@ public class ExpensesDAO {
 	 * 
 	 * @return expensesList
 	 */
-	public static List<Expenses> getExpensesList(Connection conn, Boolean filter, Expenses expenses) throws Exception {
-		List<Expenses> expensesList = new LinkedList<>();
+	public static JSONObject getExpensesList(Connection conn, Boolean filter, Expenses expenses) throws Exception {
+		JSONObject json1 = new JSONObject();
+		json1.put("cmd", "getExpensesList");
+		List<JSONObject> list = new LinkedList<>();
 		String sql;
 		PreparedStatement pstmt = null;
 		try {
@@ -140,25 +144,29 @@ public class ExpensesDAO {
 				System.out.println("조회할 데이터가 없습니다.");
 			} else {
 				do {
-					Integer expensesId = rs.getInt("expensesId");
-					Integer userId = rs.getInt("userId");
+					JSONObject json2 = new JSONObject();
 					Integer categoryId = rs.getInt("categoryId");
 					Boolean type = rs.getBoolean("type");
 					Integer money = rs.getInt("money");
 					String memo = rs.getString("memo");
 					Date expensesDate = rs.getDate("expensesDate");
-
-					Expenses newExpenses = new Expenses(expensesId, userId, categoryId, type, money, memo,
-							expensesDate);
-					expensesList.add(newExpenses);
+					
+					json2.put("categoryId", categoryId);
+					json2.put("type", type);
+					json2.put("money", money);
+					json2.put("memo", memo);
+					json2.put("expensesDate", expensesDate);
+					list.add(json2);
+					
 				} while (rs.next());
+				json1.put("expensesList", list);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pstmt.close();
 		}
-		return expensesList;
+		return json1;
 	}
 
 	/**
@@ -353,8 +361,6 @@ public class ExpensesDAO {
 	 * @return statistics
 	 */
 	public static List<Expenses> statistics(Connection conn, Expenses expenses, WebSocket socket) throws Exception {
-
-//		List<Expenses> statistics = new LinkedList<Expenses>(); // 바로 소켓으로 전달하기때문에 사용 안함
 		String sql;
 		PreparedStatement pstmt = null;
 		sql = "SELECT categoryId, SUM(CASE WHEN type = 1 THEN money ELSE 0 END) AS type_1_totalMoney, SUM(CASE WHEN type = 0 THEN money ELSE 0 END) AS type_0_totalMoney FROM Expenses WHERE userId = ? AND MONTH(expensesDate) = MONTH(?) GROUP BY categoryId";
@@ -362,7 +368,6 @@ public class ExpensesDAO {
 		try {
 
 			pstmt = conn.prepareStatement(sql);
-//		pstmt.setInt(1, expenses.getUserId());
 			pstmt.setInt(1, 1); // 유저 아이디 1강제 주입 / 테스트용
 			pstmt.setDate(2, expenses.getExpensesDate());
 
@@ -374,11 +379,6 @@ public class ExpensesDAO {
 					Integer categoryId = rs.getInt("categoryId");
 					Integer type1_money = rs.getInt("type_1_totalMoney"); // 수입
 					Integer type0_money = rs.getInt("type_0_totalMoney"); // 지출
-
-//				System.out.println("categoryId >>> "+ categoryId);
-//				System.out.println("type1_money >>> "+ type1_money);
-//				System.out.println("type0_money >>> "+ type0_money);
-//				System.out.println("");
 
 					JSONObject response = new JSONObject();
 
@@ -396,9 +396,6 @@ public class ExpensesDAO {
 		} finally {
 			pstmt.close();
 		}
-
 		return null;
-
 	}
-
 }
