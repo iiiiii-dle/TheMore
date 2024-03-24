@@ -16,6 +16,7 @@ class Chat_log {
             chat_log_body_chat_ul: document.querySelector('#chat_body > #chat > ul'),
             chat_log_message_input: document.querySelector('#chat_send > .input-div > textarea'),
             chat_log_send_button: document.querySelector('#chat_footer > button'),
+            chat_log_open_button: document.querySelector('.chatImg'),
         };
 
         /**
@@ -59,6 +60,13 @@ class Chat_log {
         this.elements.chat_log_send_button.addEventListener('click', () => {
             this.sendMessage();
         });
+
+        this.elements.chat_log_open_button.addEventListener('click', (event) => {
+            console.log(event.target);
+            if (this.elements.chat_log_wrapper.classList.contains('hide')) this.show();
+            else this.hide();
+        });
+        this.hide();
     }
 
     show() {
