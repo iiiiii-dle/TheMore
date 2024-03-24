@@ -231,7 +231,7 @@ class ExpensesBox {
         });
         this.clickOutcomeBtn = this.clickOutcomeBtn.bind(this);
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
-        this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
+        // this.expenseList.addEventListener('click', this.handleExpenseItemClick.bind(this));
 
         this.clickBackBtn();
         this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
@@ -239,9 +239,9 @@ class ExpensesBox {
         this.clickAddListBtn(); // expenseAdd 넘어가기 메소드
     }
 
-    handleExpenseItemClick(event) {
+    handleItemClick(event) {
         // expenseList 안의 expenseItem 수정
-        const clickedItem = event.target.closest('.expenseItem');
+        const clickedItem = event.target.closest('.incomeList');
         if (!clickedItem) {
             console.error('clickedItem not found');
             return;
