@@ -59,7 +59,7 @@ public class ExpensesServiceImpl implements ExpensesService {
 			List<Expenses> expensesList = this.getExpensesList(conn, json);
 			JSONObject json1 = new JSONObject();
 			JSONObject json2 = new JSONObject();
-			json2.put("cmd", "getExpensesList");
+			json1.put("cmd", "getExpensesList");
 			for (Expenses ex : expensesList) {
 				json2.put("expenses", ex);
 			}
