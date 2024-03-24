@@ -20,7 +20,6 @@ class myPage {
     callback(data) {
         const json = JSON.parse(data);
 
-        console.log(json);
         document.getElementById("email").value = json['email']
         document.getElementById("nickName").value = json['nickName']
         document.getElementById("joinDate").value = json['joinDate']
@@ -37,7 +36,6 @@ class myPage {
         }
         const jsonData = JSON.stringify(formData);
 
-        console.log(jsonData);
         this.socket.sendMessage(jsonData);
 
 
