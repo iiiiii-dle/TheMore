@@ -270,3 +270,69 @@ document.addEventListener("DOMContentLoaded",()=>{
     initialize();
 });
 export { 현재날짜 }
+
+/* 채림 ----------------------------------------*/
+/* 웹 페이지 테마를 변경하는 기능
+   localStorage 사용
+---------------------------------*/
+// 페이지 로드 시 저장된 테마 적용 
+window.addEventListener('load', function () {
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
+});
+
+// 테마 변경 시 localStorage에 저장 
+document.getElementById('pinkTheme').addEventListener('click', function () {
+    applyTheme('pink');
+    localStorage.setItem('theme', 'pink');
+});
+
+document.getElementById('greenTheme').addEventListener('click', function () {
+    applyTheme('green');
+    localStorage.setItem('theme', 'green');
+});
+
+document.getElementById('blueTheme').addEventListener('click', function () {
+    applyTheme('blue');
+    localStorage.setItem('theme', 'blue');
+});
+
+// 테마 적용 함수 
+function applyTheme(theme) {
+    var iframe = document.querySelector('iframe');
+    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    var header = iframeDoc.querySelector('header');
+    var styleTag = document.createElement('style');
+
+    switch (theme) {
+        case 'pink':
+            header.style.backgroundColor = 'rgba(242, 111, 111, 0.3)';
+            styleTag.innerHTML = ` 
+            #click-statistics {
+                color: rgba(242, 111, 111, 1);
+            }
+            `;
+            break;
+        case 'green':
+            header.style.backgroundColor = 'rgba(111, 242, 132, 0.3)';
+            styleTag.innerHTML = `
+            #click-statistics {
+                color: rgba(111, 242, 132, 1);
+            }
+            `;
+            break;
+        case 'blue':
+            header.style.backgroundColor = 'rgba(55, 159, 235, 0.3)';
+            styleTag.innerHTML = `
+            #click-statistics {
+                color: rgba(55, 159, 235, 1);
+            }
+            `;
+            break;
+    }
+
+    document.head.appendChild(styleTag);
+}

@@ -16,7 +16,7 @@
     text-decoration: none;
 }
 #click-account {
-    color: #3C3C3C;
+    color: #3C3C3C !important;
 }
 
 #click-statistics {
@@ -33,12 +33,7 @@
 input:focus{
 outline: none;
 }
-/* 채팅 버튼 */
-.chatImg {
-    position: absolute;
-    right: 20px;
-    top: 150px;
-}
+
 
 /* 채림----------------------------------*/
 #select {
@@ -71,4 +66,10 @@ outline: none;
 #blueTheme {
     right: 80px; 
     background-color: rgba(55, 159, 235, 0.3);
+}
+/* 채팅 버튼 */
+.chatImg {
+    position: absolute;
+    right: 20px;
+    top: 150px;
 }
