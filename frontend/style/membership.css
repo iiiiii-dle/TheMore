@@ -84,7 +84,9 @@ label {
     width: 100%;
     padding-right: 10px;
     text-align: left;
+    margin-top: 10px;
 }
+
 button {
     display: inline-block;
     text-align: center;
@@ -118,7 +120,6 @@ input[type="password"] {
     width: 500px;
     border-bottom: 2px solid #FFB1B1;
     background-color: transparent;
-    padding: 5px 0;
     outline: none;
 }
 
@@ -137,7 +138,7 @@ input[type="button"]:hover{
 .radio label {
     display: inline-block;
     width: auto;
-    margin: 0 auto;
+    margin: 5px auto;
     margin-bottom: 30px;
 }
 
@@ -147,7 +148,6 @@ input[type="button"]:hover{
 
 #warning {
     height: 1rem;
-    margin-top: 10px;
 }
 #warning + span {
     visibility: hidden;

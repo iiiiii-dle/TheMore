@@ -84,6 +84,7 @@ label {
     width: 100%;
     padding-right: 10px;
     text-align: left;
+    margin-top: 10px;
 }
 
 input {
@@ -123,8 +124,9 @@ input[type="button"]:hover{
 .radio label {
     display: inline-block;
     width: auto;
-    margin: 0 auto;
+    margin: 5px auto;
     margin-bottom: 30px;
+    
 }
 
 #button {
