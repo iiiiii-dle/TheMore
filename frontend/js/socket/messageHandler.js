@@ -6,7 +6,7 @@ import { ExpenseAdd, ExpensesBox, Calendar } from '../account.js';
 // 실시간 Socket event 처리 파일
 
 function initialize() {
-    const host = 'localhost';
+    const host = '192.168.0.73';
     const port1 = 8080;
     const port2 = 9000;
 
@@ -31,12 +31,9 @@ function initialize() {
         const cmd = jsonData['cmd'];
         console.log(jsonData);
 
-        if (cmd == 'insertExpenses')
-            expenseAdd.insertHandler(jsonData);
-        else if (cmd == 'deleteExpenses')
-            expensesBox.deleteHandler(jsonData);
-        else if ((cmd == 'getExpensesList'))
-            expensesBox.listHandler(jsonData);
+        if (cmd == 'insertExpenses') expenseAdd.insertHandler(jsonData);
+        else if (cmd == 'deleteExpenses') expensesBox.deleteHandler(jsonData);
+        else if (cmd == 'getExpensesList') expensesBox.listHandler(jsonData);
     }
     mainSocket.setCallback(messageHandler);
 }
