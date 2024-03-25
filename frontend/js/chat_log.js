@@ -52,7 +52,6 @@ class Chat_log {
          * 이벤트 정의 영역
          */
         this.elements.chat_log_header.addEventListener('mousedown', () => {
-
             document.addEventListener('mousemove', this.functions.onMove);
             document.addEventListener('mouseup', this.functions.unMove);
         });
@@ -84,6 +83,7 @@ class Chat_log {
         const text = this.elements.chat_log_message_input.value;
 
         const message = new Message(sessionStorage.getItem('userId'), text, sessionStorage.getItem('nickName'), true);
+        console.log(message);
         this.chatLog.push(message);
         localStorage.setItem('chat_log', JSON.stringify(this.chatLog));
 
@@ -91,15 +91,15 @@ class Chat_log {
         this.elements.chat_log_message_input.value = '';
         this.scrollDown();
 
-        this.chatSocket.sendMessage(JSON.stringify(message.toJson()));
+        this.chatSocket.sendMessage(JSON.stringify(message.sendtoJson()));
     }
 
     receiveMessage(msg) {
         const json = JSON.parse(msg);
         const message = new Message(json['userId'], json['message'], json['sender'], json['isMe']);
-
+        console.log(message);
         this.elements.chat_log_body_chat_ul.appendChild(message.chatFormat());
-        this.chatLog.push(JSON.stringify(message));
+        this.chatLog.push(message.toJson());
         localStorage.setItem('chat_log', JSON.stringify(this.chatLog));
     }
 
@@ -157,6 +157,15 @@ class Message {
     }
 
     toJson() {
+        return {
+            userId: this.userId,
+            message: this.message,
+            sender: this.sender,
+            isMe: this.isMe,
+        };
+    }
+
+    sendtoJson() {
         return {
             userId: this.userId,
             message: this.message,
