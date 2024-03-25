@@ -40,15 +40,14 @@ class Login {
         } else {
             const userId = json['userId'];
             const nickName = json['nickName'];
-            sessionStorage.setItem('userId', userId); 
-            sessionStorage.setItem('nickName', nickName); 
+            sessionStorage.setItem('userId', userId);
+            sessionStorage.setItem('nickName', nickName);
             // 메인 페이지 화면으로 이동
             Swal.fire({
                 icon: 'success',
                 title: '로그인 성공',
                 text: '환영합니다',
                 showConfirmButton: true,
-                
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = 'account.html';
@@ -59,7 +58,7 @@ class Login {
 }
 
 function initailize() {
-    const login = new Login('localhost', 9000);
+    const login = new Login('192.168.0.73', 9000);
 }
 
 initailize();
