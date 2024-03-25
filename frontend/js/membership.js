@@ -87,7 +87,7 @@ class membership {
 }
 
 function initailize() {
-    const member = new membership("localhost", 9000);
+    const member = new membership("192.168.0.73", 9000);
 } 
 
 initailize();
