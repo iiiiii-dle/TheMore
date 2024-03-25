@@ -1,0 +1,165 @@
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    font-family: 'S-CoreDream-3Light';
+}
+
+header {
+    color: #3c3c3c;
+    font-family: 'S-CoreDream-3Light';
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    justify-content: start;
+    padding-left: 20px;
+}
+
+.a-link {
+    text-decoration: none;
+    color: #3C3C3C;
+    font-family: 'S-CoreDream-3Light';
+    font-style: normal;
+}
+
+#more {
+    color: #FFFFFF;
+}
+
+body {
+    position: relative;
+    color: #3c3c3c;
+    height: 100vh;
+    background-image: url('../images/backgroundColor.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#container {
+    width: 600px;
+    margin: 100px auto;
+    font-family: 'S-CoreDream-3Light';
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+fieldset {
+    border: none;
+    text-align: center;
+    padding-top: 30px;
+}
+
+#baby-pig {
+    /* Rectangle 50 */
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    float: left;
+    width: 100%;
+    padding-right: 10px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+button {
+    display: inline-block;
+    text-align: center;
+    background-color: #FFB1B1;
+    border: none;
+    padding: 1px 5px;
+    border-radius: 20px;
+    margin-left: 10px; /* 버튼 왼쪽 마진 추가 */
+    margin-top: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+button:hover{
+    background-color: rgba(255, 177, 177, 0.5);
+}
+
+input {
+    display: block;
+    float: left;
+    width: calc(100%-20px);
+    box-sizing: border-box;
+    padding: 5px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: none;
+    width: 500px;
+    border-bottom: 2px solid #FFB1B1;
+    background-color: transparent;
+    outline: none;
+}
+
+input[type="button"] {
+    display: inline-block;
+    text-align: center;
+    background-color: #FFB1B1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+input[type="button"]:hover{
+    background-color: rgba(255, 177, 177, 0.5);
+}
+
+.radio label {
+    display: inline-block;
+    width: auto;
+    margin: 5px auto;
+    margin-bottom: 30px;
+}
+
+#button {
+    margin-left: 250px;
+}
+
+#warning {
+    height: 1rem;
+}
+#warning + span {
+    visibility: hidden;
+    font-size: 0.7rem;
+}
+
+#warning:hover + span{
+    visibility: visible;
+    background-color: #FFB1B1;
+    color: #3C3C3C;
+    padding: 5px 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+    left: calc(100% + 10px); /* 이미지 오른쪽에 위치 */
+}

@@ -1,0 +1,72 @@
+
+#section-link {
+    color: #3C3C3C;
+    font-family: 'S-CoreDream-3Light';
+    font-style: normal;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+#section-link li{
+    padding-right:50px;
+}
+#section-link a {
+    text-decoration: none;
+}
+#click-account {
+    color: #3C3C3C !important;
+}
+
+#click-statistics {
+    color: #F26F6F;
+}
+
+#account {
+    list-style: none;
+}
+
+#statistics {
+    list-style-image: url("../images/Trending-up.png");
+}
+input:focus{
+outline: none;
+}
+
+#select {
+    margin-top: 35px;
+}
+
+.circle {
+    position: absolute; 
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(60, 60, 60, 0.3);
+}
+
+.circle.clicked {
+    border: 2px solid rgba(60, 60, 60, 0.6);
+}
+
+#pinkTheme {
+    right: 180px;
+    background-color: rgba(242, 111, 111, 0.3);
+}
+
+#greenTheme {
+    right: 130px;
+    background-color: rgba(111, 242, 132, 0.3);
+}
+
+#blueTheme {
+    right: 80px; 
+    background-color: rgba(55, 159, 235, 0.3);
+}
+
+.chatImg {
+    position: absolute;
+    right: 20px;
+    top: 150px;
+}

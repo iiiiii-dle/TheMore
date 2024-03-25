@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheMore - 수입 통계</title>
+    <link rel="stylesheet" href="../style/header.css">
+    <link rel="stylesheet" href="../style/statistics.css">
+    <link rel="stylesheet" href="../style/month.css">
+    <link rel="stylesheet" href="../style/graph.css">
+    <link rel="stylesheet" href="../style/st_income.css">
+    <link rel="stylesheet" href="../style/mark_expend.css">
+</head>
+
+<body>
+    <div id="container">
+        <iframe src="../component/header.html" style="border: none;" width="100%" height="100%"></iframe>
+        <section>
+            <button class="circle" id="pinkTheme"></button>
+            <button class="circle" id="greenTheme"></button>
+            <button class="circle" id="blueTheme"></button>
+            <button class="chatImg">
+                <img src="../images/chat.png" alt="채팅">
+            </button>
+            <ul id="section-link">
+                <li id="account"> <a id="click-account" href="account.html">내 가계부</a> </li>
+                <li id="statistics"><a id="click-statistics" href="statistics.html"> 통계</a> </li>
+            </ul>
+            <div id="select">
+                <ul>
+                    <li><a href="statistics_income.html" id="income" class="acc">수입</a></li>
+                    <li><a href="statistics.html" id="expend" class="acc">지출</a></li>
+                </ul>
+            </div>
+            <div id="trans_month">
+                <span id="prevMonth">&lt;</span><span id="month">2024년 3월</span><span id="nextMonth">&gt;</span>
+            </div>
+        </section>
+    </div>
+    <div id="grape_left">
+        <div id="mark">
+            <ul>
+                <li>
+                    <label for="expendCon">수입 : </label>
+                    <input type="text" id="expendCon" name="ex" readonly>
+                </li>
+            </ul>
+        </div>
+        <div id="grape">
+            <canvas id="myChart" width="600px" height="300px"></canvas>
+        </div>
+    </div>
+    <div id="grape_right">
+        <div id="stac_grape">
+            <canvas id="myStacChart" width="600px" height="250px"></canvas>
+        </div>
+    </div>
+
+
+    <script src="../js/colorTheme.js" type="module" defer></script>
+    <script src="../js/statistics.js" type="module" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/socket/socket.js" type="module" defer></script>
+</body>
+
+</html>

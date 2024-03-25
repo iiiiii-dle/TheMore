@@ -1,0 +1,12 @@
+#month {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#trans_month {
+    display: flex;
+    justify-content: center;
+    font-family: 'S-CoreDream-3Light';
+    font-size: 20px;
+    padding: 15px;
+}

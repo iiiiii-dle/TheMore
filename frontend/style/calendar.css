@@ -1,0 +1,129 @@
+.calendar {
+    height: 41rem;
+    width: 50%;
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.progressText {
+    width: 100%;
+    text-align: right;
+    padding: 0 5px;
+    margin-bottom: 5px;
+}
+
+progress {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 8px;
+    /* 브라우저 기본 스타일 제거 */
+    appearance: none;
+}
+/* 진행바 배경 색상(미완) */
+progress::-webkit-progress-bar {
+    border-radius: 20px;
+    background-color: rgba(242, 111, 111, 0.2);
+}
+/* 진행바 배경 색상(미완) */
+progress::-webkit-progress-value {
+    border-radius: 20px;
+    background-color: #F26F6F;
+}
+
+.calendar-header {
+    background: rgba(242, 111, 111, 0.3);
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    align-items: center;
+    color: white; 
+    padding: 10px;
+}
+
+.year-picker {
+    display: flex;
+    align-items: center;
+}
+
+.year-change {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.year-change:hover {
+    background-color: rgba(242, 111, 111, 0.3);
+    /* 확대 효과 */
+    transition: all .2s ease-in-out;
+    transform: scale(1.12);
+}
+
+.month-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F26F6F;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.month-change {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.month-change:hover {
+    background-color: rgba(242, 111, 111, 0.3);
+    /* 확대 효과 */
+    transition: all .2s ease-in-out;
+    transform: scale(1.12);
+}
+
+.calendar-week-days {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    color: #3C3C3C;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.calendar-days {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    color: #3C3C3C;
+    margin-bottom: 10px;
+}
+
+.calendar-days div {
+    width: 50%;
+    height: 70px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    padding-top: 3px;
+}
+
+.calendar-days div.clicked {
+    background-color: #fbc7d4;
+    border-radius: 20%;
+    color: #f8fbff;
+}
+
+.calendar-days div.current-date {
+    color: #F26F6F;
+    border-radius: 20%;
+}

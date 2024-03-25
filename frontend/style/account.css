@@ -1,0 +1,115 @@
+#section-link {
+    color: #3C3C3C;
+    font-family: 'S-CoreDream-3Light';
+    font-style: normal;
+    font-weight: bold;
+    padding-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+    margin-bottom: 0 50px;
+    list-style: none;
+}
+#section-link li{
+    padding-right:50px;
+}
+#section-link a {
+    text-decoration: none;
+}
+#click-account {
+    color: #F26F6F;
+}
+
+#click-statistics {
+    color: #3C3C3C;
+}
+
+#account {
+    list-style-image: url("../images/Calendar.png");
+}
+
+#wrapper {
+    display: flex;
+}
+
+.calendar {
+    flex: 1;
+}
+
+.quote {
+    flex: 1;
+}
+
+.expensesBox {
+    display: none;
+    flex: 1;
+}
+
+.expenseAdd {
+    display: none;
+    flex: 1;
+}
+
+.boxWrapper {
+    margin-top: 50px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 350px;
+}
+
+.boxWrapper::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+}
+
+.incomeList, .outcomeList {
+    border-bottom: 1px solid #E6E6E6;
+    display: flex;
+}
+
+.incomeList > p, .outcomeList > p {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.categoryName {
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex:  2;
+}
+
+.money {
+    text-align: end;
+    margin-right: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex:  2;
+}
+
+.memo {
+    margin-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex:  5;
+}
+
+.deleteBtn {
+    text-align: end;
+    flex:  1;
+    margin-right: 10px;
+}
+
+#backBtn > img, #backBtn2 > img, .deleteBtn > img {
+    width: 20px;
+    height: 20px;
+}
+
+.expensesId {
+    color: white;
+    width: 0;
+}

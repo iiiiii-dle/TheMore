@@ -1,0 +1,24 @@
+#select ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+}
+
+.acc {
+    font-family: 'S-CoreDream-3Light';
+    font-size: 25px;
+    text-decoration: none;
+}
+
+#income {
+    color: #FF7A7A;
+    text-align: center;
+    text-shadow: 1px 2px 5px rgba(242,111,111);
+
+}
+
+#expend {
+    color: #379FEB;
+    text-align: center;
+}

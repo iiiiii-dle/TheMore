@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheMore - 회원 정보 수정</title>
+
+<link rel="stylesheet" href="../style/modify.css">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+</head>
+
+<body>
+    <header>
+        <a class="a-link" href="account.html">The <span id="more">More</span></a>
+    </header>
+    <div id="container">
+        <form id="modifyInForm">
+            <fieldset>
+                <img src="../images/3babypig.png" id="baby-pig" alt="baby pig">
+                <h3>회원 정보 수정</h3>
+                <ul>
+                    <li>
+                        <label for="email">email</label>
+                        <input type="email" id="email" name="email" value="" readonly>
+                    </li>
+                    <li>
+                        <label for="nickName">닉네임 <img src="../images/warning.png" alt="warning" id="warning"><span>겹치는 닉네임일 경우 수정이 되지 않습니다.</span></label>
+                        <input type="text" id="nickName" name="nickName" value="" >
+                    </li>
+                    <li>
+                        <label for="password">비밀번호 <img src="../images/warning.png" alt="warning" id="warning"><span>영문, 숫자, 특수문자 중 2종류 이상을 조합하여 최소 10자리 이상</span></label>
+                        <input type="password" id="password" name="password" value="" placeholder="변경하실 비밀번호를 입력해주세요">
+                    </li>
+                    <li>
+                        <label for="checkPassword">비밀번호 확인 <span id="pwConfirm"></span></label>
+                        <input type="password" id="checkPassword">
+                    </li>
+                    <li>
+                        <label>내 정보 <img src="../images/warning.png" alt="warning" id="warning"><span>다른 회원에게 내 정보 공개 여부를 선택해주세요.</span></label>
+                        <div class="radio">
+                            <label for="disclosure">공개 여부</label>
+                            <input type="checkbox" name="isHidden" id="disclosure" value="true"  >
+                            
+                        </div>
+                    </li>
+                </ul>
+                <div id="button">
+                    <input type="button" value="저장" id="save_btn">
+                    <input type="button" value="취소" id="cancel_btn">
+                </div>
+            </fieldset>
+
+
+        </form>
+    </div>
+    <script type="module" src="../js/modify.js"></script>
+</body>
+
+</html>
