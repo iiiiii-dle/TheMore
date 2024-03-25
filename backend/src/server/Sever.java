@@ -22,7 +22,7 @@ public class Sever extends WebSocketServer {
 	BudgetServicelmpl budgetService = new BudgetServicelmpl();
 
 	public static void main(String[] args) {
-		String host = "localhost";
+		String host = "192.168.0.73";
 		final int PORT = 9000;
 
 		WebSocketServer server = new Sever(new InetSocketAddress(host, PORT));
@@ -49,18 +49,22 @@ public class Sever extends WebSocketServer {
 	public void onMessage(WebSocket conn, String message) {
 
 		JSONObject msg = new JSONObject(message);
+		JSONObject json = new JSONObject();
 
 		String cmd = msg.getString("cmd");
 
 		System.out.println("메시지 수신: " + message);
 		System.out.println(cmd);
 
+		// 경석--------------------------------------------------
 		if (cmd.equals("User")) {
 			userService.parse(conn, msg, sessionUser);
 
+		// 혜리--------------------------------------------------
 		} else if (cmd.equals("Expenses")) {
 			expensesService.parse(conn, msg);
 
+		// 병민 ----------------------------------------------
 		} else if (cmd.equals("Budget")) {
 			budgetService.parse(conn, msg);
 			
