@@ -37,7 +37,6 @@ public class BudgetDAO {
 		}finally {
 			pstmt.close();
 		}
-		System.out.println("BudgetDAO : " + result );
 		return result;
 	}
 	/**
@@ -62,7 +61,6 @@ public class BudgetDAO {
 		}finally {
 			pstmt.close();
 		}
-		System.out.println("BudgetDAO : " + result);
 		return result;
 	}
 	
@@ -91,7 +89,6 @@ public class BudgetDAO {
 		}finally {
 			pstmt.close();
 		}
-		System.out.println("BudgetDAO : " + result);
 		return result;
 	}
 	
@@ -116,15 +113,14 @@ public class BudgetDAO {
 	        
 	        while (rs.next()) {
 	            Budget budget = new Budget();
-	            // Budget 객체에 결과 값 설정
+	            
 	            budget.setUserId(rs.getInt("userId"));
 	            budget.setAmount(rs.getInt("amount"));
 	            budget.setBudgetDate(rs.getDate("budgetDate"));
-	            // 결과 리스트에 추가
+	            
 	            budgetList.add(budget);
 	        }
 	    } finally {
-	        // 리소스 해제
 	        if (rs != null) {
 	            rs.close();
 	        }

@@ -48,7 +48,6 @@ public class ExpensesDAO {
 		} finally {
 			pstmt.close();
 		}
-		System.out.println("ExpensesDAO: " + result);
 		return result;
 	}
 
@@ -75,7 +74,6 @@ public class ExpensesDAO {
 		} finally {
 			pstmt.close();
 		}
-		System.out.println("ExpensesDAO: " + result);
 		return result;
 	}
 
@@ -108,7 +106,6 @@ public class ExpensesDAO {
 		} finally {
 			pstmt.close();
 		}
-		System.out.println("ExpensesDAO: " + result);
 		return result;
 	}
 
@@ -202,7 +199,6 @@ public class ExpensesDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalAmount = rs.getInt(filter ? "totalIncome" : "totalExpense");
-				System.out.println(" Total : " + totalAmount); // 디버깅용 로그
 			}
 
 		} finally {
@@ -247,8 +243,6 @@ public class ExpensesDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalCategoryAmount = rs.getInt(filter ? "totalIncome" : "totalExpense");
-				System.out.println("Total amount: " + totalCategoryAmount); // 디버깅용 로그
-
 			}
 
 		} finally {
@@ -301,7 +295,6 @@ public class ExpensesDAO {
 
 					Expenses categoryExpenses = new Expenses(expensesId, userId, categoryId, type, money, memo,
 							expensesDate);
-					System.out.printf("%s", categoryExpenses);
 					cateTotalList.add(categoryExpenses);
 				} while (rs.next());
 			}

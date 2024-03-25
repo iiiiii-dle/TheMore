@@ -15,7 +15,7 @@ import DTO.Budget;
 public class BudgetServicelmpl implements BudgetService {
 	/**
 	 * @author 최병민<br>
-	 * 			parseDate: String 객체를 java.sql.Date타입으로 파싱하는 메소드
+	 *         parseDate: String 객체를 java.sql.Date타입으로 파싱하는 메소드
 	 * @param dateString: DB에 날짜로 넣고 싶은 String 객체
 	 * @return java.sql.Date 타입
 	 */
@@ -33,144 +33,101 @@ public class BudgetServicelmpl implements BudgetService {
 	@Override
 	public void parse(WebSocket conn, JSONObject json) {
 		String cmd2 = json.getString("cmd2");
-		
-		if(cmd2.equals("insertBudget"))
+
+		if (cmd2.equals("insertBudget"))
 			this.insertBudget(conn, json);
-		else if(cmd2.equals("deleteBudget"))
+		else if (cmd2.equals("deleteBudget"))
 			this.deleteBudget(conn, json);
-		else if(cmd2.equals("updateBudget"))
+		else if (cmd2.equals("updateBudget"))
 			this.updateBudget(conn, json);
-		else if(cmd2.equals("getTotalBudget"))
-			this.getTotalBudget(conn, json);
-		}
+//		else if (cmd2.equals("getTotalBudget"));
+			// 미완
+	}
 
 	@Override
 	public void insertBudget(WebSocket conn, JSONObject json) {
-		
+
 		Integer userId = json.getInt("userId");
 		Integer budgetId = json.getInt("budgetId");
 		Integer amount = json.getInt("amount");
 		String dateString = json.getString("budgetDate");
 		Date budgetDate = parseDate(dateString);
-		
+
 		Budget budget = new Budget(userId, budgetId, amount, budgetDate);
-		
+
 		int result = 0;
 		try {
 			result = BudgetDAO.insertBudget(DBConnection.getConnection(), budget);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		JSONObject inputObj = new JSONObject();
-		
-		if(result == 0) {
-			// insert 실패시
-			inputObj.put("cmd","insertBudget");
+
+		if (result == 0) {
+			inputObj.put("cmd", "insertBudget");
 			inputObj.put("insert", "fail");
-		}
-		else {
-			// insert 성공시
+		} else {
 			inputObj.put("cmd", "insertBudget");
 			inputObj.put("insert", "success");
 		}
-		
+
 		conn.send(inputObj.toString());
-		
+
 	}
 
 	@Override
 	public void deleteBudget(WebSocket conn, JSONObject json) {
 		Integer userId = json.getInt("userId");
 		Integer budgetId = json.getInt("budgetId");
-		
+
 		Budget budget = new Budget(userId, budgetId);
-		
+
 		int result = 0;
 		try {
 			result = BudgetDAO.deleteBudget(DBConnection.getConnection(), budget);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		JSONObject inputObj = new JSONObject();
-		
-		if(result == 0) {
-			// insert 실패시
-			inputObj.put("cmd","deleteBudget");
+
+		if (result == 0) {
+			inputObj.put("cmd", "deleteBudget");
 			inputObj.put("delete", "fail");
-		}
-		else {
-			// insert 성공시
+		} else {
 			inputObj.put("cmd", "deletBudget");
 			inputObj.put("delete", "success");
 		}
-		
-		conn.send(inputObj.toString());
-		
-	}
 
+		conn.send(inputObj.toString());
+
+	}
 
 	@Override
 	public void updateBudget(WebSocket conn, JSONObject json) {
 		Integer userId = json.getInt("userId");
 		Integer budgetId = json.getInt("budgetId");
 		Integer amount = json.getInt("amount");
-		
+
 		Budget budget = new Budget(userId, budgetId, amount);
-		
+
 		int result = 0;
 		try {
 			result = BudgetDAO.updateBudget(DBConnection.getConnection(), budget);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		JSONObject inputObj = new JSONObject();
-		
-		if(result == 0) {
-			// insert 실패시
-			inputObj.put("cmd","updateBudget");
+
+		if (result == 0) {
+			inputObj.put("cmd", "updateBudget");
 			inputObj.put("update", "fail");
-		}
-		else {
-			// insert 성공시
+		} else {
 			inputObj.put("cmd", "updateBudget");
 			inputObj.put("update", "success");
 		}
-		
-		conn.send(inputObj.toString());
-		
-	}
 
-	@Override
-	public void getTotalBudget(WebSocket conn, JSONObject json) {
-		Integer userId = json.getInt("userId");
-		Integer budgetId = json.getInt("budgetId");
-		Integer amount = json.getInt("amount");
-		String dateString = json.getString("budgetDate");
-		Date budgetDate = parseDate(dateString);
-		
-		Budget budget = new Budget(userId, budgetId, amount, budgetDate);
-		List<Budget> result = null;
-		
-		try {
-			result = BudgetDAO.bringBudget(DBConnection.getConnection(), userId, budgetDate);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		JSONObject inputObj = new JSONObject();
-		
-		if(result == null) {
-			// insert 실패시
-			inputObj.put("cmd","getTotalBudget");
-			inputObj.put("insert", "fail");
-		}
-		else {
-			// insert 성공시
-			inputObj.put("cmd", "getTotalBudget");
-			inputObj.put("insert", "success");
-		}
-		
 		conn.send(inputObj.toString());
+
 	}
 
 }

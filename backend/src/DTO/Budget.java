@@ -8,10 +8,8 @@ public class Budget {
 	private Integer amount;
 	private Date budgetDate;
 	
-	//생성자는 필요할 때 추가할 예정
-	public Budget() {
-		
-	}
+	public Budget() {}
+	
 	public Budget(Integer userId, Integer budgetId, Integer amount, Date budgetDate) {
 		this.userId = userId;
 		this.budgetId = budgetId;

@@ -64,7 +64,6 @@ public class ExpensesServiceImpl implements ExpensesService {
 			conn.send(expensesList.toString());
 			break;
 			
-		// 병민 ------------------------------------------------------
 		case "getTotalAmount" :
 			int sum = this.getTotalAmount(conn, json);
 			JSONObject getAmount = new JSONObject();
@@ -107,7 +106,6 @@ public class ExpensesServiceImpl implements ExpensesService {
 			
 			conn.send(stacJson.toString());
 			break;
-			// 김강현
 		case "grapList" :
 			this.statistics(conn, json);
 			break;
@@ -237,14 +235,12 @@ public class ExpensesServiceImpl implements ExpensesService {
 		Boolean filter = json.getBoolean("type");
 		Expenses expenses = new Expenses(userId, expensesDate);
 
-//		List<JSONObject> list = new LinkedList<>();
 		JSONObject msg = new JSONObject();
 		try {
 			msg = ExpensesDAO.getExpensesList(DBConnection.getConnection(), filter, expenses);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		return list;
 		return msg;
 	}
 	
@@ -351,7 +347,6 @@ public class ExpensesServiceImpl implements ExpensesService {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 		
 	}

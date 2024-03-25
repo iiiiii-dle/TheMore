@@ -4,9 +4,7 @@ public class Category {
 	private Integer categoryId;
 	private String categoryName;
 	private Boolean categoryType;
-	
-	//생성자는 필요할 때 추가할 예정
-	
+		
 	public Integer getCategoryId() {
 		return categoryId;
 	}

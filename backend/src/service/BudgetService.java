@@ -8,6 +8,4 @@ public interface BudgetService {
 	void insertBudget(WebSocket conn, JSONObject json);
 	void deleteBudget(WebSocket conn, JSONObject json);
 	void updateBudget(WebSocket conn, JSONObject json);
-	void getTotalBudget(WebSocket conn, JSONObject json); 
-
 }
