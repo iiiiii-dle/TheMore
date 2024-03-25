@@ -55,6 +55,6 @@ class myPage {
     }
 }
 function initailize() {
-    const save = new myPage('localhost', 9000);
+    const save = new myPage('192.168.0.73', 9000);
 }
 initailize();

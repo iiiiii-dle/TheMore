@@ -112,7 +112,7 @@ class Save {
 
 }
 function initailize() {
-    const save = new Save('localhost', 9000);
+    const save = new Save('192.168.0.73', 9000);
 }
 
 initailize();
