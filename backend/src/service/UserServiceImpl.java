@@ -24,10 +24,7 @@ public class UserServiceImpl implements UserService {
 			this.getUserData(socket, json, session);
 		else if(cmd2.equals("membership"))
 			this.membership(socket, json);
-			
 	}
-	
-
 
 	/**
 	 * @author 이경석<br>
@@ -46,15 +43,12 @@ public class UserServiceImpl implements UserService {
 			user = UsersDAO.getUserByEmail(DBConnection.getConnection(), email);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("error");
 			e.printStackTrace();
 		}
 		
-		
 		JSONObject response = new JSONObject();
 		response.put("cmd", "Login");
-		
 		
 		if(user == null || !password.equals(user.getPassword())) {
 			response.put("state", false);
@@ -71,11 +65,8 @@ public class UserServiceImpl implements UserService {
 		System.out.println("Login Send");
 	}
 
-
-
 	@Override
 	public void updateUser(WebSocket socket, JSONObject json, Map<Integer, Users> session) {
-		// TODO Auto-generated method stub
 		int userId = json.getInt("userId");
 		int result = 0;
 		
@@ -87,7 +78,6 @@ public class UserServiceImpl implements UserService {
 		try {
 			result = UsersDAO.updateUser(DBConnection.getConnection(), newUser);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -107,11 +97,8 @@ public class UserServiceImpl implements UserService {
 			
 	}
 
-
-
 	@Override
 	public void getUserData(WebSocket socket, JSONObject json, Map<Integer, Users> session) {
-		// TODO Auto-generated method stub
 		int userId = json.getInt("userId");
 		
 		Users user = session.get(userId);
@@ -144,25 +131,16 @@ public class UserServiceImpl implements UserService {
 		JSONObject response = new JSONObject();
 		
 		if(result == 0) {
-			// insert 실패 시
 			response.put("cmd", "membership");
 			response.put("state", false);
 			
 		}
 		else {
-			// insert 성공 시
 			response.put("cmd", "membership");
 			response.put("state", true);
 		}
 		
 		socket.send(response.toString());
-		
 	}
 	
-	
-	
-	
-
-
-
 }
