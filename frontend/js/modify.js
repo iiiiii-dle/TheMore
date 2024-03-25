@@ -40,7 +40,6 @@ class Save {
         this.socket.sendMessage(jsonData);
     }
     submitForm() {
-        // 폼을 수정하고 제출할 때 실행될 함수(클라이언트에서 서버로 보낼때)
         const form = document.getElementById('modifyInForm');
 
         const formData = {
@@ -53,7 +52,7 @@ class Save {
 
         }
         const jsonData = JSON.stringify(formData);
-        // WebSocket을 통해 서버로 데이터 전송
+        
         this.socket.sendMessage(jsonData);
     }
     callback(data) {
@@ -67,23 +66,21 @@ class Save {
 
 
         if (state) {
-            // 수정 성공
             Swal.fire({
                 icon: "question",
                 title: "수정",
                 text: "수정하시겠습니까?",
-                showConfirmButton: true,// 확인 버튼 표시
+                showConfirmButton: true,
                 confirmButtonText: "myPage 이동"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // 페이지 이동
                     window.location.href = "myPage.html";
                 }
             });
         }
 
     }
-    // 비밀번호 확인에서 비밀번호가 같은지 확인하는 기능
+    
     checkPasswordMatch() {
 
         const password = document.getElementById("password").value;
@@ -91,26 +88,23 @@ class Save {
         const warn = document.getElementById("pwConfirm");
 
         if (password !== confirmPassword) {
-            // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 표시
             warn.textContent = "비밀번호가 일치하지 않습니다.";
-            warn.style.color = "red"; // 일치하지 않을 때 텍스트 색상을 빨간색으로 변경
+            warn.style.color = "red";
         } else {
-            // 비밀번호와 확인 비밀번호가 일치할 때는 경고 메시지 표시
             warn.textContent = "비밀번호가 일치합니다.";
-            warn.style.color = "green"; // 일치할 때 텍스트 색상을 초록색으로 변경
+            warn.style.color = "green";
         }
     }
-    // 취소 버튼 클릭 시 swal창 띄우고 myPage로 이동
+    
     cancle() {
         Swal.fire({
             icon: "question",
             title: "취소",
             text: "취소하시겠습니까?",
-            showConfirmButton: true,// 확인 버튼 표시
+            showConfirmButton: true,
             confirmButtonText: "myPage 이동"
         }).then((result) => {
             if (result.isConfirmed) {
-                // 페이지 이동
                 window.location.href = "myPage.html";
             }
         });

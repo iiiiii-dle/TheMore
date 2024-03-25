@@ -4,7 +4,6 @@
     margin-top: 35px;
     box-sizing: border-box;
 }
-/* --------------------------------------------------------- */
 
 /* 페이지 테마 변경 버튼 */
 .circle {
@@ -18,30 +17,28 @@
 .circle.clicked {
     border: 2px solid rgba(60, 60, 60, 0.6);
 }
-/* 핑크 테마 버튼 */
+
 #pinkTheme {
     right: 180px;
     background-color: rgba(242, 111, 111, 0.3);
 }
-/* 연두 테마 버튼 */
+
 #greenTheme {
     right: 130px;
     background-color: rgba(111, 242, 132, 0.3);
 }
-/* 하늘 테마 버튼 */
+
 #blueTheme {
     right: 80px; 
     background-color: rgba(55, 159, 235, 0.3);
 }
-/* 채팅 버튼 */
+
 .chatImg {
     position: absolute;
     right: 20px;
     top: 150px;
 }
-/* --------------------------------------------------------- */
 
-/* 명언 */
 .quote {
     position: relative;
     width: calc(50% - 46px);
@@ -51,9 +48,7 @@
     margin-left: 20px;
     /* box-sizing: border-box; */
 }
-/* --------------------------------------------------------- */
 
-/* 수입 지출 내역 */
 .expensesBox {
     position: relative;
     width: calc(50% - 46px);
@@ -66,7 +61,6 @@
     /* box-sizing: border-box; */
 }
 
-/* 수입 지출 내역 - 날짜 */
 #selectedDate {
     display: block;
     margin-bottom: 10px;
@@ -83,7 +77,7 @@
     font-size: 17px;
     font-size: 15px;
 }
-/* 수입 / 지출 버튼 */
+
 .expensesBtn {
     width: 120px;
     height: 50px;
@@ -96,11 +90,11 @@
 .expensesBtn.clicked {
     border: 1px solid rgba(60, 60, 60, 0.6);
 }
-/* 수입 버튼 색상 */
+
 .incomeBtn {
     background-color: rgba(255, 116, 116, 0.47);
 }
-/* 지출 버튼 */
+
 .outcomeBtn {
     background-color: rgba(55, 159, 235, 0.3);
 }
@@ -113,7 +107,7 @@
 }
 
 .expenseItem:not(:last-child){
-    margin-bottom: 10px; /* 각 요소 사이의 간격 조정 */
+    margin-bottom: 10px;
 }
 
 #addListBtn {
@@ -129,9 +123,7 @@
 #addListBtn:active {
     border: 2px solid rgba(60, 60, 60, 0.5);
 }
-/* --------------------------------------------------------- */
 
-/* 수입 지출 내역 생성 */
 .expenseAdd {
     position: relative;
     width: calc(50% - 46px);
@@ -142,10 +134,8 @@
     padding: 20px;
     margin-top: 35px;
     margin-left: 20px;
-    /* box-sizing: border-box; */
 }
 
-/* 선택 날짜 */
 #select {
     display: block;
     width: 100%;
@@ -163,18 +153,17 @@
     font-size: 15px;
 }
 
-/* 예산 / 수입 / 지출 버튼 */
 .selectButtons {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
     margin-bottom: 10px;
 }
-/* 예산 버튼 색상 */
+
 .budgetBtn {
     background-color: #DDDDDD;
 }
-/* 카테고리 */
+
 .categorys {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -184,7 +173,7 @@
 .categoryBtn.clicked {
     background-color: rgba(242, 111, 111, 0.8);;
 }
-/* 지출 카테고리 */
+
 .outcomeCategoryGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -199,7 +188,7 @@
     cursor: pointer;
     background-color: rgba(242, 111, 111, 0.3);
 }
-/* 수입 카테고리 */
+
 .incomeCategoryGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -214,6 +203,7 @@
     cursor: pointer;
     background-color: rgba(242, 111, 111, 0.3);
 }
+
 /* 금액 / 내용 input */
 input[type='number'],
 input[type='text'] {
@@ -226,20 +216,21 @@ input[type='text'] {
     cursor: pointer;
     background-color: rgba(242, 111, 111, 0.3);
 }
-/* 취소 / 저장 버튼 */
+
 .expenseAddBtn {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
-/* 취소 버튼 */
+
 .cancelBtn {
     background-color: #DDDDDD;
 }
-/* 저장 버튼 */
+
 .commitBtn {
     background-color: rgba(242, 111, 111, 0.7);
 }
+
 /* 카테고리 gird를 위한 처리 */
 .hidden {
     display: none;
@@ -248,4 +239,3 @@ input[type='text'] {
 .visible {
     display: block;
 }
-/* --------------------------------------------------------- */

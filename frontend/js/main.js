@@ -1,6 +1,3 @@
-
-// document.addEventListener("DOMContentLoaded",function(){
-
 const text1 = document.querySelector(".text1");
 const text2 = document.querySelector(".text2");
 const home_img = document.querySelector(".home_img");
@@ -23,21 +20,12 @@ home_img.classList.add("aos-animate");
 h2[2].classList.add("aos-animate");
 tabListItems[0].classList.add('active');
 
-// 스크롤시 이벤트 처리
 scrollEvent();
 /*
 지정한 요소에 마우스 진입시 (자식 요소 해당안됨)
 CSS처리한(색상변경&이미지변경&애니메이션효과) 클래스 이름을 추가 -> 그 외의 6개 이미지 클래스 이름 삭제
 */
 mouseenterEvent();
- 
-
-  
-   
-// });
-
-
-
 
 function mouseenterEvent(){
 tabListItems.forEach((item,i) => {

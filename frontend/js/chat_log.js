@@ -10,7 +10,6 @@ class Chat_log {
         /**
          * Dom 객체 찾기
          */
-
         this.elements = {
             chat_log_wrapper: document.querySelector('#chat_wrapper'),
             chat_log_header: document.querySelector('#chat_header'),
@@ -34,18 +33,16 @@ class Chat_log {
          */
         this.functions = {
             onMove: (event) => {
-                // 채팅 창 이동 로직
                 event.preventDefault();
                 const chat_log_wrapper = this.elements.chat_log_wrapper;
                 const rect = chat_log_wrapper.getBoundingClientRect(); // 채팅창 위치 정보 반환
 
-                const moveX = rect.left + event.movementX; // x축 이동 값 계산
-                const moveY = rect.top + event.movementY; // y축 이동 값 계산
+                const moveX = rect.left + event.movementX;
+                const moveY = rect.top + event.movementY;
                 chat_log_wrapper.style.left = moveX + 'px';
                 chat_log_wrapper.style.top = moveY + 'px';
             },
             unMove: () => {
-                // 채팅 창 이동 이벤트 삭제
                 document.removeEventListener('mousemove', this.functions.onMove);
                 document.removeEventListener('mouseover', this.functions.unmove);
             },
@@ -55,7 +52,6 @@ class Chat_log {
          * 이벤트 정의 영역
          */
         this.elements.chat_log_header.addEventListener('mousedown', () => {
-            // 마우스 다운 시 이동 기능 시작
 
             document.addEventListener('mousemove', this.functions.onMove);
             document.addEventListener('mouseup', this.functions.unMove);
@@ -70,7 +66,6 @@ class Chat_log {
         });
 
         this.elements.chat_log_open_button.addEventListener('click', (event) => {
-            console.log(event.target);
             if (this.elements.chat_log_wrapper.classList.contains('hide')) this.show();
             else this.hide();
         });
@@ -86,10 +81,8 @@ class Chat_log {
     }
 
     sendMessage() {
-        // html에 메시지 남기고 서버에 전송
         const text = this.elements.chat_log_message_input.value;
 
-        // message format sender 등 수정 필요
         const message = new Message(sessionStorage.getItem('userId'), text, sessionStorage.getItem('nickName'), true);
         this.chatLog.push(message);
         localStorage.setItem('chat_log', JSON.stringify(this.chatLog));
@@ -102,7 +95,6 @@ class Chat_log {
     }
 
     receiveMessage(msg) {
-        // 받은 메시지 처리
         const json = JSON.parse(msg);
         const message = new Message(json['userId'], json['message'], json['sender'], json['isMe']);
 
@@ -112,7 +104,7 @@ class Chat_log {
     }
 
     scrollDown() {
-        this.elements.chat_log_body_chat.scrollTop = this.elements.chat_log_body_chat.scrollHeight; // 자동으로 스크롤 하단으로 내리기
+        this.elements.chat_log_body_chat.scrollTop = this.elements.chat_log_body_chat.scrollHeight;
     }
 
     setMessage(json) {
@@ -150,23 +142,20 @@ class Message {
         format.appendChild(sender);
         format.appendChild(message);
 
-        // 상대방 정보 보기 -> (구현 필요)
+        // 상대방 정보 보기
         format.addEventListener('click', () => {
-            console.log(format.getAttribute('userId'));
+            // 구현 필요
         });
         return format;
     }
 
     chatFormat() {
-        // html의 format 복사
         const format = this.format();
-        // 보내는 주체가 나, 타인 구분
         format.className = this.isMe ? 'me' : 'other';
 
         return format;
     }
 
-    // 전송 Message
     toJson() {
         return {
             userId: this.userId,
@@ -176,7 +165,5 @@ class Message {
         };
     }
 }
-
-// chat_log.show(); -> 함수 창 보이기 함수
 
 export { Chat_log, Message };

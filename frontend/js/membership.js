@@ -24,7 +24,7 @@ class membership {
             
         })
     }
-    // 폼을 제출할 때 실행될 함수
+    
     submitForm() {
         const form = document.getElementById('membershipInForm')
         const formData = {
@@ -36,10 +36,8 @@ class membership {
             isHidden: form.querySelector('#disclosure').value ==="false" ? false : true,
         }
 
-        // FormData를 JSON으로 변환
         const jsonData = JSON.stringify(formData);
 
-        //WebSocket을 통해 서버로 데이터 전송
         this.socket.sendMessage(jsonData);
 
     }
@@ -49,26 +47,23 @@ class membership {
         const state = json['state'];
 
         if(state){
-            // 회원 가입 성공
             Swal.fire({
                 icon: "success",
                 title: "회원 가입",
                 text: "회원 가입하시겠습니까?",
-                showConfirmButton: true,// 확인 버튼 표시
+                showConfirmButton: true,
                 confirmButtonText: "홈페이지 이동"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // 페이지 이동
                     window.location.href = "index.html";
                 }
             });
         } else{
-            // 수정 실패
             Swal.fire({
                 icon: "question",
                 title: "실패",
                 text: "값을 확인해주세요",
-                showConfirmButton: false,// 확인 버튼 표시
+                showConfirmButton: false,
                 timer: 1000
             })
         }
@@ -82,13 +77,11 @@ class membership {
         const warn = document.getElementById("pwConfirm");
 
         if (password !== confirmPassword) {
-            // 비밀번호와 확인 비밀번호가 일치하지 않을 때 경고 메시지 표시
             warn.textContent = "비밀번호가 일치하지 않습니다.";
-            warn.style.color = "red"; // 일치하지 않을 때 텍스트 색상을 빨간색으로 변경
+            warn.style.color = "red";
         } else {
-            // 비밀번호와 확인 비밀번호가 일치할 때는 경고 메시지 표시
             warn.textContent = "비밀번호가 일치합니다.";
-            warn.style.color = "green"; // 일치할 때 텍스트 색상을 초록색으로 변경
+            warn.style.color = "green";
         }
     }
 }

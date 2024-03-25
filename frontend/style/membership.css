@@ -34,7 +34,6 @@ header {
 }
 
 body {
-    /* 회원가입 */
     position: relative;
     color: #3c3c3c;
     height: 100vh;
@@ -99,6 +98,7 @@ button {
     font-size: 0.7rem;
     font-weight: bold;
 }
+
 button:hover{
     background-color: rgba(255, 177, 177, 0.5);
 }
