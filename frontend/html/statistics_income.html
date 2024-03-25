@@ -10,12 +10,19 @@
     <link rel="stylesheet" href="../style/month.css">
     <link rel="stylesheet" href="../style/grape.css">
     <link rel="stylesheet" href="../style/st_income.css">
+    <link rel="stylesheet" href="../style/mark_expend.css">
 </head>
 
 <body>
     <div id="container">
         <iframe src="../component/header.html" style="border: none;" width="100%" height="100%"></iframe>
         <section>
+            <button class="circle" id="pinkTheme"></button>
+            <button class="circle" id="greenTheme"></button>
+            <button class="circle" id="blueTheme"></button>
+            <button class="chatImg">
+                <img src="../images/chat.png" alt="채팅">
+            </button>
             <ul id="section-link">
                 <li id="account"> <a id="click-account" href="account.html">내 가계부</a> </li>
                 <li id="statistics"><a id="click-statistics" href="statistics.html"> 통계</a> </li>
@@ -35,7 +42,7 @@
         <div id="mark">
             <ul>
                 <li>
-                    <label for="expendCon">지출 : </label>
+                    <label for="expendCon">수입 : </label>
                     <input type="text" id="expendCon" name="ex" readonly>
                 </li>
             </ul>
