@@ -4,9 +4,11 @@
     font-weight: normal;
     font-style: normal;
 }
+
 *{
     font-family: 'S-CoreDream-3Light';
 }
+
 header {
     color: #3c3c3c;
     font-family: 'S-CoreDream-3Light';
@@ -33,7 +35,6 @@ header {
 }
 
 body {
-    /* 회원가입 */
     position: relative;
     color: #3c3c3c;
     height: 100vh;
@@ -84,6 +85,7 @@ label {
     padding-right: 10px;
     text-align: left;
 }
+
 #out{
     display: block;
     float: right;
@@ -141,6 +143,7 @@ input[type="button"]:hover{
     height: 1rem;
     margin-top: 10px;
 }
+
 #warning + span {
     visibility: hidden;
     font-size: 0.7rem;

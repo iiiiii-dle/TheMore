@@ -5,7 +5,7 @@
     border-radius: 25px;
     padding: 20px;
 }
-/* 진행바 */
+
 .progressText {
     width: 100%;
     text-align: right;
@@ -20,19 +20,18 @@ progress {
     /* 브라우저 기본 스타일 제거 */
     appearance: none;
 }
-/* 진행바 배경 색상 */
+/* 진행바 배경 색상(미완) */
 progress::-webkit-progress-bar {
     border-radius: 20px;
     background-color: rgba(242, 111, 111, 0.2);
 }
-/* 진행바 배경 색상(진행중) */
+/* 진행바 배경 색상(미완) */
 progress::-webkit-progress-value {
     border-radius: 20px;
     background-color: #F26F6F;
 }
-/* 연도 */
+
 .calendar-header {
-    /* #F26F6F 투명도 30 */
     background: rgba(242, 111, 111, 0.3);
     display: flex;
     justify-content: center;
@@ -47,7 +46,6 @@ progress::-webkit-progress-value {
     align-items: center;
 }
 
-/* 연도 방향키 */
 .year-change {
     display: grid;
     place-items: center;
@@ -65,7 +63,6 @@ progress::-webkit-progress-value {
     transform: scale(1.12);
 }
 
-/* 달 */
 .month-picker {
     display: flex;
     justify-content: center;
@@ -74,7 +71,7 @@ progress::-webkit-progress-value {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-/* 달 방향키 */
+
 .month-change {
     display: grid;
     place-items: center;
@@ -92,7 +89,6 @@ progress::-webkit-progress-value {
     transform: scale(1.12);
 }
 
-/* 일 월 화 수 목 금 토 */
 .calendar-week-days {
     display: grid;
     place-items: center;
@@ -102,7 +98,6 @@ progress::-webkit-progress-value {
     margin-bottom: 10px;
 }
 
-/* 날짜 */
 .calendar-days {
     display: grid;
     place-items: center;
@@ -111,7 +106,6 @@ progress::-webkit-progress-value {
     margin-bottom: 10px;
 }
 
-/* 날짜 */
 .calendar-days div {
     width: 50%;
     height: 70px;
@@ -129,7 +123,6 @@ progress::-webkit-progress-value {
     color: #f8fbff;
 }
 
-/* 현재 날짜 표시 */
 .calendar-days div.current-date {
     color: #F26F6F;
     border-radius: 20%;

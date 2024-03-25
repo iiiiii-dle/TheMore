@@ -41,14 +41,14 @@ class Calendar {
 
         this.todayShowTime = document.querySelector('.time-formate');
         this.todayShowDate = document.querySelector('.date-formate');
-        this.selectedDate = document.querySelector('#selectedDate'); // expensesBox 날짜(일)
-        this.select = document.querySelector('#select'); // expenseAdd 날짜(연도-월-일)
+        this.selectedDate = document.querySelector('#selectedDate');
+        this.select = document.querySelector('#select');
 
         /* 현재 날짜 설정 */
         this.currentDate = new Date();
         this.currentMonth = this.currentDate.getMonth();
         this.currentYear = this.currentDate.getFullYear();
-        this.currentWeek = this.currentDate.getDay(); //-----expenseBox에 나오게 하고 싶어서 일단 선언함(구현 안함)
+        this.currentWeek = this.currentDate.getDay();
 
         /* 캘린더 생성 */
         this.generateCalendar(this.currentMonth, this.currentYear);
@@ -62,19 +62,16 @@ class Calendar {
     }
 
     prevYear() {
-        // 이전 년도로 이동
         this.currentYear--;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
     nextYear() {
-        // 다음 년도로 이동
         this.currentYear++;
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
     prevMonth() {
-        // 이전 달로 이동
         this.currentMonth = (this.currentMonth + 11) % 12;
         if (this.currentMonth === 11) {
             this.currentYear--;
@@ -83,7 +80,6 @@ class Calendar {
     }
 
     nextMonth() {
-        // 다음 달로 이동
         this.currentMonth = (this.currentMonth + 1) % 12;
         if (this.currentMonth === 0) {
             this.currentYear++;
@@ -91,21 +87,18 @@ class Calendar {
         this.generateCalendar(this.currentMonth, this.currentYear);
     }
 
+    // 윤년
     isLeapYear(year) {
-        // 윤년
         return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
     }
 
+    // 2월 날짜 반환
     getFebDays(year) {
-        // 2월 날짜 반환
         return this.isLeapYear(year) ? 29 : 28;
     }
 
     generateCalendar(month, year) {
-        // 캘린더 생성
         const month_names = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
-        //-----expensesBox 날짜 옆에 요일 구현 예정
-        // const week_names = ['일', '월', '화', '수', '목', '금', '토'];
         this.calendarDays.innerHTML = '';
         const daysOfMonth = [31, this.getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         const firstDay = new Date(year, month);
@@ -124,7 +117,6 @@ class Calendar {
                 ) {
                     day.classList.add('current-date');
                 }
-                /* 클릭한 날짜 가져오기  */
                 day.addEventListener('click', (event) => {
                     const clickedDate = i - firstDay.getDay() + 1;
                 });
@@ -150,7 +142,6 @@ class Calendar {
             this.selectedDate.innerHTML = `${clickedDate}일`;
             this.select.innerHTML = `${year}-${month}-${clickedDate}`;
 
-            // 다른 요소들의 클래스 제거
             allDays.forEach(day => {
                 if (day !== clickedDay) {
                     day.classList.remove('clicked');
@@ -168,12 +159,11 @@ class Calendar {
 
     displayExpenseBox() {
         this.calendarDays.childNodes.forEach((day) => {
-            // 초기화
             const incomeBox = document.querySelector('.incomeBox');
             incomeBox.innerHTML = '';
             const outcomeBox = document.querySelector('.outcomeBox');
             outcomeBox.innerHTML = '';
-            // calendarDays의 자식 요소에 대해 forEach를 사용
+
             day.addEventListener('click', () => {
                 const expensesBoxStyle = getComputedStyle(this.expensesBox.expensesBox1);
                 if (expensesBoxStyle.display === 'block') {
@@ -226,19 +216,19 @@ class ExpensesBox {
         this.clickIncomeBtn = this.clickIncomeBtn.bind(this);
 
         this.clickBackBtn();
-        this.clickOutcomeBtn(); // expensesBox 지출 버튼 메소드
-        this.clickIncomeBtn(); // expensesBox 수입 버튼 메소드
-        this.clickAddListBtn(); // expenseAdd 넘어가기 메소드
+        this.clickOutcomeBtn();
+        this.clickIncomeBtn();
+        this.clickAddListBtn();
     }
 
     clickOutcomeBtn() {
         this.outcomeBtn.addEventListener('click', () => {
             this.incomeBox.innerHTML = '';
             this.outcomeBox.innerHTML = '';
-            this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
-            this.incomeBox.style.display = 'none'; // 수정: 수입 목록 숨기기
-            this.outcomeBox.style.display = 'block'; // 추가: 지출 상자 표시
-            // 입력 필드 초기화
+            this.expensesBox1.style.display = 'block';
+            this.incomeBox.style.display = 'none';
+            this.outcomeBox.style.display = 'block';
+            
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
 
@@ -259,10 +249,10 @@ class ExpensesBox {
         this.incomeBtn.addEventListener('click', () => {
             this.incomeBox.innerHTML = '';
             this.outcomeBox.innerHTML = '';
-            this.expensesBox1.style.display = 'block'; // 수정: 지출 목록 표시
-            this.incomeBox.style.display = 'block'; // 수정: 수입 목록 표시
-            this.outcomeBox.style.display = 'none'; // 추가: 지출 상자 숨기기
-            // 입력 필드 초기화
+            this.expensesBox1.style.display = 'block';
+            this.incomeBox.style.display = 'block';
+            this.outcomeBox.style.display = 'none';
+            
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
 
@@ -282,15 +272,14 @@ class ExpensesBox {
     clickBackBtn() {
         this.backBtn.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
-            this.quote.quote.style.display = 'block'; // quote를 다시 보여주도록 설정
-            this.quote.updateQuote(); // quote를 업데이트
+            this.quote.quote.style.display = 'block';
+            this.quote.updateQuote();
         });
     }
 
     clickDeleteBtn(e) {
         e.addEventListener('click', () => {
             const expensesId = e.parentNode.parentNode.querySelector('.expensesId').innerHTML;
-            console.log(expensesId);
             const data = {
                 cmd: 'Expenses',
                 cmd2: 'deleteExpenses',
@@ -303,7 +292,6 @@ class ExpensesBox {
     }
 
     clickAddListBtn() {
-        // expenseAdd 넘어가기 메소드
         this.addButton.addEventListener('click', () => {
             this.expensesBox1.style.display = 'none';
             this.expenseAddDiv.style.display = 'block';
@@ -312,7 +300,7 @@ class ExpensesBox {
             this.detail.classList.add('hidden');
             this.cancelBtn.classList.add('hidden');
             this.commitBtn.classList.add('hidden');
-            // 입력 필드 초기화
+            
             this.amount.querySelector('input').value = '';
             this.detail.querySelector('input').value = '';
         });
@@ -329,7 +317,7 @@ class ExpensesBox {
     }
 
     listHandler(jsonData) {
-        // 초기화
+        
         this.incomeBox.innerHTML = '';
         this.outcomeBox.innerHTML = '';
 
@@ -486,7 +474,6 @@ class ExpenseAdd {
         this.cancelBtn = document.querySelector('.cancelBtn');
         this.commitBtn = document.querySelector('.commitBtn');
 
-        // 초기에 입력창들을 숨김
         this.amount.classList.add('hidden');
         this.detail.classList.add('hidden');
         this.cancelBtn.classList.add('hidden');
@@ -500,7 +487,6 @@ class ExpenseAdd {
         });
 
         this.commitBtn.addEventListener('click', () => {
-            // 분기 설정
             if (this.budgetExpenseDivergency === 'budget') {
                 // budget 처리 연산
             } else if (this.budgetExpenseDivergency === 'expenses') {
@@ -608,9 +594,6 @@ class ExpenseAdd {
 
         const jsonData = JSON.stringify(data);
         this.socket.sendMessage(jsonData);
-
-        // // 입력 필드 초기화
-        // this.clickCommitBtn();
     }
 
     insertHandler(jsonData) {
@@ -663,16 +646,11 @@ function initialize() {
     }
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//     initialize();
-// });
-
 export { Calendar, Quote, ExpensesBox, ExpenseAdd };
 
 /* 웹 페이지 테마를 변경하는 기능
    localStorage 사용
 ---------------------------------*/
-// 페이지 로드 시 저장된 테마 적용 
 window.addEventListener('load', function () {
     var savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -680,7 +658,6 @@ window.addEventListener('load', function () {
     }
 });
 
-// 테마 변경 시 localStorage에 저장 
 document.getElementById('pinkTheme').addEventListener('click', function () {
     applyTheme('pink');
     localStorage.setItem('theme', 'pink');
@@ -696,7 +673,6 @@ document.getElementById('blueTheme').addEventListener('click', function () {
     localStorage.setItem('theme', 'blue');
 });
 
-// 테마 적용 함수 
 function applyTheme(theme) {
     var iframe = document.querySelector('iframe');
     var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;

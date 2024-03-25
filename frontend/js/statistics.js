@@ -1,6 +1,6 @@
 import { Socket } from "../js/socket/socket.js";
 
-class 수입지출 {
+class SelectType {
   constructor() {
     this.state = document.querySelector(".acc");
     this.changeState = "";
@@ -14,7 +14,7 @@ class 수입지출 {
     return this.changeState;
   }
 }
-class 카테고리이름바꾸기 {
+class SwitchCategoryName {
   constructor(params) {
     params.list.forEach((element, i) => {
       switch (element.categoryId) {
@@ -68,16 +68,13 @@ class 카테고리이름바꾸기 {
   }
 }
 
-class 원형그래프 {
-  // 수입이 1 지출이 0
+class CircleGraph {
   constructor(json) {
-    new 카테고리이름바꾸기(json);
-    const state = new 수입지출().getState();
+    new SwitchCategoryName(json);
+    const state = new SelectType().getState();
     this.mychart = document.querySelector("#myChart");
     this.expendCon = document.querySelector("#expendCon");
     let total = 0;
-
-    // 차트 옵션
 
     const data_grap = {
       labels: [],
@@ -124,7 +121,7 @@ class 원형그래프 {
     const options_grap = {
       responsive: false,
       maintainAspectRatio: false,
-      cutout: "50%", // 도넛의 중앙을 빈 공간으로 설정할 수 있습니다.
+      cutout: "50%", // 도넛의 중앙을 빈 공간으로 설정
     };
     const ctx_grap = document.getElementById("myChart").getContext("2d");
     const myChart_grap = new Chart(ctx_grap, {
@@ -137,10 +134,10 @@ class 원형그래프 {
   }
 }
 
-class 막대그래프 {
+class BarGraph {
   constructor(json) {
-    new 카테고리이름바꾸기(json);
-    const state = new 수입지출().getState();
+    new SwitchCategoryName(json);
+    const state = new SelectType().getState();
     this.my_stac = document.querySelector("#myStacChart");
     const data_stac = {
       labels: ["이번 달", "전 달"],
@@ -168,6 +165,7 @@ class 막대그래프 {
         });
       }
     });
+
     // 옵션
     const options_stac = {
       responsive: false,
@@ -192,8 +190,7 @@ class 막대그래프 {
   }
 }
 
-class 현재날짜 {
-  //이름은 아마 통계로 바꿀듯 현재 년월을 기준으로 카테고리별 나누어주니까
+class NowDate {
   constructor(host, port) {
     this.socket = new Socket(host, port, this.callback.bind(this));
 
@@ -210,37 +207,21 @@ class 현재날짜 {
       .querySelector("#nextMonth")
       .addEventListener("click", this.nextMonth.bind(this));
 
-    // 현재 년 월 생성
     this.socket.socket.addEventListener("open", () => {
       this.generateDate(this.nowYear, this.nowMonth);
     });
   }
-  //'대문짝만한 현재 년월을 가져온다. 그리고 JSON으로 보내주자
+  
   callback(data) {
     const json = JSON.parse(data);
     
-    new 원형그래프(json);
-    new 막대그래프(json);
+    new CircleGraph(json);
+    new BarGraph(json);
 
   }
   generateDate(y, m) {
     this.month.textContent = `${y}년 ${m}월`;
 
-    /*  보여줄테이블은 categoryId(카테고리번호), SUM(money), type(수입/지출)이다.
-            SELECT 
-                    categoryId AS 카테고리아이디,
-                    SUM(CASE WHEN type = 1 THEN money ELSE 0 END) AS 수입,
-                    SUM(CASE WHEN type = 0 THEN money ELSE 0 END) AS 지출
-                FROM 
-                    Expenses    
-                WHERE 
-                    userId = 1
-                    AND MONTH(expensesDate) = 3
-                GROUP BY 
-            categoryId;
-
-        */
-    //쿼리문에 보낼 데이터는 userId(로그인한유저)와 expensesDate(현재달)이다.
     const jsonForm = {
       cmd: "grap",
       cmd2: "grapList",
@@ -251,7 +232,6 @@ class 현재날짜 {
     this.socket.sendMessage(jsonData);
   }
   preMonth() {
-    // "<" 누르면 월이 1씩 줄어든다. 1보다 작으면 12부터 다시시작
     this.nowMonth--;
     if (this.nowMonth < 1) {
       this.nowMonth = 12;
@@ -260,7 +240,6 @@ class 현재날짜 {
     this.generateDate(this.nowYear, this.nowMonth);
   }
   nextMonth() {
-    // ">" 누르면 월이 1씩 늘어남. 12보다 크면 1부터 다시 시작
     this.nowMonth++;
     if (this.nowMonth > 12) {
       this.nowMonth = 1;
@@ -271,19 +250,17 @@ class 현재날짜 {
 }
 
 function initialize() {
-  const a = new 현재날짜("localhost", 9000);
+  const a = new NowDate("localhost", 9000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   initialize();
 });
-export { 현재날짜 };
+export { NowDate };
 
-/* 채림 ----------------------------------------*/
 /* 웹 페이지 테마를 변경하는 기능
    localStorage 사용
 ---------------------------------*/
-// 페이지 로드 시 저장된 테마 적용
 window.addEventListener("load", function () {
   var savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
@@ -291,7 +268,6 @@ window.addEventListener("load", function () {
   }
 });
 
-// 테마 변경 시 localStorage에 저장
 document.getElementById("pinkTheme").addEventListener("click", function () {
   applyTheme("pink");
   localStorage.setItem("theme", "pink");
@@ -307,7 +283,6 @@ document.getElementById("blueTheme").addEventListener("click", function () {
   localStorage.setItem("theme", "blue");
 });
 
-// 테마 적용 함수
 function applyTheme(theme) {
   var iframe = document.querySelector("iframe");
   var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheMore - 가계부</title>
+    <title>TheMore - 수입, 지출</title>
     <link rel="stylesheet" href="../style/nomalize.css">
     <link rel="stylesheet" href="../style/account.css">
     <link rel="stylesheet" href="../style/calendar.css">
@@ -49,8 +49,8 @@
                         <span class="year-change" id="next-year">
                             <pre>></pre>
                         </span>
-                    </div> <!-- /.year-picker -->
-                </div> <!-- /.calendar-header -->
+                    </div>
+                </div>
 
                 <div class="calendar-body">
                     <div class="month-picker" id="month-picker">
@@ -61,7 +61,7 @@
                         <span class="month-change" id="next-month">
                             <pre>></pre>
                         </span>
-                    </div> <!-- /.month-picker -->
+                    </div>
                     <div class="calendar-week-days">
                         <div>일</div>
                         <div>월</div>
@@ -70,16 +70,13 @@
                         <div>목</div>
                         <div>금</div>
                         <div>토</div>
-                    </div> <!-- /.calendar-week-days -->
+                    </div>
                     <div class="calendar-days">
                         <div></div>
                     </div>
-                </div> <!-- /.calendar-body -->
-            </div> <!-- /.calendar -->
-
+                </div>
+            </div>
             <div class="quote" id="quote">
-                <!-- 명언 -->
-
             </div>
             <div class="expensesBox" id="expensesBox1">
                 <div id="selectedDate">날짜</div>
@@ -90,10 +87,8 @@
                 </div>
                 <div class="boxWrapper">
                     <div class="incomeBox">
-                        <!-- 수입 내역이 동적으로 불러와질 부분 -->
                     </div>
                     <div class="outcomeBox">
-                        <!-- 지출 내역이 불러와질 부분 -->
                     </div>
                     <button id="addListBtn"><img src="../images/Pluse.png" alt=""></button>
                 </div>
@@ -127,23 +122,22 @@
                         <button class="categoryBtn" id="11">🤑 용돈</button>
                         <button class="categoryBtn" id="10">🎸 기타</button>
                     </div>
-                </div> <!-- /.category -->
+                </div>
                 <div class="amount">
                     <label for="amount">금액</label>
                     <input type="number" id="amount">
-                </div> <!-- /.amount -->
+                </div>
                 <div class="detail">
                     <label for="detail">내용</label>
                     <input type="text" id="detail">
-                </div> <!-- /.detail -->
+                </div>
                 <div class="expenseAddBtn">
                     <button class="expensesBtn cancelBtn">취소</button>
                     <button class="expensesBtn commitBtn">저장</button>
                 </div>
-            </div> <!-- /.expenseAdd -->
+            </div>
         </div>
 
-        <!-- chat_log -->
         <div id="chat_wrapper">
             <div id="chat_header">
                 <span>🐳자린 고비 채팅창</span>

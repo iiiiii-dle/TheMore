@@ -14,15 +14,13 @@ class Login {
     }
 
     submitForm() {
-        // 폼을 제출할 때 실행될 함수
         const form = document.getElementById('logInForm');
         const formData = new FormData(form);
-        // FormData를 JSON으로 변환
+        
         formData.append('cmd', 'User');
         formData.append('cmd2', 'Login');
         const jsonData = JSON.stringify(Object.fromEntries(formData));
 
-        //WebSocket을 통해 서버로 데이터 전송
         this.socket.sendMessage(jsonData);
     }
 
@@ -32,13 +30,12 @@ class Login {
         const state = json['state'];
 
         if (!state) {
-            // 로그인 실패
             Swal.fire({
                 icon: 'warning',
                 title: '로그인 실패',
                 text: 'email과 비밀번호를 확인하세요',
                 showConfirmButton: false,
-                timer: 1000, // 확인 버튼 표시
+                timer: 1000,
             });
         } else {
             const userId = json['userId'];
@@ -50,11 +47,10 @@ class Login {
                 icon: 'success',
                 title: '로그인 성공',
                 text: '환영합니다',
-                showConfirmButton: true,// 확인 버튼 표시
+                showConfirmButton: true,
                 
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // 페이지 이동
                     window.location.href = 'account.html';
                 }
             });
