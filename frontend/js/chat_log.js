@@ -90,7 +90,7 @@ class Chat_log {
         const text = this.elements.chat_log_message_input.value;
 
         // message format sender 등 수정 필요
-        const message = new Message(sessionStorage.getItem('userId'), text, 'Me', true);
+        const message = new Message(sessionStorage.getItem('userId'), text, sessionStorage.getItem('nickName'), true);
         this.chatLog.push(message);
         localStorage.setItem('chat_log', JSON.stringify(this.chatLog));
 
