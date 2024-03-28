@@ -61,12 +61,13 @@
 
 <br><br>
 
-## 피그마 : 주소로 지정
-<a href="https://www.figma.com/file/5DHQaGcGQtdAlBmhqy79hk/TheMore(%EB%8D%94-%EB%AA%A8%EC%95%84)?type=design&amp;node-id=0%3A1&amp;mode=design&amp;t=YB8EMXtf8hmU1xXU-1" target="_blank" rel="noopener&nbsp;noreferrer"><img src="https://img.shields.io/badge/figma-F24E1E?style=flat&amp;logo=Figma&amp;logoColor=white" /></a>
+## 피그마
+👉 <a href="https://www.figma.com/file/5DHQaGcGQtdAlBmhqy79hk/TheMore(%EB%8D%94-%EB%AA%A8%EC%95%84)?type=design&amp;node-id=0%3A1&amp;mode=design&amp;t=YB8EMXtf8hmU1xXU-1" target="_blank" rel="noopener&nbsp;noreferrer"><img src="https://img.shields.io/badge/figma-F24E1E?style=flat&amp;logo=Figma&amp;logoColor=white" /></a>
 
 <br><br>
 
-## DB  <br> ![TheMore](https://github.com/iiiiii-dle/TheMore/assets/162311939/17791cd3-7b67-40b5-a510-1bd0de4bd596)
+## DB
+![TheMore](https://github.com/iiiiii-dle/TheMore/assets/162311939/17791cd3-7b67-40b5-a510-1bd0de4bd596)
 <br><br>
 
 ## 프로젝트 구조(UML)
