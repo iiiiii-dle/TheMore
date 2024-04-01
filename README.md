@@ -3,6 +3,17 @@
 
 ## 프로젝트 소개
 
+## 1번
+가계부 작성을 통해 사용자들이 지출 내역을 체계적으로 기록할 수 있도록 지원합니다. 이러한 데이터는 실시간으로 업데이트되며, 다른 사용자들과 공유되어 그룹 내에서 피드백을 주고받을 수 있습니다. 이러한 접근은 개인의 소비 습관을 분석하고, 지속적인 향상을 위한 기반을 제공합니다.
+
+뿐만 아니라, 사용자들은 시각적으로 직관적인 방식으로 자신의 지출 패턴을 이해할 수 있도록 그래프와 차트 형태로 데이터를 시각화할 수 있습니다. 이를 통해 사용자들은 보다 효율적으로 소비 습관을 관리하고 재무 목표를 달성할 수 있습니다.
+
+저희의 플랫폼은 사용자들의 금융 건강을 개선하고 지속 가능한 소비습관을 촉진하기 위한 유용한 도구로서 기능합니다.
+
+-------
+ ## 2번
+가계부를 작성하여 수입과 지출을 기록하고 채팅기능을 통한 서로의 지출정보를 공유하며 피드백을 주고받아 소비습관을 개선해 가는 웹페이지입니다.
+
 <br>
 
 ## 📆 프로젝트 기간 : 2024.03.15(금)~2024.03.22(금)
@@ -10,8 +21,27 @@
 <br>
 
 ## 💡프로젝트 탄생 배경
+저희가 진행한 프로젝트는 예산 및 수입/지출 내역을 작성하고,
+
+지출 내역을 사람들끼리 채팅으로 공유할 수 있는 풀 스택 프로젝트입니다.
+
+고금리, 고물가 시대에 '무지출 챌린지'를 하는 사람들이 등장할 정도로
+
+지출을 줄이고 저축하고자 하는 사람들이 많아졌습니다.
+
+또한 여러 사람들이 모여 지출 줄이기를 독려하거나 절약 습관 등을 공유하는 
+
+카카오톡 오픈채팅방 '거지방'이 생겨나기도 했습니다.
+
+따라서 저희는 사람들과의 소통을 통해 절약 습관에 대한 피드백을 주고 받고, 
+
+통계로 수입/지출 내역을 가시화하여 현명한 소비 습관을 기를 수 있는 가계부 웹 사이트를 만들고자 하였습니다.
 
 <br>
+------
+
+
+
 
 ##  🛠️ 사용 스택 
 |Front-End |<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white" /> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=CSS3&logoColor=white" />  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white" /> |
@@ -44,7 +74,7 @@
 | [이경석](https://github.com/maruduke)|FE, BE, 총괄| FE : 채팅, 소켓 전반 보조, 유저 로컬 스토리지<br> BE : DB, 일반 서버 구조화, 채팅 서버, 유저 기능 전반|
 | [이채림](https://github.com/chaereemee)|FE | FE: 달력 html, css, js 수입/지출 작성 화면구현, 테마 변경 |
 | [전민재](https://github.com/minjaejeo)|FE |FE : 회원가입,로그인,내정보,조회/수정 화면 구현<br> BE : 회원가입,로그인,내정보,조회/수정|
-| [최병민](https://github.com/ChoiByoungMin)|FE, be | FE : 통계 화면 구현,그래프API<br> BE : 통계 조회  |
+| [최병민](https://github.com/ChoiByoungMin)|FE, BE | FE : 통계 화면 구현,그래프API<br> BE : 통계 조회  |
 
 <br>
 <br>
@@ -52,10 +82,6 @@
 
 
 ## 🧾 사용자 요구 명세서 : 
-![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/6763276c-014d-40f4-bd30-abaa58fc2eb5)
-
-![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/d96b29c1-8dfa-42ca-b8b2-89580cb1626e)
-
 ![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/be5d8e74-4b49-4f2e-a22c-27bffbd4c13b)
 
 
@@ -73,14 +99,21 @@
 ## 프로젝트 구조(UML)
 ![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/29e6642b-ca11-4536-b945-67cbe1b022d8)
 
+![themore drawio_white](https://github.com/iiiiii-dle/TheMore/assets/162311939/4dd27420-52bc-4265-a530-b1a59eff3538)
+
+
+
 <br><br>
 
 ## 형상관리 
 ![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/6c75d819-d2f1-4915-a764-440cb6313f9c)
 
+형상관리에 마스터브랜치에서 두 개의 브랜치(Front, Back)로 나누어 ~~~ 관리 하였습니다. 그리고 feat 브랜치와 fix 로 또 나누어 ~~~ 관리 하였습니다.
 
 <br><br>
 
 
+
+gif로 만들어서 구현영상 차례로 나열
 
 
