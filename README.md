@@ -44,7 +44,7 @@
 | [이경석](https://github.com/maruduke)|FE, BE, 총괄| FE : 채팅, 소켓 전반 보조, 유저 로컬 스토리지<br> BE : DB, 일반 서버 구조화, 채팅 서버, 유저 기능 전반|
 | [이채림](https://github.com/chaereemee)|FE | FE: 달력 html, css, js 수입/지출 작성 화면구현, 테마 변경 |
 | [전민재](https://github.com/minjaejeo)|FE |FE : 회원가입,로그인,내정보,조회/수정 화면 구현<br> BE : 회원가입,로그인,내정보,조회/수정|
-| [최병민](https://github.com/ChoiByoungMin)|FE, be | FE : 통계 화면 구현,그래프API<br> BE : 통계 조회  |
+| [최병민](https://github.com/ChoiByoungMin)|FE, BE | FE : 통계 화면 구현,그래프API<br> BE : 통계 조회  |
 
 <br>
 <br>
@@ -52,9 +52,7 @@
 
 
 ## 🧾 사용자 요구 명세서 : 
-![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/6763276c-014d-40f4-bd30-abaa58fc2eb5)
 
-![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/d96b29c1-8dfa-42ca-b8b2-89580cb1626e)
 
 ![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/be5d8e74-4b49-4f2e-a22c-27bffbd4c13b)
 
@@ -72,6 +70,14 @@
 
 ## 프로젝트 구조(UML)
 ![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/29e6642b-ca11-4536-b945-67cbe1b022d8)
+
+![TheMore drawio (3)](https://github.com/iiiiii-dle/TheMore/assets/162311939/0257995c-85c9-4c3f-b849-fbe6d07a3b88)
+
+<hr>
+
+![themore drawio (2)](https://github.com/iiiiii-dle/TheMore/assets/162311939/53def76c-1083-4f6f-89ce-17ed02cd5725)
+
+
 
 <br><br>
 
