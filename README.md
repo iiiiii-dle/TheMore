@@ -83,18 +83,20 @@
 
 
 ## 🧾 사용자 요구 명세서 : 
-![image](https://github.com/iiiiii-dle/TheMore/assets/162311939/be5d8e74-4b49-4f2e-a22c-27bffbd4c13b)
+
+![노션 칸반보드](https://github.com/iiiiii-dle/TheMore/assets/162311939/ed53dbc5-22ea-4842-a2b7-f0bd7cb80430)
 
 
 <br><br>
 
 ## 피그마
-👉 <a href="https://www.figma.com/file/5DHQaGcGQtdAlBmhqy79hk/TheMore(%EB%8D%94-%EB%AA%A8%EC%95%84)?type=design&amp;node-id=0%3A1&amp;mode=design&amp;t=YB8EMXtf8hmU1xXU-1" target="_blank" rel="noopener&nbsp;noreferrer"><img src="https://img.shields.io/badge/figma-F24E1E?style=flat&amp;logo=Figma&amp;logoColor=white" /></a>
+<a href="https://www.figma.com/file/5DHQaGcGQtdAlBmhqy79hk/TheMore(%EB%8D%94-%EB%AA%A8%EC%95%84)?type=design&amp;node-id=0%3A1&amp;mode=design&amp;t=YB8EMXtf8hmU1xXU-1" target="_blank" rel="noopener&nbsp;noreferrer"><img src="https://img.shields.io/badge/figma-F24E1E?style=flat&amp;logo=Figma&amp;logoColor=white" /></a>
+<a href="https://www.figma.com/file/5DHQaGcGQtdAlBmhqy79hk/TheMore(%EB%8D%94-%EB%AA%A8%EC%95%84)?type=design&node-id=0-1&mode=design"><br>TheMore-Figma URL</a>
 
 <br><br>
 
 ## DB
-![TheMore](https://github.com/iiiiii-dle/TheMore/assets/162311939/17791cd3-7b67-40b5-a510-1bd0de4bd596)
+![TheMore(ERD_Buget제거)](https://github.com/iiiiii-dle/TheMore/assets/162311939/e94e01dd-74f4-4f7d-83ca-606627a45ddf)
 <br><br>
 
 ## 프로젝트 구조(UML)
@@ -104,7 +106,11 @@
 
 <br>
 
-![themore drawio_white](https://github.com/iiiiii-dle/TheMore/assets/162311939/4dd27420-52bc-4265-a530-b1a59eff3538)
+<p align="center">
+<img src="https://github.com/iiiiii-dle/TheMore/assets/162311939/c58cf7fb-0546-486d-b3e9-284bb20e3c62" align="center">
+</p>
+
+
 
 
 
@@ -136,6 +142,7 @@ master, front, back로 나누어 개발 - Git-Flow 전략
 <로그인 이후 기능 구현>
 
 ![로그인이후_기능구현](https://github.com/iiiiii-dle/TheMore/assets/162311939/897534ff-62be-4d13-8e99-6eb6d9857396)
+
 
 
 
